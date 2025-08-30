@@ -1,0 +1,31 @@
+{
+  "projectId": "41555273-319a-4fd5-af0e-b743861c29fa",
+  "services": [
+    {
+      "name": "backend",
+      "source": {
+        "type": "github",
+        "repo": "contatoroyalclubms-sudo/GitMcp",
+        "branch": "devin/1756568924-roles-permissions-integration",
+        "rootDirectory": "backend"
+      },
+      "variables": {
+        "NODE_ENV": "production",
+        "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
+        "PORT": "3001"
+      }
+    },
+    {
+      "name": "frontend",
+      "source": {
+        "type": "github",
+        "repo": "contatoroyalclubms-sudo/GitMcp",
+        "branch": "devin/1756568924-roles-permissions-integration",
+        "rootDirectory": "."
+      },
+      "variables": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
