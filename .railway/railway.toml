@@ -1,0 +1,28 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+numReplicas = 1
+sleepApplication = false
+restartPolicyType = "ON_FAILURE"
+
+[[services]]
+name = "frontend"
+source = "."
+startCommand = "npm start"
+
+[services.variables]
+NODE_ENV = "production"
+NEXT_PUBLIC_API_URL = "${{backend.RAILWAY_PUBLIC_URL}}"
+
+[[services]]
+name = "backend"
+source = "./backend"
+startCommand = "npm start"
+
+[services.variables]
+NODE_ENV = "production"
+JWT_SECRET = "your-super-secret-jwt-key-change-in-production"
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+FRONTEND_URL = "${{frontend.RAILWAY_PUBLIC_URL}}"
+PORT = "3001"
