@@ -1,0 +1,53 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [ devin/1756568924-roles-permissions-integration ]
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+        
+      - name: Deploy Backend to Railway
+        run: |
+          cd backend
+          railway login --token ${{ secrets.RAILWAY_TOKEN }}
+          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway up --service backend
+        env:
+          RAILWAY_TOKEN: d1f48fda-7339-4cc4-a4fd-4910a1d0c53b
+          RAILWAY_PROJECT_ID: 41555273-319a-4fd5-af0e-b743861c29fa
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+        
+      - name: Deploy Frontend to Railway
+        run: |
+          railway login --token ${{ secrets.RAILWAY_TOKEN }}
+          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway up --service frontend
+        env:
+          RAILWAY_TOKEN: d1f48fda-7339-4cc4-a4fd-4910a1d0c53b
+          RAILWAY_PROJECT_ID: 41555273-319a-4fd5-af0e-b743861c29fa
