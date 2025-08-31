@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["nodejs-18_x"]
+
+[phases.install]
+cmds = ["npm install -g serve"]
+
+[start]
+cmd = "serve frontend/dist -l $PORT -s"

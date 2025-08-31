@@ -6,8 +6,12 @@
     "install:all": "cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
     "build:frontend": "cd frontend && npm run build",
     "start:backend": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000",
-    "start": "npm run start:backend",
+    "start:frontend": "cd frontend/dist && npx serve -s . -l $PORT",
+    "start": "npm run start:frontend",
     "build": "npm run build:frontend"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
   },
   "engines": {
     "node": ">=18.0.0"
