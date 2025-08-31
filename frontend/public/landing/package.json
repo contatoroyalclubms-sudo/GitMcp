@@ -1,0 +1,14 @@
+{
+  "name": "supreme-eventos",
+  "version": "1.0.0",
+  "description": "Sistema Supreme de Gestão de Eventos",
+  "scripts": {
+    "dev": "npx http-server . -p 3000",
+    "build": "echo 'Build complete'",
+    "start": "npx http-server . -p $PORT"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del backendpyproject.toml)",
+      "Bash(rm:*)",
+      "Bash(npm run build:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(timeout:*)",
+      "Bash(git push:*)",
+      "Bash(cp:*)",
+      "Bash(poetry run:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(set PYTHONIOENCODING=utf-8)",
+      "Bash(poetry install:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run test:*)"
+    ],
+    "deny": [],
+    "defaultMode": "acceptEdits"
+  }
+}

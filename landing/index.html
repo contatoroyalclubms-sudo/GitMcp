@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPREME EVENTOS - Sistema Definitivo</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="supreme-max.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- 3D Canvas Background -->
+    <canvas id="three-canvas"></canvas>
+    
+    <!-- Gradient Orbs -->
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-animation">
+                    <span class="logo-text">SUPREME</span>
+                    <span class="logo-system">EVENTOS</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Recursos</a>
+                <a href="#technology" class="nav-link">Tecnologia</a>
+                <a href="#pricing" class="nav-link">Preços</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-glass" onclick="openLoginModal()">
+                    <i class="fas fa-user"></i> Entrar
+                </button>
+                <button class="btn-primary" onclick="openSignupModal()">
+                    Começar Agora
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-pulse"></span>
+                <span>🚀 Potencializado por IA</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="gradient-text">O Futuro dos</span>
+                <br>
+                <span class="typing-text" id="typed-text"></span>
+            </h1>
+            <p class="hero-description">
+                Experimente o sistema mais avançado já criado. 
+                54+ agentes IA, 173 ferramentas, possibilidades infinitas.
+            </p>
+            <div class="hero-actions">
+                <button class="btn-glow" onclick="startDemo()">
+                    <span>Teste Grátis</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn-outline" onclick="watchVideo()">
+                    <i class="fas fa-play"></i>
+                    Ver Demo
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-count="548">0</div>
+                    <div class="stat-label">Arquivos Integrados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="26">0</div>
+                    <div class="stat-label">Módulos Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="99.9">0</div>
+                    <div class="stat-label">% Disponibilidade</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-dashboard">
+                <div class="dashboard-header">
+                    <div class="dashboard-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span>Painel de Controle Supreme</span>
+                </div>
+                <div class="dashboard-content">
+                    <canvas id="dashboard-chart"></canvas>
+                    <div class="dashboard-metrics">
+                        <div class="metric">
+                            <span class="metric-value">2.4M</span>
+                            <span class="metric-label">Requisições/dia</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">12ms</span>
+                            <span class="metric-label">Tempo de resposta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Grid -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="gradient-text">Recursos Revolucionários</span>
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Potencializado por IA</h3>
+                    <p>54+ agentes especializados trabalhando em perfeita harmonia</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Ultra Rápido</h3>
+                    <p>Tempo de resposta < 50ms com escalabilidade infinita</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Segurança Militar</h3>
+                    <p>Criptografia ponta a ponta com arquitetura zero-trust</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics em Tempo Real</h3>
+                    <p>Dashboards ao vivo com insights preditivos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Bem-vindo de Volta</h2>
+                <button class="close-btn" onclick="closeLoginModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="••••••••" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="link">Esqueceu a senha?</a>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <span>Entrar</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="divider">
+                        <span>ou continue com</span>
+                    </div>
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-github"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-microsoft"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab-main">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="fab-options">
+            <button class="fab-option" data-tooltip="Assistente IA">
+                <i class="fas fa-comment-dots"></i>
+            </button>
+            <button class="fab-option" data-tooltip="Suporte">
+                <i class="fas fa-headset"></i>
+            </button>
+            <button class="fab-option" data-tooltip="Documentação">
+                <i class="fas fa-book"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="chat-avatar">
+                <div class="avatar-pulse"></div>
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chat-title">
+                <span>Supreme IA</span>
+                <span class="chat-status">Online</span>
+            </div>
+            <button class="chat-close" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages">
+            <div class="message bot">
+                <p>Olá! Sou a Supreme IA. Como posso ajudar você hoje?</p>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Digite sua mensagem...">
+            <button><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
+    <!-- Scripts de configuração e integração -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script src="supreme-effects.js"></script>
+    <script src="entrance.js"></script>
+</body>
+</html>
