@@ -275,18 +275,31 @@ async def websocket_checkin_endpoint(websocket: WebSocket, evento_id: int):
 
 # 🩺 ENDPOINTS DE MONITORAMENTO
 @app.get("/healthz")
+@app.get("/health")
+@app.get("/")
 async def healthz():
-    """Health check com informações CORS"""
+    """Health check com informações CORS - Railway compatible"""
+    try:
+        # Testar conexão com banco de dados
+        db = next(get_db())
+        db.execute("SELECT 1")
+        db_status = "connected"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+    
     return JSONResponse(
         content={
-            "status": "ok",
+            "status": "healthy",
             "service": "Sistema de Gestão de Eventos",
             "version": "1.0.0",
             "timestamp": datetime.now().isoformat(),
             "environment": "production" if os.getenv("RAILWAY_ENVIRONMENT") else "development",
+            "database": db_status,
             "cors_status": "ultimate_protection_enabled",
             "cors_layers": ["custom_middleware", "fastapi_cors_middleware"],
-            "railway": bool(os.getenv("RAILWAY_ENVIRONMENT"))
+            "railway": bool(os.getenv("RAILWAY_ENVIRONMENT")),
+            "port": os.getenv("PORT", "8000"),
+            "uptime": "active"
         },
         headers={
             "Access-Control-Allow-Origin": "*",
@@ -456,27 +469,6 @@ async def setup_inicial_temp(db: Session = Depends(get_db)):
         )
         return error_response
 
-# 🏠 ROOT ENDPOINT
-@app.get("/")
-async def root():
-    """Endpoint raiz com informações do sistema"""
-    return JSONResponse(
-        content={
-            "service": "Sistema de Gestão de Eventos",
-            "version": "1.0.0",
-            "status": "operational",
-            "documentation": "/docs",
-            "api_health": "/api/health",
-            "cors_test": "/api/cors-test",
-            "features": ["CORS Ultimate Protection", "WebSocket Support", "PWA Ready"],
-            "timestamp": datetime.now().isoformat()
-        },
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*",
-            "Access-Control-Allow-Headers": "*"
-        }
-    )
 
 # 🚨 HANDLER DE EXCEÇÕES GLOBAL COM CORS
 @app.exception_handler(Exception)
