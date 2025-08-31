@@ -1,4 +1,3 @@
-# Dockerfile na raiz para Backend - Railway Deploy
 FROM python:3.11-slim
 
 # Set environment variables
@@ -19,41 +18,29 @@ RUN apt-get update \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy backend requirements
-COPY backend/requirements.txt .
-
 # Install Python dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
 # Create non-root user
 RUN adduser --disabled-password --gecos '' appuser
 
-# Copy backend source code
-COPY --chown=appuser:appuser backend/ .
+# Copy project
+COPY --chown=appuser:appuser . .
 
-# Create migrations directory if it doesn't exist
-RUN mkdir -p app/migrations
-
-# Create startup script with migration check
-RUN echo '#!/bin/bash' > /app/start.sh && \
-    echo 'export PORT=${PORT:-8000}' >> /app/start.sh && \
-    echo 'echo "🚀 Starting Backend on port $PORT"' >> /app/start.sh && \
-    echo 'echo "PYTHONPATH: $PYTHONPATH"' >> /app/start.sh && \
-    echo 'echo "🔧 Sistema com migração automática integrada"' >> /app/start.sh && \
-    echo 'sleep 2' >> /app/start.sh && \
-    echo 'exec uvicorn app.main:app --host 0.0.0.0 --port $PORT --access-log --log-level info' >> /app/start.sh && \
-    chmod +x /app/start.sh
+# Make start script executable
+RUN chmod +x /app/start.sh
 
 # Switch to non-root user
 USER appuser
 
-# Expose port
+# Expose port (Railway will set PORT env var)
 EXPOSE 8000
 
-# Health check
+# Health check simples
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD curl -f http://localhost:8000/healthz || exit 1
 
-# Run the application
+# Run the application with startup script
 CMD ["/app/start.sh"]
