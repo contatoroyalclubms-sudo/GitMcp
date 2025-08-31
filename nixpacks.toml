@@ -1,17 +1,19 @@
 [phases.setup]
-nixPkgs = ["python311", "nodejs_18", "postgresql_15"]
+nixPkgs = ["nodejs_18"]
 
 [phases.install]
 cmds = [
-    "cd frontend && npm install && npm run build && cd ..",
-    "pip install --upgrade pip",
-    "pip install -r backend/requirements.txt"
+    "cd frontend && npm ci --legacy-peer-deps"
 ]
 
 [phases.build]
 cmds = [
-    "echo 'Build completo'"
+    "cd frontend && npm run build"
 ]
 
 [start]
-cmd = "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+cmd = "cd frontend && npm run preview -- --port $PORT --host 0.0.0.0"
+
+[variables]
+NODE_ENV = "production"
+VITE_API_URL = "https://backend-painel-universal-production.up.railway.app"

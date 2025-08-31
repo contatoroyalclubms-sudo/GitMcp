@@ -1,0 +1,14 @@
+🚀 VOCÊ ACHOU A PASTA CERTA! 🚀
+
+Esta é a pasta: sistema-meep-deploy
+
+AGORA:
+1. Arraste esta pasta INTEIRA no Railway
+2. OU faça upload dela no projeto sistema-meep01
+
+A pasta contém:
+- frontend/ (com o sistema completo)
+- backend/ (com as APIs)
+- Tudo configurado e pronto!
+
+ARRASTE ESTA PASTA NO RAILWAY!
