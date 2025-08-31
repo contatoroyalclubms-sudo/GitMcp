@@ -3,7 +3,9 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import ValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from starlette.middleware.base import BaseHTTPMiddleware
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -35,6 +37,13 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Configure templates
+templates = Jinja2Templates(directory="templates")
+
+# Mount static files if exists
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # 🛡️ CORS DEFINITIVO - MÚLTIPLAS CAMADAS DE PROTEÇÃO
 class UltimateCORSMiddleware(BaseHTTPMiddleware):
@@ -273,10 +282,15 @@ async def websocket_checkin_endpoint(websocket: WebSocket, evento_id: int):
     except WebSocketDisconnect:
         manager.disconnect(websocket, evento_id)
 
+# 🏠 LANDING PAGE
+@app.get("/", response_class=HTMLResponse)
+async def landing_page(request: Request):
+    """Serve the landing page"""
+    return templates.TemplateResponse("index.html", {"request": request})
+
 # 🩺 ENDPOINTS DE MONITORAMENTO
 @app.get("/healthz")
 @app.get("/health")
-@app.get("/")
 async def healthz():
     """Health check com informações CORS - Railway compatible"""
     try:
