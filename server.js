@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 const redis = require('redis');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Backend na porta 3000
 
 // Configurar conexão PostgreSQL
 const pool = new Pool({
