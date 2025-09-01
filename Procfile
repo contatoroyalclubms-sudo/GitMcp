@@ -1,1 +1,1 @@
-web: cd backend && python server_meep.py
+web: python main.py
