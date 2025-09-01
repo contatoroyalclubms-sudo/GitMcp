@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "railway": {
+      "command": "node",
+      "args": ["mcp-railway-server.js"],
+      "cwd": "C:\\Users\\User\\sistema-meep-deploy\\GitMcp",
+      "env": {
+        "RAILWAY_TOKEN": "b7666038-be55-471e-aff1-5d436dd0dd52",
+        "RAILWAY_PROJECT_ID": "eb872692-f19b-4546-8a92-164401d6b32"
+      }
+    }
+  }
+}
