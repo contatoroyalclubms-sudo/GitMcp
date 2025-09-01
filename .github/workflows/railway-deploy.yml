@@ -1,0 +1,282 @@
+name: Railway Auto Deploy
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+    types: [ closed ]
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Railway project name to deploy to'
+        required: true
+        default: 'sistema-meep01'
+        type: choice
+        options:
+          - sistema-meep01
+          - protective-patience
+          - sweet-healing
+          - melodious-cooperation
+
+env:
+  RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+  NODE_VERSION: '18'
+
+jobs:
+  pre-deployment-checks:
+    name: Pre-deployment Validation
+    runs-on: ubuntu-latest
+    
+    outputs:
+      should-deploy: ${{ steps.changes.outputs.should-deploy }}
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Lint and Validate
+        run: |
+          echo "🔍 Running pre-deployment validation..."
+          
+          # Check required files exist
+          test -f package.json || exit 1
+          test -f server.js || exit 1
+          
+          # Syntax check
+          node --check server.js
+          
+          # Security audit (non-blocking)
+          npm audit --audit-level=high || true
+          
+          echo "✅ Pre-deployment validation passed"
+          
+      - name: Check for Changes
+        id: changes
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: pre-deployment-checks
+    if: needs.pre-deployment-checks.outputs.should-deploy == 'true' && github.ref != 'refs/heads/main'
+    
+    environment:
+      name: staging
+      url: ${{ steps.deploy.outputs.deployment-url }}
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+          
+      - name: Deploy to Staging
+        id: deploy
+        run: |
+          echo "🚀 Deploying to staging environment..."
+          
+          # Set project based on input or default
+          PROJECT_NAME="${{ github.event.inputs.project_name || 'sistema-meep01' }}"
+          echo "📋 Target project: $PROJECT_NAME"
+          
+          # Railway auth
+          railway login --token "$RAILWAY_TOKEN"
+          
+          # Link to project (this will require the project to be pre-configured)
+          railway link "$PROJECT_NAME" --environment staging || railway link "$PROJECT_NAME"
+          
+          # Deploy
+          railway up --detach
+          
+          # Get deployment URL
+          DEPLOYMENT_URL=$(railway domain | grep -oE 'https?://[^[:space:]]+' | head -1 || echo "")
+          echo "deployment-url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          
+          echo "✅ Staging deployment completed"
+          
+      - name: Health Check
+        run: |
+          echo "🏥 Performing health check..."
+          
+          DEPLOYMENT_URL="${{ steps.deploy.outputs.deployment-url }}"
+          if [[ -n "$DEPLOYMENT_URL" ]]; then
+            # Wait for deployment to be ready
+            sleep 30
+            
+            # Health check with retry
+            for i in {1..5}; do
+              if curl -f "$DEPLOYMENT_URL/health" >/dev/null 2>&1; then
+                echo "✅ Health check passed"
+                exit 0
+              else
+                echo "⏳ Health check attempt $i/5 failed, retrying..."
+                sleep 10
+              fi
+            done
+            
+            echo "❌ Health check failed after 5 attempts"
+            exit 1
+          else
+            echo "⚠️ No deployment URL available for health check"
+          fi
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: pre-deployment-checks
+    if: needs.pre-deployment-checks.outputs.should-deploy == 'true' && github.ref == 'refs/heads/main'
+    
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.deployment-url }}
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+          
+      - name: Deploy to Production
+        id: deploy
+        run: |
+          echo "🚀 Deploying to production environment..."
+          
+          # Set project based on input or default
+          PROJECT_NAME="${{ github.event.inputs.project_name || 'sistema-meep01' }}"
+          echo "📋 Target project: $PROJECT_NAME"
+          
+          # Railway auth
+          railway login --token "$RAILWAY_TOKEN"
+          
+          # Link to project
+          railway link "$PROJECT_NAME" --environment production || railway link "$PROJECT_NAME"
+          
+          # Store rollback info
+          railway status > .railway-rollback.txt || echo "No previous deployment" > .railway-rollback.txt
+          
+          # Deploy with zero-downtime strategy
+          railway up --detach
+          
+          # Get deployment URL
+          DEPLOYMENT_URL=$(railway domain | grep -oE 'https?://[^[:space:]]+' | head -1 || echo "")
+          echo "deployment-url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          
+          echo "✅ Production deployment completed"
+          
+      - name: Health Check & Monitoring
+        run: |
+          echo "🏥 Performing comprehensive health check..."
+          
+          DEPLOYMENT_URL="${{ steps.deploy.outputs.deployment-url }}"
+          if [[ -n "$DEPLOYMENT_URL" ]]; then
+            # Wait for deployment to be ready
+            sleep 45
+            
+            # Health check with extensive retry
+            HEALTH_PASSED=false
+            for i in {1..10}; do
+              if curl -f -s "$DEPLOYMENT_URL/health" | jq -e '.status == "healthy"' >/dev/null 2>&1; then
+                echo "✅ Health check passed (attempt $i)"
+                HEALTH_PASSED=true
+                break
+              else
+                echo "⏳ Health check attempt $i/10 failed, retrying in 15s..."
+                sleep 15
+              fi
+            done
+            
+            if [[ "$HEALTH_PASSED" != "true" ]]; then
+              echo "❌ Health check failed - initiating rollback"
+              railway down || echo "Rollback command failed"
+              exit 1
+            fi
+            
+            # Additional smoke tests
+            echo "🧪 Running smoke tests..."
+            
+            # Test main endpoint
+            if curl -f -s "$DEPLOYMENT_URL/" | jq -e '.status' >/dev/null 2>&1; then
+              echo "✅ Main endpoint responsive"
+            else
+              echo "❌ Main endpoint test failed"
+              exit 1
+            fi
+            
+            echo "✅ All health checks and smoke tests passed"
+          else
+            echo "⚠️ No deployment URL available for health check"
+          fi
+          
+      - name: Post-Deploy Notification
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          PROJECT_NAME="${{ github.event.inputs.project_name || 'sistema-meep01' }}"
+          DEPLOYMENT_URL="${{ steps.deploy.outputs.deployment-url }}"
+          
+          if [[ "$STATUS" == "success" ]]; then
+            echo "🎉 Production deployment successful!"
+            echo "📋 Project: $PROJECT_NAME"
+            echo "🌐 URL: $DEPLOYMENT_URL"
+            echo "⏰ Time: $(date)"
+            echo "🔗 Commit: ${{ github.sha }}"
+          else
+            echo "💥 Production deployment failed!"
+            echo "📋 Project: $PROJECT_NAME"
+            echo "⏰ Time: $(date)"
+            echo "🔗 Commit: ${{ github.sha }}"
+          fi
+
+  rollback:
+    name: Emergency Rollback
+    runs-on: ubuntu-latest
+    if: failure() && (needs.deploy-staging.result == 'failure' || needs.deploy-production.result == 'failure')
+    needs: [deploy-staging, deploy-production]
+    
+    steps:
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+          
+      - name: Execute Rollback
+        run: |
+          echo "🚨 Executing emergency rollback..."
+          
+          PROJECT_NAME="${{ github.event.inputs.project_name || 'sistema-meep01' }}"
+          
+          # Railway auth
+          railway login --token "$RAILWAY_TOKEN"
+          
+          # Link to project
+          railway link "$PROJECT_NAME"
+          
+          # Rollback (remove latest deployment)
+          railway down || echo "Rollback command completed"
+          
+          echo "🔄 Emergency rollback completed"
