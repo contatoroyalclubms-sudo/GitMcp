@@ -1,4 +1,4 @@
 {
-  "project": "protective-patience",
-  "service": "web"
+  "projectId": "protective-patience",
+  "environmentId": "production"
 }
