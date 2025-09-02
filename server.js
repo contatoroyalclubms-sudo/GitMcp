@@ -24,6 +24,9 @@ const financeRoutes = require('./routes/finance');
 const marketingRoutes = require('./routes/marketing');
 const biRoutes = require('./routes/business-intelligence');
 const authRoutes = require('./routes/auth');
+const configRoutes = require('./routes/config');
+const cashlessRoutes = require('./routes/cashless');
+const aiRoutes = require('./routes/ai');
 
 const db = require('./config/database');
 const cache = require('./config/cache');
@@ -56,6 +59,9 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/config', authenticateToken, configRoutes);
+app.use('/api/cashless', authenticateToken, cashlessRoutes);
+app.use('/api/ai', authenticateToken, aiRoutes);
 app.use('/api/dashboard', authenticateToken, dashboardRoutes);
 app.use('/api/clients', authenticateToken, clientRoutes);
 app.use('/api/team', authenticateToken, teamRoutes);
@@ -194,7 +200,7 @@ async function startServer() {
         console.log('✅ Database connected successfully');
         
         // Sync database (create tables if they don't exist)
-        await db.sync({ alter: true });
+        await db.sync({ force: false });
         console.log('✅ Database synchronized');
         
         await cache.connect();

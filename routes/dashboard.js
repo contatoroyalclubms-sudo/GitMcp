@@ -35,15 +35,10 @@ router.get('/metrics', async (req, res) => {
             Event.count({ where: { status: 'active' } }),
             Client.count(),
             Sale.count({ where: { status: 'completed' } }),
-            Sale.findAll({
-                attributes: ['productId'],
-                include: [{
-                    model: Product,
-                    attributes: ['name', 'category']
-                }],
-                group: ['productId'],
-                order: [[sequelize.fn('COUNT', 'productId'), 'DESC']],
-                limit: 5
+            // Simplified top products query
+            Product.findAll({
+                limit: 5,
+                order: [['price', 'DESC']]
             })
         ]);
 

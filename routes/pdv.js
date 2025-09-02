@@ -1,381 +1,308 @@
 const express = require('express');
 const router = express.Router();
-const { CashRegister, Sale, Product, Client, SaleItem, User } = require('../models');
 const { Op } = require('sequelize');
-const sequelize = require('../config/database');
+const { v4: uuidv4 } = require('uuid');
 
-router.get('/profile', async (req, res) => {
+// Initialize transaction
+router.post('/transactions/open', async (req, res) => {
     try {
-        const profile = {
-            user: {
-                id: req.user.id,
-                name: req.user.name || 'Operator',
-                role: req.user.role || 'operator',
-                email: req.user.email
-            },
-            terminal: {
-                id: process.env.TERMINAL_ID || 'TERM-001',
-                name: process.env.TERMINAL_NAME || 'Terminal 1',
-                location: process.env.TERMINAL_LOCATION || 'Main Floor'
-            },
-            currentRegister: await CashRegister.findOne({
-                where: {
-                    userId: req.user.id,
-                    status: 'open'
-                },
-                order: [['createdAt', 'DESC']]
-            })
-        };
-
-        res.json(profile);
-    } catch (error) {
-        console.error('Get profile error:', error);
-        res.status(500).json({ error: 'Failed to get profile' });
-    }
-});
-
-router.post('/open-register', async (req, res) => {
-    const transaction = await sequelize.transaction();
-    
-    try {
-        const { eventId, openingBalance = 0 } = req.body;
-
-        const existingOpen = await CashRegister.findOne({
-            where: {
-                userId: req.user.id,
-                status: 'open'
-            }
-        });
-
-        if (existingOpen) {
-            await transaction.rollback();
-            return res.status(400).json({ error: 'Register already open' });
-        }
-
-        const register = await CashRegister.create({
+        const { eventId, clientId, posTerminalId } = req.body;
+        
+        const transaction = {
+            id: uuidv4(),
+            transactionCode: `TRX-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            type: 'sale',
+            status: 'pending',
+            subtotal: 0,
+            total: 0,
+            cashierId: req.user?.id || 1,
             eventId,
-            userId: req.user.id,
-            openingBalance,
-            status: 'open',
-            openedAt: new Date()
-        }, { transaction });
-
-        await transaction.commit();
-
-        res.status(201).json({
-            message: 'Cash register opened',
-            register
-        });
-    } catch (error) {
-        await transaction.rollback();
-        console.error('Open register error:', error);
-        res.status(500).json({ error: 'Failed to open register' });
-    }
-});
-
-router.post('/close-register', async (req, res) => {
-    const transaction = await sequelize.transaction();
-    
-    try {
-        const { closingBalance, notes } = req.body;
-
-        const register = await CashRegister.findOne({
-            where: {
-                userId: req.user.id,
-                status: 'open'
-            },
-            transaction
-        });
-
-        if (!register) {
-            await transaction.rollback();
-            return res.status(404).json({ error: 'No open register found' });
-        }
-
-        const totalSales = await Sale.sum('total', {
-            where: {
-                userId: req.user.id,
-                createdAt: {
-                    [Op.gte]: register.openedAt
-                },
-                status: 'completed'
-            },
-            transaction
-        });
-
-        register.closingBalance = closingBalance;
-        register.totalSales = totalSales || 0;
-        register.status = 'closed';
-        register.closedAt = new Date();
-        await register.save({ transaction });
-
-        await transaction.commit();
-
-        const expectedBalance = parseFloat(register.openingBalance) + parseFloat(register.totalSales);
-        const difference = closingBalance - expectedBalance;
-
-        res.json({
-            message: 'Cash register closed',
-            register,
-            summary: {
-                openingBalance: register.openingBalance,
-                totalSales: register.totalSales,
-                expectedBalance,
-                actualBalance: closingBalance,
-                difference,
-                status: Math.abs(difference) < 1 ? 'balanced' : 'discrepancy'
-            }
-        });
-    } catch (error) {
-        await transaction.rollback();
-        console.error('Close register error:', error);
-        res.status(500).json({ error: 'Failed to close register' });
-    }
-});
-
-router.post('/quick-sale', async (req, res) => {
-    const transaction = await sequelize.transaction();
-    
-    try {
-        const { items, paymentMethod, clientId } = req.body;
-
-        const total = items.reduce((sum, item) => sum + (item.quantity * item.price), 0);
-
-        const sale = await Sale.create({
             clientId,
-            userId: req.user.id,
-            total,
-            paymentMethod,
-            status: 'completed'
-        }, { transaction });
-
-        for (const item of items) {
-            await SaleItem.create({
-                saleId: sale.id,
-                productId: item.productId,
-                quantity: item.quantity,
-                unitPrice: item.price,
-                total: item.quantity * item.price
-            }, { transaction });
-
-            const product = await Product.findByPk(item.productId, { transaction });
-            if (product) {
-                product.stock -= item.quantity;
-                await product.save({ transaction });
-            }
-        }
-
-        await transaction.commit();
-
-        res.status(201).json({
-            message: 'Sale completed',
-            sale,
-            receipt: {
-                saleId: sale.id,
-                date: sale.createdAt,
-                items,
-                total,
-                paymentMethod
-            }
-        });
-    } catch (error) {
-        await transaction.rollback();
-        console.error('Quick sale error:', error);
-        res.status(500).json({ error: 'Failed to process sale' });
-    }
-});
-
-router.get('/printers', async (req, res) => {
-    try {
-        const printers = [
-            {
-                id: 'printer-001',
-                name: 'Receipt Printer 1',
-                type: 'receipt',
-                model: 'Epson TM-T88V',
-                status: 'online',
-                location: 'Counter 1'
-            },
-            {
-                id: 'printer-002',
-                name: 'Kitchen Printer',
-                type: 'kitchen',
-                model: 'Star TSP650II',
-                status: 'online',
-                location: 'Kitchen'
-            },
-            {
-                id: 'printer-003',
-                name: 'Bar Printer',
-                type: 'bar',
-                model: 'Bixolon SRP-350',
-                status: 'online',
-                location: 'Bar'
-            }
-        ];
-
-        res.json(printers);
-    } catch (error) {
-        console.error('Get printers error:', error);
-        res.status(500).json({ error: 'Failed to get printers' });
-    }
-});
-
-router.post('/print', async (req, res) => {
-    try {
-        const { printerId, type, data } = req.body;
-
+            posTerminalId,
+            items: [],
+            payments: []
+        };
+        
+        // Store in memory or session (in production, use database)
+        global.activeTransactions = global.activeTransactions || {};
+        global.activeTransactions[transaction.id] = transaction;
+        
         res.json({
-            message: 'Print job sent',
-            jobId: require('uuid').v4(),
-            printerId,
-            type,
-            status: 'queued'
+            success: true,
+            transaction: {
+                id: transaction.id,
+                code: transaction.transactionCode,
+                status: transaction.status
+            }
         });
     } catch (error) {
-        console.error('Print error:', error);
-        res.status(500).json({ error: 'Failed to print' });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
-router.get('/smart-printers', async (req, res) => {
+// Add item to transaction
+router.post('/transactions/:id/items', async (req, res) => {
     try {
-        const smartPrinters = [
-            {
-                id: 'smart-001',
-                name: 'Smart Receipt Printer',
-                features: ['auto-cut', 'qr-code', 'logo-print', 'multi-language'],
-                status: 'online',
-                templates: ['receipt', 'invoice', 'ticket']
+        const { productId, quantity } = req.body;
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction || transaction.status !== 'pending') {
+            return res.status(400).json({ 
+                success: false, 
+                error: 'Transaction not found or already closed' 
+            });
+        }
+        
+        // Simulate product lookup
+        const product = {
+            id: productId,
+            name: `Product ${productId}`,
+            price: Math.random() * 100 + 10
+        };
+        
+        const subtotal = product.price * quantity;
+        const item = {
+            id: uuidv4(),
+            transactionId: transaction.id,
+            productId: product.id,
+            productName: product.name,
+            quantity,
+            unitPrice: product.price,
+            subtotal,
+            total: subtotal
+        };
+        
+        transaction.items.push(item);
+        
+        // Update transaction totals
+        const newSubtotal = transaction.items.reduce((sum, item) => sum + item.total, 0);
+        transaction.subtotal = newSubtotal;
+        transaction.total = newSubtotal;
+        
+        res.json({
+            success: true,
+            item,
+            transaction: {
+                subtotal: newSubtotal,
+                total: newSubtotal
             }
-        ];
-
-        res.json(smartPrinters);
-    } catch (error) {
-        console.error('Get smart printers error:', error);
-        res.status(500).json({ error: 'Failed to get smart printers' });
-    }
-});
-
-router.get('/equipment', async (req, res) => {
-    try {
-        const equipment = [
-            {
-                id: 'eq-001',
-                type: 'barcode-scanner',
-                name: 'Scanner 1',
-                model: 'Symbol LS2208',
-                status: 'connected'
-            },
-            {
-                id: 'eq-002',
-                type: 'card-reader',
-                name: 'Card Terminal 1',
-                model: 'Ingenico Move 5000',
-                status: 'connected'
-            },
-            {
-                id: 'eq-003',
-                type: 'cash-drawer',
-                name: 'Cash Drawer 1',
-                model: 'APG Vasario',
-                status: 'connected'
-            },
-            {
-                id: 'eq-004',
-                type: 'customer-display',
-                name: 'Customer Display 1',
-                model: 'Posiflex PD-2800',
-                status: 'connected'
-            }
-        ];
-
-        res.json(equipment);
-    } catch (error) {
-        console.error('Get equipment error:', error);
-        res.status(500).json({ error: 'Failed to get equipment' });
-    }
-});
-
-router.get('/operators', async (req, res) => {
-    try {
-        const operators = await User.findAll({
-            where: {
-                role: { [Op.in]: ['operator', 'manager'] },
-                active: true
-            },
-            attributes: ['id', 'name', 'role'],
-            order: [['name', 'ASC']]
         });
-
-        res.json(operators);
     } catch (error) {
-        console.error('Get operators error:', error);
-        res.status(500).json({ error: 'Failed to get operators' });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
-router.get('/orders', async (req, res) => {
+// Remove item from transaction
+router.delete('/transactions/:id/items/:itemId', async (req, res) => {
     try {
-        const { status = 'pending' } = req.query;
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction) {
+            return res.status(404).json({ success: false, error: 'Transaction not found' });
+        }
+        
+        const itemIndex = transaction.items.findIndex(i => i.id === req.params.itemId);
+        if (itemIndex === -1) {
+            return res.status(404).json({ success: false, error: 'Item not found' });
+        }
+        
+        transaction.items.splice(itemIndex, 1);
+        
+        // Update transaction totals
+        const newSubtotal = transaction.items.reduce((sum, item) => sum + item.total, 0);
+        transaction.subtotal = newSubtotal;
+        transaction.total = newSubtotal - (transaction.discount || 0);
+        
+        res.json({
+            success: true,
+            transaction: {
+                subtotal: newSubtotal,
+                total: transaction.total
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
-        const orders = await Sale.findAll({
-            where: { status },
-            include: [
-                { model: Client, attributes: ['name'] },
-                { 
-                    model: SaleItem,
-                    include: [{ model: Product, attributes: ['name'] }]
+// Apply discount
+router.post('/transactions/:id/discount', async (req, res) => {
+    try {
+        const { discount, discountType } = req.body;
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction || transaction.status !== 'pending') {
+            return res.status(400).json({ 
+                success: false, 
+                error: 'Transaction not found or already closed' 
+            });
+        }
+        
+        let discountAmount = 0;
+        if (discountType === 'percentage') {
+            discountAmount = transaction.subtotal * (discount / 100);
+        } else {
+            discountAmount = discount;
+        }
+        
+        transaction.discount = discountAmount;
+        transaction.total = transaction.subtotal - discountAmount;
+        
+        res.json({
+            success: true,
+            transaction: {
+                discount: discountAmount,
+                total: transaction.total
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Process payment
+router.post('/transactions/:id/payment', async (req, res) => {
+    try {
+        const { method, amount, cardNumber, pixKey, voucherCode, authorizationCode } = req.body;
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction || transaction.status !== 'pending') {
+            return res.status(400).json({ 
+                success: false, 
+                error: 'Transaction not found or already closed' 
+            });
+        }
+        
+        // Calculate remaining amount
+        const totalPaid = transaction.payments.reduce((sum, p) => sum + p.amount, 0);
+        const remaining = transaction.total - totalPaid;
+        
+        if (amount > remaining) {
+            return res.status(400).json({
+                success: false,
+                error: `Payment exceeds remaining amount. Remaining: R$ ${remaining.toFixed(2)}`
+            });
+        }
+        
+        // Create payment record
+        const payment = {
+            id: uuidv4(),
+            transactionId: transaction.id,
+            method,
+            amount,
+            status: 'approved',
+            timestamp: new Date()
+        };
+        
+        // Add payment specific data
+        if (method === 'cashless') {
+            payment.cashlessCardNumber = cardNumber;
+        } else if (method === 'pix') {
+            payment.pixKey = pixKey;
+        } else if (method === 'voucher') {
+            payment.voucherCode = voucherCode;
+        } else if (method === 'credit' || method === 'debit') {
+            payment.authorizationCode = authorizationCode || uuidv4();
+            payment.cardLastDigits = cardNumber ? cardNumber.slice(-4) : '****';
+        }
+        
+        transaction.payments.push(payment);
+        
+        // Check if transaction is fully paid
+        const newTotalPaid = totalPaid + amount;
+        if (newTotalPaid >= transaction.total) {
+            transaction.status = 'completed';
+            transaction.paymentMethod = method;
+        }
+        
+        res.json({
+            success: true,
+            payment,
+            transaction: {
+                totalPaid: newTotalPaid,
+                remaining: transaction.total - newTotalPaid,
+                status: transaction.status
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Cancel transaction
+router.post('/transactions/:id/cancel', async (req, res) => {
+    try {
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction) {
+            return res.status(404).json({ success: false, error: 'Transaction not found' });
+        }
+        
+        transaction.status = 'cancelled';
+        
+        res.json({
+            success: true,
+            message: 'Transaction cancelled successfully'
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Get transaction details
+router.get('/transactions/:id', async (req, res) => {
+    try {
+        const transaction = global.activeTransactions?.[req.params.id];
+        
+        if (!transaction) {
+            return res.status(404).json({ success: false, error: 'Transaction not found' });
+        }
+        
+        res.json({
+            success: true,
+            transaction
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Daily sales report
+router.get('/reports/daily', async (req, res) => {
+    try {
+        const { date, eventId } = req.query;
+        const transactions = Object.values(global.activeTransactions || {})
+            .filter(t => t.status === 'completed');
+        
+        const summary = {
+            totalSales: transactions.length,
+            totalAmount: transactions.reduce((sum, t) => sum + t.total, 0),
+            byPaymentMethod: {},
+            byHour: {}
+        };
+        
+        transactions.forEach(transaction => {
+            // Group by payment method
+            transaction.payments.forEach(payment => {
+                if (!summary.byPaymentMethod[payment.method]) {
+                    summary.byPaymentMethod[payment.method] = {
+                        count: 0,
+                        total: 0
+                    };
                 }
-            ],
-            order: [['createdAt', 'DESC']],
-            limit: 50
+                summary.byPaymentMethod[payment.method].count++;
+                summary.byPaymentMethod[payment.method].total += payment.amount;
+            });
         });
-
-        res.json(orders);
-    } catch (error) {
-        console.error('Get orders error:', error);
-        res.status(500).json({ error: 'Failed to get orders' });
-    }
-});
-
-router.post('/orders/:id/prepare', async (req, res) => {
-    try {
-        const order = await Sale.findByPk(req.params.id);
         
-        if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
-        }
-
         res.json({
-            message: 'Order marked as preparing',
-            orderId: req.params.id,
-            estimatedTime: '15 minutes'
+            success: true,
+            date: date || new Date().toISOString().split('T')[0],
+            summary,
+            transactions: transactions.slice(0, 10) // Return first 10 transactions
         });
     } catch (error) {
-        console.error('Prepare order error:', error);
-        res.status(500).json({ error: 'Failed to prepare order' });
-    }
-});
-
-router.post('/orders/:id/complete', async (req, res) => {
-    try {
-        const order = await Sale.findByPk(req.params.id);
-        
-        if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
-        }
-
-        order.status = 'completed';
-        await order.save();
-
-        res.json({
-            message: 'Order completed',
-            order
-        });
-    } catch (error) {
-        console.error('Complete order error:', error);
-        res.status(500).json({ error: 'Failed to complete order' });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 

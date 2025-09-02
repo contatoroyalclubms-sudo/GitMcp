@@ -398,6 +398,17 @@ CashRegister.belongsTo(User, { foreignKey: 'userId' });
 Event.hasMany(Transaction, { foreignKey: 'eventId' });
 Transaction.belongsTo(Event, { foreignKey: 'eventId' });
 
+// Import new models
+const SystemConfig = require('./SystemConfig');
+const CashlessCard = require('./CashlessCard');
+
+// Add associations for CashlessCard
+CashlessCard.belongsTo(Client, { foreignKey: 'clientId' });
+Client.hasMany(CashlessCard, { foreignKey: 'clientId' });
+
+CashlessCard.belongsTo(Event, { foreignKey: 'eventId' });
+Event.hasMany(CashlessCard, { foreignKey: 'eventId' });
+
 module.exports = {
     sequelize,
     User,
@@ -409,5 +420,7 @@ module.exports = {
     Inventory,
     CashRegister,
     Transaction,
-    Campaign
+    Campaign,
+    SystemConfig,
+    CashlessCard
 };
