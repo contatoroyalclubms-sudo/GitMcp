@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEEP Enterprise - Sistema Completo de Gestão de Eventos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>MEEP</h1>
+                <span>Enterprise System</span>
+            </div>
+            
+            <ul class="menu">
+                <li class="menu-section">
+                    <span class="section-title">DASHBOARD</span>
+                    <ul>
+                        <li><a href="#" data-page="dashboard">📊 Dashboard Principal</a></li>
+                        <li><a href="#" data-page="favorites">⭐ Favoritos</a></li>
+                        <li><a href="#" data-page="cashflow">💰 Evento/Caixa</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">CLIENTES</span>
+                    <ul>
+                        <li><a href="#" data-page="clients">👥 Informações</a></li>
+                        <li><a href="#" data-page="commands">🎫 Comandas</a></li>
+                        <li><a href="#" data-page="cashless">💳 Cashless</a></li>
+                        <li><a href="#" data-page="satisfaction">😊 Satisfação</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">VENDAS</span>
+                    <ul>
+                        <li><a href="#" data-page="menus">📖 Cardápios</a></li>
+                        <li><a href="#" data-page="sales">💼 Gestão de Venda</a></li>
+                        <li><a href="#" data-page="online">🌐 Soluções Online</a></li>
+                        <li><a href="#" data-page="tickets">🎟️ Ingressos</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">RELATÓRIOS</span>
+                    <ul>
+                        <li><a href="#" data-page="reports-sales">💰 Vendas</a></li>
+                        <li><a href="#" data-page="reports-financial">💼 Financeiro</a></li>
+                        <li><a href="#" data-page="reports-clients">👥 Clientes</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">FINANCEIRO</span>
+                    <ul>
+                        <li><a href="#" data-page="digital-account">🏦 Conta Digital</a></li>
+                        <li><a href="#" data-page="payments">💳 Pagamentos</a></li>
+                        <li><a href="#" data-page="invoices">📄 Faturas</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-section">
+                    <span class="section-title">BI</span>
+                    <ul>
+                        <li><a href="#" data-page="analytics">📊 Analytics</a></li>
+                        <li><a href="#" data-page="automation">🤖 Automação</a></li>
+                        <li><a href="#" data-page="integrations">🔌 Integrações</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar...">
+                </div>
+                
+                <div class="user-menu">
+                    <span class="notifications">🔔</span>
+                    <div class="user-info">
+                        <span>Admin</span>
+                        <img src="https://via.placeholder.com/32" alt="User">
+                    </div>
+                </div>
+            </header>
+            
+            <div id="content" class="content">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3>Receita Total</h3>
+                        <p class="stat-value">R$ 0</p>
+                        <span class="stat-change positive">+0%</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Eventos Ativos</h3>
+                        <p class="stat-value">0</p>
+                        <span class="stat-change">0</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Clientes Totais</h3>
+                        <p class="stat-value">0</p>
+                        <span class="stat-change positive">+0</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Satisfação</h3>
+                        <p class="stat-value">0/5</p>
+                        <span class="stat-change positive">+0</span>
+                    </div>
+                </div>
+                
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Vendas por Período</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3>Produtos Mais Vendidos</h3>
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="recent-activities">
+                    <h3>Atividades Recentes</h3>
+                    <ul id="activities-list">
+                        <li>Sistema iniciado</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
