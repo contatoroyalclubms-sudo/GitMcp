@@ -36,11 +36,11 @@ RUN chmod +x /app/start.sh
 USER appuser
 
 # Expose port (Railway will set PORT env var)
-EXPOSE 8000
+EXPOSE 3000
 
 # Health check simples
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
-  CMD curl -f http://localhost:8000/healthz || exit 1
+  CMD curl -f http://localhost:3000/healthz || exit 1
 
 # Run the application with startup script
 CMD ["/app/start.sh"]

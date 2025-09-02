@@ -51,7 +51,7 @@ async def api_status() -> Dict[str, Any]:
         "database": "connected" if os.getenv("DATABASE_URL") else "not_configured",
         "redis": "connected" if os.getenv("REDIS_URL") else "not_configured",
         "uptime": "running",
-        "port": os.getenv("PORT", "8000")
+        "port": os.getenv("PORT", "3000")
     }
 
 # Event management endpoints
@@ -76,5 +76,5 @@ async def create_event(event_data: dict):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 3000))
     uvicorn.run(app, host="0.0.0.0", port=port)
