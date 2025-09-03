@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Intelligence SUPREMO - 2000x Superior ao MIP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background - Marketing Energy */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .energy-wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: wave 15s infinite linear;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float-icon 20s infinite ease-in-out;
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(50px) rotate(90deg); }
+            50% { transform: translateY(-50px) translateX(-50px) rotate(180deg); }
+            75% { transform: translateY(-150px) translateX(25px) rotate(270deg); }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        /* AI Campaign Creator */
+        .campaign-creator {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin: 2rem;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .creator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .creator-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .ai-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Campaign Input */
+        .campaign-input-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .campaign-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #ff6b6b, #4ecdc4) border-box;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .campaign-input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+        }
+
+        .create-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .create-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Main Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Left Panel - Campaigns */
+        .campaigns-panel {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .campaign-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .campaign-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .campaign-item.active {
+            background: linear-gradient(135deg, #ff6b6b20, #4ecdc420);
+            border-left: 3px solid #ff6b6b;
+        }
+
+        .campaign-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .campaign-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .campaign-metrics {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Center Panel - Performance */
+        .performance-panel {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            color: #ff6b6b;
+            border-bottom-color: #ff6b6b;
+        }
+
+        /* Performance Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #ff6b6b10, #4ecdc410);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: rotate 20s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            margin-left: 1rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border-radius: 10px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Right Panel - AI Insights */
+        .insights-panel {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #667eea;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .insight-text {
+            font-size: 0.875rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Personalization Preview */
+        .preview-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin: 2rem;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .preview-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .preview-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-tab.active {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+        }
+
+        .preview-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .preview-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        }
+
+        .customer-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-message {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .preview-cta {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: top 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            top: 100px;
+        }
+
+        .toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Floating Action Menu */
+        .fab-menu {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .fab-main {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .fab-main:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-main.active {
+            transform: rotate(45deg);
+        }
+
+        .fab-options {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            display: none;
+        }
+
+        .fab-options.show {
+            display: block;
+        }
+
+        .fab-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: scale(0);
+            animation: fab-appear 0.3s forwards;
+        }
+
+        @keyframes fab-appear {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fab-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="energy-wave"></div>
+        <div class="floating-icon" style="top: 10%; left: 10%;">📧</div>
+        <div class="floating-icon" style="top: 20%; left: 80%; animation-delay: -5s;">📱</div>
+        <div class="floating-icon" style="top: 60%; left: 20%; animation-delay: -10s;">🎯</div>
+        <div class="floating-icon" style="top: 70%; left: 70%; animation-delay: -15s;">💡</div>
+        <div class="floating-icon" style="top: 40%; left: 50%; animation-delay: -7s;">🚀</div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>🚀</span>
+                <span>Marketing Intelligence SUPREMO</span>
+                <span class="ai-badge">AI-POWERED 2000X</span>
+            </div>
+            <div class="ai-status">AI Creating Campaigns</div>
+        </div>
+    </header>
+
+    <!-- AI Campaign Creator -->
+    <div class="campaign-creator">
+        <div class="creator-header">
+            <div class="creator-title">🤖 Autonomous Campaign Creator</div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="preview-tab active">Email</button>
+                <button class="preview-tab">SMS</button>
+                <button class="preview-tab">Push</button>
+                <button class="preview-tab">WhatsApp</button>
+            </div>
+        </div>
+        
+        <div class="campaign-input-container">
+            <input type="text" class="campaign-input" placeholder='Diga o que deseja: "Criar campanha para aumentar vendas de cerveja premium" ou "Reativar clientes inativos"' id="campaignInput">
+            <button class="create-btn" id="createBtn">
+                <span>✨</span>
+                <span>Criar com IA</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <!-- Left Panel - Active Campaigns -->
+        <div class="campaigns-panel">
+            <div class="panel-title">
+                <span>🎯</span>
+                <span>Campanhas Ativas</span>
+            </div>
+            
+            <div class="campaign-item active">
+                <div class="campaign-status"></div>
+                <div class="campaign-name">Black Friday Antecipada</div>
+                <div class="campaign-metrics">
+                    <span>ROI: 450%</span>
+                    <span>Conv: 12.5%</span>
+                </div>
+            </div>
+            
+            <div class="campaign-item">
+                <div class="campaign-status" style="background: #feca57;"></div>
+                <div class="campaign-name">Reativação VIP</div>
+                <div class="campaign-metrics">
+                    <span>ROI: 320%</span>
+                    <span>Conv: 8.3%</span>
+                </div>
+            </div>
+            
+            <div class="campaign-item">
+                <div class="campaign-status"></div>
+                <div class="campaign-name">Happy Hour Premium</div>
+                <div class="campaign-metrics">
+                    <span>ROI: 680%</span>
+                    <span>Conv: 15.2%</span>
+                </div>
+            </div>
+            
+            <div class="campaign-item">
+                <div class="campaign-status"></div>
+                <div class="campaign-name">Aniversariantes VIP</div>
+                <div class="campaign-metrics">
+                    <span>ROI: 520%</span>
+                    <span>Conv: 18.7%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Panel - Performance -->
+        <div class="performance-panel">
+            <div class="tabs">
+                <button class="tab active">Performance</button>
+                <button class="tab">Attribution</button>
+                <button class="tab">A/B Tests</button>
+                <button class="tab">Predictions</button>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Campaign ROI</div>
+                    <div class="metric-value">
+                        487%
+                        <span class="metric-change">↑ 23%</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Conversion Rate</div>
+                    <div class="metric-value">
+                        12.8%
+                        <span class="metric-change">↑ 4.2%</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Engagement Score</div>
+                    <div class="metric-value">
+                        94.5
+                        <span class="metric-change">↑ 8.3</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Churn Prevented</div>
+                    <div class="metric-value">
+                        2,847
+                        <span class="metric-change">↑ 456</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas class="chart-canvas" id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Right Panel - AI Insights -->
+        <div class="insights-panel">
+            <div class="panel-title">
+                <span>💡</span>
+                <span>AI Insights</span>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">
+                    <span>🔥</span>
+                    <span>Oportunidade Detectada</span>
+                </div>
+                <div class="insight-text">
+                    Sexta-feira 18h-20h tem 3x mais conversão para cerveja premium. 
+                    Criar campanha Happy Hour agora!
+                </div>
+                <button class="action-btn">Criar Campanha Agora</button>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">
+                    <span>⚠️</span>
+                    <span>Risco de Churn</span>
+                </div>
+                <div class="insight-text">
+                    147 clientes VIP não compraram nos últimos 30 dias. 
+                    Probabilidade de churn: 78%
+                </div>
+                <button class="action-btn">Ativar Retenção</button>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">
+                    <span>📊</span>
+                    <span>Competidor Alert</span>
+                </div>
+                <div class="insight-text">
+                    Concorrente lançou promoção 20% OFF. 
+                    Sugestão: Contra-ataque com benefício exclusivo VIP.
+                </div>
+                <button class="action-btn">Responder Agora</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalization Preview -->
+    <div class="preview-container">
+        <div class="preview-header">
+            <div class="creator-title">🎨 Hyper-Personalization Preview</div>
+        </div>
+        
+        <div class="preview-content">
+            <div class="preview-card">
+                <div class="customer-tag">João Silva - VIP Gold</div>
+                <div class="preview-message">
+                    João, que tal aquela Heineken gelada que você adora? 🍺
+                    Hoje tem 20% OFF exclusivo para você no Happy Hour!
+                    Reservamos sua mesa favorita próxima à janela.
+                </div>
+                <button class="preview-cta">Reservar Agora</button>
+            </div>
+            
+            <div class="preview-card">
+                <div class="customer-tag">Maria Santos - Premium</div>
+                <div class="preview-message">
+                    Maria, sentimos sua falta! 💜
+                    Preparamos um drink especial de boas-vindas + 30% OFF 
+                    no seu Cosmopolitan favorito. Válido hoje!
+                </div>
+                <button class="preview-cta">Aceitar Oferta</button>
+            </div>
+            
+            <div class="preview-card">
+                <div class="customer-tag">Pedro Lima - Novo</div>
+                <div class="preview-message">
+                    Pedro, bem-vindo ao nosso clube! 🎉
+                    Primeira bebida por nossa conta + 15% OFF permanente
+                    para membros. Venha conhecer nosso espaço premium!
+                </div>
+                <button class="preview-cta">Ativar Benefício</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">✅</div>
+        <div>
+            <div style="font-weight: bold;">Campanha Criada com Sucesso!</div>
+            <div style="font-size: 0.875rem; color: #666;">ROI previsto: 520% | 2,450 clientes targeted</div>
+        </div>
+    </div>
+
+    <!-- Floating Action Menu -->
+    <div class="fab-menu">
+        <div class="fab-options" id="fabOptions">
+            <button class="fab-option" style="animation-delay: 0.1s;">📊</button>
+            <button class="fab-option" style="animation-delay: 0.2s;">🎯</button>
+            <button class="fab-option" style="animation-delay: 0.3s;">💬</button>
+        </div>
+        <button class="fab-main" id="fabMain">
+            <svg width="24" height="24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // AI Campaign Creator
+        const campaignInput = document.getElementById('campaignInput');
+        const createBtn = document.getElementById('createBtn');
+        const toast = document.getElementById('toast');
+
+        createBtn.addEventListener('click', () => {
+            if (campaignInput.value.trim()) {
+                // Simulate AI processing
+                createBtn.innerHTML = '<span>⏳</span><span>Criando...</span>';
+                createBtn.disabled = true;
+                
+                setTimeout(() => {
+                    showToast();
+                    createBtn.innerHTML = '<span>✨</span><span>Criar com IA</span>';
+                    createBtn.disabled = false;
+                    campaignInput.value = '';
+                    
+                    // Update metrics
+                    updateMetrics();
+                    
+                    // Add new campaign to list
+                    addNewCampaign();
+                }, 2000);
+            }
+        });
+
+        function showToast() {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Update Metrics Real-time
+        function updateMetrics() {
+            const values = document.querySelectorAll('.metric-value');
+            values.forEach(value => {
+                const text = value.textContent;
+                if (text.includes('%')) {
+                    const current = parseFloat(text);
+                    const change = (Math.random() * 10 - 5).toFixed(1);
+                    value.innerHTML = `${(current + parseFloat(change)).toFixed(1)}%<span class="metric-change">↑ ${Math.abs(change)}%</span>`;
+                } else if (!text.includes(',')) {
+                    const current = parseFloat(text);
+                    const change = (Math.random() * 10 - 5).toFixed(1);
+                    value.innerHTML = `${(current + parseFloat(change)).toFixed(1)}<span class="metric-change">↑ ${Math.abs(change)}</span>`;
+                }
+            });
+        }
+
+        // Add New Campaign
+        function addNewCampaign() {
+            const campaignsPanel = document.querySelector('.campaigns-panel');
+            const newCampaign = document.createElement('div');
+            newCampaign.className = 'campaign-item';
+            newCampaign.innerHTML = `
+                <div class="campaign-status"></div>
+                <div class="campaign-name">Nova Campanha IA</div>
+                <div class="campaign-metrics">
+                    <span>ROI: Calculating...</span>
+                    <span>Conv: ---%</span>
+                </div>
+            `;
+            campaignsPanel.insertBefore(newCampaign, campaignsPanel.children[1]);
+            
+            setTimeout(() => {
+                newCampaign.querySelector('.campaign-metrics').innerHTML = `
+                    <span>ROI: 580%</span>
+                    <span>Conv: 14.2%</span>
+                `;
+            }, 3000);
+        }
+
+        // Tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Preview Tabs
+        const previewTabs = document.querySelectorAll('.preview-tab');
+        previewTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                previewTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // FAB Menu
+        const fabMain = document.getElementById('fabMain');
+        const fabOptions = document.getElementById('fabOptions');
+
+        fabMain.addEventListener('click', () => {
+            fabMain.classList.toggle('active');
+            fabOptions.classList.toggle('show');
+        });
+
+        // Simulate Real-time Updates
+        setInterval(() => {
+            updateMetrics();
+            
+            // Random notifications
+            if (Math.random() > 0.95) {
+                showRandomNotification();
+            }
+        }, 5000);
+
+        function showRandomNotification() {
+            const notifications = [
+                { title: 'Campanha Otimizada!', text: 'AI aumentou ROI em 23% ajustando timing' },
+                { title: 'Novo Segmento!', text: 'AI identificou 450 clientes high-value' },
+                { title: 'A/B Test Concluído', text: 'Versão B tem 34% mais conversão' },
+                { title: 'Churn Alert!', text: 'AI preveniu perda de 89 clientes VIP' }
+            ];
+            
+            const random = notifications[Math.floor(Math.random() * notifications.length)];
+            const toastText = toast.querySelector('div:last-child');
+            toastText.innerHTML = `
+                <div style="font-weight: bold;">${random.title}</div>
+                <div style="font-size: 0.875rem; color: #666;">${random.text}</div>
+            `;
+            showToast();
+        }
+
+        // Chart Simulation
+        const canvas = document.getElementById('performanceChart');
+        const ctx = canvas.getContext('2d');
+        
+        function drawChart() {
+            const width = canvas.width = canvas.offsetWidth;
+            const height = canvas.height = canvas.offsetHeight;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw gradient line
+            const gradient = ctx.createLinearGradient(0, 0, width, 0);
+            gradient.addColorStop(0, '#ff6b6b');
+            gradient.addColorStop(1, '#4ecdc4');
+            
+            ctx.beginPath();
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 3;
+            
+            // Generate smooth curve
+            for (let x = 0; x < width; x += 5) {
+                const y = height/2 + Math.sin(x * 0.02) * 50 * Math.random();
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+            
+            // Draw points
+            for (let x = 0; x < width; x += 50) {
+                const y = height/2 + Math.sin(x * 0.02) * 50 * Math.random();
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff6b6b';
+                ctx.fill();
+            }
+        }
+        
+        drawChart();
+        window.addEventListener('resize', drawChart);
+
+        // Initialize
+        setTimeout(() => {
+            showToast();
+        }, 1000);
+    </script>
+</body>
+</html>
