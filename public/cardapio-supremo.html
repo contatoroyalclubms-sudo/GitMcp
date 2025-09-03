@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cardápio SUPREMO - Sistema Inteligente com IA</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --success: #00b894;
+            --danger: #ff7675;
+            --warning: #fdcb6e;
+            --dark: #0f0f1e;
+            --darker: #07070f;
+            --light: #dfe6e9;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #0f0f1e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-glass {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-assistant {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            animation: rotate 3s linear infinite;
+        }
+
+        .ai-title h2 {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .ai-title p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .ai-suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .suggestion-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .suggestion-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .suggestion-desc {
+            font-size: 12px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: rgba(0, 184, 148, 0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--success);
+        }
+
+        .product-builder {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .builder-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .builder-title h2 {
+            font-size: 22px;
+        }
+
+        .builder-badge {
+            background: linear-gradient(135deg, var(--warning), #ff6b6b);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            background: var(--glass);
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-bottom: 25px;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .upload-area.active {
+            border-color: var(--secondary);
+            background: rgba(0, 206, 201, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--light);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .ai-generated {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+            font-size: 11px;
+            color: var(--secondary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .product-favorite {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-favorite:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .product-favorite.active {
+            color: var(--warning);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 13px;
+            opacity: 0.8;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .product-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .product-btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .recommendations {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .recommendations-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .recommendations-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ml-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .combo-builder {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .combo-items {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .combo-item {
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .combo-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: var(--glass);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .combo-plus {
+            font-size: 24px;
+            color: var(--secondary);
+        }
+
+        .combo-price {
+            background: var(--success);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .analytics-dashboard {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .heatmap {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            background: var(--glass);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .heatmap-cell.hot {
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+        }
+
+        .heatmap-cell.warm {
+            background: linear-gradient(135deg, var(--warning), #ffa502);
+        }
+
+        .heatmap-cell.cool {
+            background: linear-gradient(135deg, var(--secondary), #00d2d3);
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            background: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">🍔</div>
+                    <div class="logo-text">
+                        <h1>Cardápio SUPREMO</h1>
+                        <p>Sistema Inteligente com IA</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-glass" onclick="toggleQRMenu()">
+                        📱 QR Menu
+                    </button>
+                    <button class="btn btn-glass" onclick="openAnalytics()">
+                        📊 Analytics
+                    </button>
+                    <button class="btn btn-primary" onclick="openProductBuilder()">
+                        ➕ Novo Produto
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="ai-assistant">
+            <div class="ai-header">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">
+                    <h2>Assistente IA SUPREMO</h2>
+                    <p>Sugestões personalizadas baseadas em Machine Learning</p>
+                </div>
+            </div>
+            <div class="ai-suggestions">
+                <div class="suggestion-card" onclick="aiCreateCombo()">
+                    <div class="suggestion-icon">🎯</div>
+                    <div class="suggestion-title">Combo Inteligente</div>
+                    <div class="suggestion-desc">IA sugere combo baseado em vendas</div>
+                </div>
+                <div class="suggestion-card" onclick="aiOptimizePrice()">
+                    <div class="suggestion-icon">💰</div>
+                    <div class="suggestion-title">Otimizar Preços</div>
+                    <div class="suggestion-desc">ML analisa e sugere preços ideais</div>
+                </div>
+                <div class="suggestion-card" onclick="aiPredictDemand()">
+                    <div class="suggestion-icon">📈</div>
+                    <div class="suggestion-title">Prever Demanda</div>
+                    <div class="suggestion-desc">Forecasting para próximo evento</div>
+                </div>
+                <div class="suggestion-card" onclick="aiGenerateProduct()">
+                    <div class="suggestion-icon">✨</div>
+                    <div class="suggestion-title">Gerar Produto</div>
+                    <div class="suggestion-desc">IA cria produto completo</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value">247</div>
+                <div class="stat-label">Produtos Ativos</div>
+                <div class="stat-trend">↑ 12% esta semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💵</div>
+                <div class="stat-value">R$ 45.8K</div>
+                <div class="stat-label">Vendas Hoje</div>
+                <div class="stat-trend">↑ 23% vs ontem</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value">Cerveja</div>
+                <div class="stat-label">Mais Vendido</div>
+                <div class="stat-trend">1.2K unidades</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">98.5%</div>
+                <div class="stat-label">Taxa Conversão</div>
+                <div class="stat-trend">↑ 5% com IA</div>
+            </div>
+        </div>
+
+        <div class="product-builder">
+            <div class="builder-header">
+                <div class="builder-title">
+                    <h2>🎨 Product Builder com IA</h2>
+                    <span class="builder-badge">NEW AI</span>
+                </div>
+            </div>
+            
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('productImage').click()">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Arraste uma imagem ou clique para upload</div>
+                <div class="upload-hint">IA analisará e criará o produto automaticamente</div>
+                <input type="file" id="productImage" hidden accept="image/*" onchange="processImage(this)">
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Nome do Produto</label>
+                    <input type="text" class="form-input" id="productName" placeholder="Ex: Cerveja Premium">
+                    <div class="ai-generated">✨ Gerado por IA</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Categoria</label>
+                    <select class="form-select" id="productCategory">
+                        <option>CERVEJA</option>
+                        <option>DESTILADO</option>
+                        <option>DRINK</option>
+                        <option>COMBO</option>
+                        <option>ENTRADA</option>
+                    </select>
+                    <div class="ai-generated">🤖 Predição 95% confiança</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Preço Sugerido</label>
+                    <input type="text" class="form-input" id="productPrice" placeholder="R$ 0,00">
+                    <div class="ai-generated">📊 Baseado em análise competitiva</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Estoque Inicial</label>
+                    <input type="number" class="form-input" id="productStock" placeholder="100">
+                    <div class="ai-generated">📈 Previsão de demanda: Alto</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-textarea" id="productDescription" placeholder="Descrição gerada por IA..."></textarea>
+                <div class="ai-generated">✍️ Otimizada para conversão</div>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <div class="recommendations-header">
+                <div class="recommendations-title">
+                    <h2>🎯 Recomendações Personalizadas</h2>
+                    <span class="ml-badge">ML Engine</span>
+                </div>
+            </div>
+            
+            <div class="combo-builder">
+                <h3 style="margin-bottom: 15px;">💡 Combo Sugerido por IA</h3>
+                <div class="combo-items">
+                    <div class="combo-item">
+                        <div class="combo-item-image">🍺</div>
+                        <div>Cerveja</div>
+                    </div>
+                    <div class="combo-plus">+</div>
+                    <div class="combo-item">
+                        <div class="combo-item-image">🍟</div>
+                        <div>Batata</div>
+                    </div>
+                    <div class="combo-plus">=</div>
+                    <div class="combo-price">
+                        <div>R$ 25,00</div>
+                        <small>Economia de R$ 5</small>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">
+                    ✨ Criar Combo Automático
+                </button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='white' font-size='180' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🍺%3C/text%3E%3C/svg%3E" alt="Cerveja">
+                    <div class="product-badge">Mais Vendido</div>
+                    <div class="product-favorite active">⭐</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">CERVEJA</div>
+                    <div class="product-name">Cerveja Premium</div>
+                    <div class="product-description">Cerveja gelada especial para o evento</div>
+                    <div class="product-price">R$ 12,00</div>
+                    <div class="product-actions">
+                        <button class="product-btn product-btn-primary">Editar</button>
+                        <button class="product-btn product-btn-secondary">Analytics</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%2300cec9' width='400' height='400'/%3E%3Ctext fill='white' font-size='180' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🥃%3C/text%3E%3C/svg%3E" alt="Whisky">
+                    <div class="product-badge">Premium</div>
+                    <div class="product-favorite">⭐</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">DESTILADO</div>
+                    <div class="product-name">Whisky 12 Anos</div>
+                    <div class="product-description">Dose especial de whisky envelhecido</div>
+                    <div class="product-price">R$ 35,00</div>
+                    <div class="product-actions">
+                        <button class="product-btn product-btn-primary">Editar</button>
+                        <button class="product-btn product-btn-secondary">Analytics</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23ff7675' width='400' height='400'/%3E%3Ctext fill='white' font-size='180' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E🍹%3C/text%3E%3C/svg%3E" alt="Caipirinha">
+                    <div class="product-badge">Recomendado</div>
+                    <div class="product-favorite">⭐</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">DRINK</div>
+                    <div class="product-name">Caipirinha Especial</div>
+                    <div class="product-description">Drink tradicional com cachaça premium</div>
+                    <div class="product-price">R$ 18,00</div>
+                    <div class="product-actions">
+                        <button class="product-btn product-btn-primary">Editar</button>
+                        <button class="product-btn product-btn-secondary">Analytics</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="analytics-dashboard">
+            <h2 style="margin-bottom: 20px;">📊 Analytics Preditivo</h2>
+            <canvas id="salesChart"></canvas>
+            
+            <h3 style="margin: 20px 0;">🔥 Heatmap de Vendas por Hora</h3>
+            <div class="heatmap">
+                <div class="heatmap-cell cool">
+                    <div>18h</div>
+                    <div>Baixo</div>
+                </div>
+                <div class="heatmap-cell warm">
+                    <div>19h</div>
+                    <div>Médio</div>
+                </div>
+                <div class="heatmap-cell hot">
+                    <div>20h</div>
+                    <div>Alto</div>
+                </div>
+                <div class="heatmap-cell hot">
+                    <div>21h</div>
+                    <div>Pico</div>
+                </div>
+                <div class="heatmap-cell hot">
+                    <div>22h</div>
+                    <div>Pico</div>
+                </div>
+                <div class="heatmap-cell warm">
+                    <div>23h</div>
+                    <div>Médio</div>
+                </div>
+                <div class="heatmap-cell cool">
+                    <div>00h</div>
+                    <div>Baixo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-action" onclick="openAIChat()">
+        🤖
+    </div>
+
+    <div class="modal" id="aiModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🤖 Assistente IA SUPREMO</h2>
+                <div class="modal-close" onclick="closeModal()">✖</div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p>Como posso ajudar com seu cardápio?</p>
+                <ul style="margin-top: 15px; list-style: none;">
+                    <li style="margin-bottom: 10px;">✨ Criar produtos com IA</li>
+                    <li style="margin-bottom: 10px;">📊 Análise preditiva de vendas</li>
+                    <li style="margin-bottom: 10px;">💰 Otimização de preços</li>
+                    <li style="margin-bottom: 10px;">🎯 Combos personalizados</li>
+                    <li style="margin-bottom: 10px;">📈 Forecasting de demanda</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Inicialização do sistema
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            loadProducts();
+            startAISuggestions();
+            checkPWAInstall();
+        });
+
+        // Sistema de IA para sugestões
+        const aiSuggestions = [
+            { icon: '🎯', title: 'Combo Inteligente', desc: 'Cerveja + Batata: +45% vendas' },
+            { icon: '💰', title: 'Ajuste de Preço', desc: 'Whisky: Reduzir para R$ 32 (+20% vendas)' },
+            { icon: '📈', title: 'Previsão', desc: 'Sexta: Estoque +80% cerveja' },
+            { icon: '✨', title: 'Novo Produto', desc: 'Gin Tônica tem 85% de potencial' },
+            { icon: '🔥', title: 'Trending', desc: 'Shots estão em alta (+120%)' },
+            { icon: '🎁', title: 'Promoção', desc: '2x1 em drinks após 23h' }
+        ];
+
+        let suggestionIndex = 0;
+        function startAISuggestions() {
+            setInterval(() => {
+                const suggestions = document.querySelectorAll('.suggestion-card');
+                suggestions.forEach((card, index) => {
+                    const suggestion = aiSuggestions[(suggestionIndex + index) % aiSuggestions.length];
+                    card.querySelector('.suggestion-icon').textContent = suggestion.icon;
+                    card.querySelector('.suggestion-title').textContent = suggestion.title;
+                    card.querySelector('.suggestion-desc').textContent = suggestion.desc;
+                });
+                suggestionIndex++;
+            }, 5000);
+        }
+
+        // Processamento de imagem com IA
+        function processImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Simula análise de IA
+                    setTimeout(() => {
+                        document.getElementById('productName').value = 'Cerveja Artesanal IPA';
+                        document.getElementById('productCategory').value = 'CERVEJA';
+                        document.getElementById('productPrice').value = 'R$ 15,00';
+                        document.getElementById('productStock').value = '200';
+                        document.getElementById('productDescription').value = 'Cerveja artesanal com notas cítricas e amargor equilibrado. Produzida com lúpulos selecionados e processo de fermentação especial. Teor alcoólico: 6.5%. Servir gelada entre 4-6°C.';
+                        
+                        document.getElementById('uploadArea').classList.add('active');
+                        document.getElementById('uploadArea').innerHTML = `
+                            <img src="${e.target.result}" style="max-width: 200px; border-radius: 12px;">
+                            <div style="margin-top: 10px; color: var(--success);">✅ IA analisou com sucesso!</div>
+                        `;
+                    }, 1500);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Funções de IA
+        function aiCreateCombo() {
+            alert('🎯 IA está analisando padrões de venda para criar o combo perfeito...');
+        }
+
+        function aiOptimizePrice() {
+            alert('💰 ML está calculando o preço ótimo baseado em elasticidade e concorrência...');
+        }
+
+        function aiPredictDemand() {
+            alert('📈 Algoritmo de forecasting está prevendo demanda para próximo evento...');
+        }
+
+        function aiGenerateProduct() {
+            document.getElementById('productName').value = 'Moscow Mule Premium';
+            document.getElementById('productCategory').value = 'DRINK';
+            document.getElementById('productPrice').value = 'R$ 22,00';
+            document.getElementById('productDescription').value = 'Drink refrescante com vodka premium, ginger beer artesanal e limão siciliano. Servido na tradicional caneca de cobre.';
+            alert('✨ Produto gerado com sucesso por IA!');
+        }
+
+        // Gráficos com Chart.js
+        function initializeCharts() {
+            const ctx = document.getElementById('salesChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['18h', '19h', '20h', '21h', '22h', '23h', '00h'],
+                        datasets: [{
+                            label: 'Vendas Reais',
+                            data: [20, 45, 85, 120, 150, 110, 60],
+                            borderColor: '#6c5ce7',
+                            backgroundColor: 'rgba(108, 92, 231, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Previsão IA',
+                            data: [25, 50, 90, 125, 155, 115, 65],
+                            borderColor: '#00cec9',
+                            backgroundColor: 'rgba(0, 206, 201, 0.1)',
+                            borderDash: [5, 5],
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#dfe6e9'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.05)'
+                                },
+                                ticks: {
+                                    color: '#dfe6e9'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.05)'
+                                },
+                                ticks: {
+                                    color: '#dfe6e9'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Carregamento de produtos
+        function loadProducts() {
+            // Simula carregamento de produtos
+            console.log('Produtos carregados com sucesso');
+        }
+
+        // PWA Install
+        let deferredPrompt;
+        function checkPWAInstall() {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+            });
+        }
+
+        // Modal functions
+        function openAIChat() {
+            document.getElementById('aiModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('aiModal').classList.remove('active');
+        }
+
+        function openProductBuilder() {
+            document.querySelector('.product-builder').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleQRMenu() {
+            alert('📱 QR Menu disponível em: supremo.menu/evento123');
+        }
+
+        function openAnalytics() {
+            document.querySelector('.analytics-dashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // WebSocket para real-time
+        function connectWebSocket() {
+            const ws = new WebSocket('wss://supremo-api.com/cardapio');
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === 'new_order') {
+                    // Atualiza dashboard em tempo real
+                    console.log('Nova venda:', data);
+                }
+            };
+        }
+
+        // Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>
