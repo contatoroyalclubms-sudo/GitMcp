@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Intelligence SUPREMO - 1000x Superior ao MIP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-200px) translateX(100px) scale(1.1); }
+            50% { transform: translateY(-100px) translateX(-100px) scale(0.9); }
+            75% { transform: translateY(-300px) translateX(50px) scale(1.05); }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Natural Language Search */
+        .search-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .nlp-search {
+            position: relative;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nlp-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #667eea, #764ba2) border-box;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .nlp-input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .voice-btn.recording {
+            animation: recording 1s infinite;
+        }
+
+        @keyframes recording {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            50% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+        }
+
+        /* Search Suggestions */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            margin-top: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-suggestions.active {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+
+        .suggestion-category {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Main Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-title {
+            font-size: 0.875rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-change {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .metric-change.positive {
+            color: #10b981;
+        }
+
+        .metric-change.negative {
+            color: #ef4444;
+        }
+
+        /* Customer 360 View */
+        .customer-360 {
+            grid-column: span 2;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .customer-profile {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .customer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .customer-info {
+            flex: 1;
+        }
+
+        .customer-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .customer-details {
+            display: flex;
+            gap: 2rem;
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        /* Behavior Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -2.4rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 2px solid white;
+        }
+
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Predictive Scores */
+        .score-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .score-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Smart Actions */
+        .actions-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .action-btn:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Real-time Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            width: 350px;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s;
+            z-index: 2000;
+        }
+
+        .notification.show {
+            right: 20px;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .notification-body {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .customer-360 {
+                grid-column: span 1;
+            }
+
+            .score-container {
+                grid-template-columns: 1fr;
+            }
+
+            .customer-profile {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-bubble" style="width: 80px; height: 80px; left: 10%; top: 20%;"></div>
+        <div class="floating-bubble" style="width: 120px; height: 120px; left: 70%; top: 60%; animation-delay: -5s;"></div>
+        <div class="floating-bubble" style="width: 60px; height: 60px; left: 30%; top: 70%; animation-delay: -10s;"></div>
+        <div class="floating-bubble" style="width: 100px; height: 100px; left: 90%; top: 10%; animation-delay: -15s;"></div>
+        <div class="floating-bubble" style="width: 40px; height: 40px; left: 50%; top: 40%; animation-delay: -7s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>🧠</span>
+                <span>Customer Intelligence SUPREMO</span>
+                <span class="ai-badge">AI-POWERED</span>
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <span style="color: #666;">Real-time</span>
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; animation: pulse 1s infinite;"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Natural Language Search -->
+    <div class="search-container">
+        <div class="nlp-search">
+            <input type="text" class="nlp-input" placeholder='Tente: "Clientes que gastaram mais de R$500 este mês" ou "Quem tem risco de churn?"' id="nlpSearch">
+            <button class="voice-btn" id="voiceBtn">
+                <svg width="24" height="24" fill="currentColor">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                </svg>
+            </button>
+            <div class="search-suggestions" id="suggestions">
+                <div class="suggestion-item">
+                    <div class="suggestion-category">Comportamento</div>
+                    <div>Clientes inativos há mais de 30 dias</div>
+                </div>
+                <div class="suggestion-item">
+                    <div class="suggestion-category">Financeiro</div>
+                    <div>Top 10 clientes por faturamento</div>
+                </div>
+                <div class="suggestion-item">
+                    <div class="suggestion-category">Risco</div>
+                    <div>Clientes com alto risco de churn</div>
+                </div>
+                <div class="suggestion-item">
+                    <div class="suggestion-category">Segmentação</div>
+                    <div>Clientes VIP com LTV acima de R$10.000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <!-- Metric Cards -->
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Total Clientes</span>
+                <div class="metric-icon">👥</div>
+            </div>
+            <div class="metric-value">12,847</div>
+            <div class="metric-change positive">
+                <span>↑</span>
+                <span>12.5% vs mês anterior</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Lifetime Value Médio</span>
+                <div class="metric-icon">💎</div>
+            </div>
+            <div class="metric-value">R$ 3,456</div>
+            <div class="metric-change positive">
+                <span>↑</span>
+                <span>8.3% crescimento</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 83%;"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">Churn Rate</span>
+                <div class="metric-icon">📊</div>
+            </div>
+            <div class="metric-value">2.1%</div>
+            <div class="metric-change positive">
+                <span>↓</span>
+                <span>0.5% redução</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 21%;"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-header">
+                <span class="metric-title">NPS Score</span>
+                <div class="metric-icon">⭐</div>
+            </div>
+            <div class="metric-value">87</div>
+            <div class="metric-change positive">
+                <span>↑</span>
+                <span>5 pontos</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 87%;"></div>
+            </div>
+        </div>
+
+        <!-- Customer 360 View -->
+        <div class="customer-360">
+            <h2 style="margin-bottom: 1.5rem; color: #333;">Customer 360° Intelligence</h2>
+            
+            <div class="customer-profile">
+                <div class="customer-avatar">CF</div>
+                <div class="customer-info">
+                    <div class="customer-name">Cleber Fagundes</div>
+                    <div class="customer-details">
+                        <span>📱 (67) 99999-9601</span>
+                        <span>📧 cleber@email.com</span>
+                        <span>📍 São Paulo, SP</span>
+                        <span>🎂 Cliente há 2 anos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active">Comportamento</button>
+                <button class="tab">Financeiro</button>
+                <button class="tab">Preferências</button>
+                <button class="tab">Predições</button>
+                <button class="tab">Campanhas</button>
+            </div>
+
+            <!-- Behavior Timeline -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">Há 2 horas</div>
+                        <div>🛍️ Compra realizada - R$ 145,00</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">Ontem às 15:30</div>
+                        <div>📧 Email de campanha aberto - Taxa de engajamento 85%</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">3 dias atrás</div>
+                        <div>⭐ Avaliação 5 estrelas - "Excelente atendimento"</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predictive Scores -->
+            <div class="score-container">
+                <div class="score-card">
+                    <div class="score-value">92%</div>
+                    <div class="score-label">Probabilidade de Compra</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-value">5%</div>
+                    <div class="score-label">Risco de Churn</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-value">A+</div>
+                    <div class="score-label">Score de Valor</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart Actions Panel -->
+        <div class="actions-panel">
+            <h3 style="margin-bottom: 1rem; color: #333;">Ações Inteligentes</h3>
+            
+            <button class="action-btn">
+                <div class="action-icon">🎯</div>
+                <div>
+                    <div style="font-weight: bold;">Enviar Campanha Personalizada</div>
+                    <div style="font-size: 0.875rem; color: #666;">ROI previsto: 320%</div>
+                </div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">🎁</div>
+                <div>
+                    <div style="font-weight: bold;">Oferecer Desconto VIP</div>
+                    <div style="font-size: 0.875rem; color: #666;">Aumenta LTV em 25%</div>
+                </div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">📞</div>
+                <div>
+                    <div style="font-weight: bold;">Agendar Follow-up</div>
+                    <div style="font-size: 0.875rem; color: #666;">Cliente em momento de decisão</div>
+                </div>
+            </button>
+
+            <button class="action-btn">
+                <div class="action-icon">🔄</div>
+                <div>
+                    <div style="font-weight: bold;">Ativar Retenção Automática</div>
+                    <div style="font-size: 0.875rem; color: #666;">Prevenir churn potencial</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Real-time Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <div class="notification-icon">🎯</div>
+            <div class="notification-title">Nova Oportunidade Detectada!</div>
+        </div>
+        <div class="notification-body">
+            Cliente João Silva demonstrou interesse em produtos premium. 
+            Probabilidade de conversão: 87%. Ação recomendada: Enviar oferta personalizada.
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab">
+        <svg width="24" height="24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+    </button>
+
+    <script>
+        // Natural Language Search
+        const nlpSearch = document.getElementById('nlpSearch');
+        const suggestions = document.getElementById('suggestions');
+        const voiceBtn = document.getElementById('voiceBtn');
+
+        nlpSearch.addEventListener('focus', () => {
+            suggestions.classList.add('active');
+        });
+
+        nlpSearch.addEventListener('blur', () => {
+            setTimeout(() => suggestions.classList.remove('active'), 200);
+        });
+
+        nlpSearch.addEventListener('input', (e) => {
+            if (e.target.value.length > 2) {
+                // Simulate AI suggestions
+                suggestions.classList.add('active');
+            }
+        });
+
+        // Voice Recognition
+        voiceBtn.addEventListener('click', () => {
+            voiceBtn.classList.toggle('recording');
+            if (voiceBtn.classList.contains('recording')) {
+                nlpSearch.value = 'Ouvindo...';
+                setTimeout(() => {
+                    nlpSearch.value = 'Mostrar clientes VIP com alto engajamento';
+                    voiceBtn.classList.remove('recording');
+                    // Trigger search
+                    performSearch();
+                }, 2000);
+            }
+        });
+
+        // Perform Search
+        function performSearch() {
+            // Simulate search results
+            showNotification('Busca Inteligente', '47 clientes encontrados com os critérios especificados.');
+        }
+
+        // Real-time Updates
+        setInterval(() => {
+            // Update metrics
+            updateMetrics();
+            
+            // Show random notifications
+            if (Math.random() > 0.95) {
+                showRandomNotification();
+            }
+        }, 5000);
+
+        function updateMetrics() {
+            const values = document.querySelectorAll('.metric-value');
+            values.forEach(value => {
+                if (value.textContent.includes('R$')) {
+                    const current = parseInt(value.textContent.replace(/\D/g, ''));
+                    const change = Math.floor(Math.random() * 100) - 50;
+                    value.textContent = `R$ ${(current + change).toLocaleString('pt-BR')}`;
+                }
+            });
+
+            // Update progress bars
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const currentWidth = parseFloat(bar.style.width);
+                const newWidth = Math.max(10, Math.min(100, currentWidth + (Math.random() * 10 - 5)));
+                bar.style.width = newWidth + '%';
+            });
+        }
+
+        function showNotification(title, body) {
+            const notification = document.getElementById('notification');
+            notification.querySelector('.notification-title').textContent = title;
+            notification.querySelector('.notification-body').textContent = body;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        function showRandomNotification() {
+            const notifications = [
+                {
+                    title: 'Churn Alert!',
+                    body: '3 clientes premium demonstram sinais de abandono. Ação preventiva recomendada.'
+                },
+                {
+                    title: 'Oportunidade de Upsell',
+                    body: '15 clientes prontos para upgrade. Potencial de receita: R$ 45.000'
+                },
+                {
+                    title: 'Campanha Bem-sucedida',
+                    body: 'Última campanha gerou 234 conversões. ROI: 450%'
+                },
+                {
+                    title: 'Novo Segmento Identificado',
+                    body: 'AI detectou novo cluster de clientes high-value. 127 perfis identificados.'
+                }
+            ];
+            
+            const random = notifications[Math.floor(Math.random() * notifications.length)];
+            showNotification(random.title, random.body);
+        }
+
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update content based on tab
+                updateTabContent(tab.textContent);
+            });
+        });
+
+        function updateTabContent(tabName) {
+            console.log(`Loading ${tabName} content...`);
+            // Here would load different content based on tab
+        }
+
+        // FAB Action
+        document.querySelector('.fab').addEventListener('click', () => {
+            showNotification('AI Assistant', 'Como posso ajudar você hoje? Use linguagem natural para suas consultas.');
+        });
+
+        // Initialize
+        setTimeout(() => {
+            showNotification('Sistema Iniciado', 'Customer Intelligence SUPREMO carregado com sucesso. 1000x superior ao MIP!');
+        }, 1000);
+
+        // Simulate real-time customer updates
+        setInterval(() => {
+            const avatars = ['JM', 'AS', 'CF', 'PL', 'RT', 'MB'];
+            const names = ['João Mendes', 'Ana Silva', 'Cleber Fagundes', 'Pedro Lima', 'Rita Torres', 'Mario Borges'];
+            const idx = Math.floor(Math.random() * avatars.length);
+            
+            document.querySelector('.customer-avatar').textContent = avatars[idx];
+            document.querySelector('.customer-name').textContent = names[idx];
+        }, 10000);
+    </script>
+</body>
+</html>
