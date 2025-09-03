@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet SUPREMO - Pagamentos Inteligentes com IA & Fraud Detection</title>
+    
+    <!-- TensorFlow.js para ML -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- Chart.js para visualizações -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- QR Code Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stripe.js para pagamentos -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            background: var(--gradient);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 i {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .security-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .security-badge i {
+            color: #10b981;
+        }
+
+        .security-badge span {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Digital Wallet Card */
+        .wallet-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .wallet-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wallet-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wallet-logo i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .wallet-logo span {
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .wallet-chip {
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wallet-chip::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 35px;
+            height: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .wallet-balance {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .balance-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .balance-amount .currency {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .balance-crypto {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .wallet-number {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .wallet-footer {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wallet-holder {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .wallet-holder-name {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .wallet-valid {
+            text-align: right;
+        }
+
+        .wallet-valid-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+        }
+
+        .wallet-valid-date {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-btn i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .action-btn.pay i { color: #10b981; }
+        .action-btn.receive i { color: #6366f1; }
+        .action-btn.recharge i { color: #f59e0b; }
+        .action-btn.transfer i { color: #ec4899; }
+        .action-btn.crypto i { color: #8b5cf6; }
+        .action-btn.split i { color: #14b8a6; }
+
+        .action-btn span {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #fbbf24;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .payment-method {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .payment-method.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: #6366f1;
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .payment-icon.qr { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .payment-icon.nfc { background: rgba(99, 102, 241, 0.2); color: #6366f1; }
+        .payment-icon.voice { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+        .payment-icon.ar { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .payment-icon.bio { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-name {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        /* Fraud Detection Panel */
+        .fraud-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.9s ease-out;
+        }
+
+        .fraud-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .fraud-indicator {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fraud-score {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .fraud-score.low {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            color: #10b981;
+        }
+
+        .fraud-score.medium {
+            background: rgba(245, 158, 11, 0.2);
+            border: 2px solid #f59e0b;
+            color: #f59e0b;
+        }
+
+        .fraud-score.high {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .fraud-score::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0; }
+        }
+
+        .fraud-info {
+            flex: 1;
+        }
+
+        .fraud-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .fraud-value {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Transaction History */
+        .transactions {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .transaction-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .filter-chip:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .transaction-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .transaction-icon.received {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .transaction-icon.sent {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .transaction-icon.recharge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-merchant {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .transaction-time {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .transaction-amount {
+            text-align: right;
+        }
+
+        .amount-value {
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .amount-status {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .amount-status.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .amount-status.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        /* QR Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--glass);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .qr-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .qr-amount {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .qr-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Analytics Charts */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            animation: fadeInUp 1.1s ease-out;
+        }
+
+        /* Auto Recharge */
+        .auto-recharge {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .recharge-settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .recharge-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .recharge-option.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: #6366f1;
+        }
+
+        .recharge-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .recharge-label {
+            color: white;
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.4s;
+            border-radius: 25px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3.5px;
+            background: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .recharge-details {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .recharge-threshold {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .threshold-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .threshold-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .threshold-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .wallet-card {
+                padding: 20px;
+            }
+
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* AI Badge */
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .ai-badge i {
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-wallet"></i>
+                Digital Wallet SUPREMO
+            </h1>
+            <div class="security-status">
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>PCI DSS Compliant</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit Encryption</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Protected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digital Wallet Card -->
+        <div class="wallet-card">
+            <div class="wallet-header">
+                <div class="wallet-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>SUPREMO WALLET</span>
+                </div>
+                <div class="wallet-chip"></div>
+            </div>
+            
+            <div class="wallet-balance">
+                <div class="balance-label">Saldo Disponível</div>
+                <div class="balance-amount">
+                    <span class="currency">R$</span>
+                    <span>12.458,32</span>
+                </div>
+                <div class="balance-crypto">
+                    <i class="fab fa-bitcoin"></i> 0.00234 BTC • 
+                    <i class="fab fa-ethereum"></i> 0.0845 ETH
+                </div>
+            </div>
+
+            <div class="wallet-number">•••• •••• •••• 4829</div>
+
+            <div class="wallet-footer">
+                <div class="wallet-holder">
+                    <div class="wallet-holder-label">TITULAR</div>
+                    <div class="wallet-holder-name">JOÃO SILVA</div>
+                </div>
+                <div class="wallet-valid">
+                    <div class="wallet-valid-label">VÁLIDO ATÉ</div>
+                    <div class="wallet-valid-date">12/29</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-btn pay" onclick="showQRPayment()">
+                <i class="fas fa-qrcode"></i>
+                <span>Pagar QR</span>
+            </div>
+            <div class="action-btn receive" onclick="showReceiveQR()">
+                <i class="fas fa-download"></i>
+                <span>Receber</span>
+            </div>
+            <div class="action-btn recharge" onclick="showAutoRecharge()">
+                <i class="fas fa-bolt"></i>
+                <span>Recarga IA</span>
+            </div>
+            <div class="action-btn transfer">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transferir</span>
+            </div>
+            <div class="action-btn crypto">
+                <i class="fab fa-bitcoin"></i>
+                <span>Crypto</span>
+            </div>
+            <div class="action-btn split">
+                <i class="fas fa-users"></i>
+                <span>Dividir</span>
+            </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+            <h3 class="section-title">
+                <i class="fas fa-magic"></i>
+                Métodos de Pagamento Inteligentes
+            </h3>
+            <div class="payment-grid">
+                <div class="payment-method active">
+                    <div class="payment-icon qr">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">QR Code Instant</div>
+                        <div class="payment-desc">Pagamento instantâneo por QR</div>
+                    </div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon nfc">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">NFC Contactless</div>
+                        <div class="payment-desc">Aproxime e pague</div>
+                    </div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon voice">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">Voice Pay</div>
+                        <div class="payment-desc">Comando de voz com IA</div>
+                    </div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon ar">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">AR Scan</div>
+                        <div class="payment-desc">Realidade aumentada</div>
+                    </div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon bio">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-name">Biometric</div>
+                        <div class="payment-desc">Face ID & Touch ID</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fraud Detection Panel -->
+        <div class="fraud-panel">
+            <h3 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                Fraud Detection IA em Tempo Real
+                <span class="ai-badge">
+                    <i class="fas fa-brain"></i>
+                    ML Active
+                </span>
+            </h3>
+            <div class="fraud-indicators">
+                <div class="fraud-indicator">
+                    <div class="fraud-score low">95</div>
+                    <div class="fraud-info">
+                        <div class="fraud-label">Trust Score</div>
+                        <div class="fraud-value">Excelente</div>
+                    </div>
+                </div>
+
+                <div class="fraud-indicator">
+                    <div class="fraud-score low">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="fraud-info">
+                        <div class="fraud-label">Transações Seguras</div>
+                        <div class="fraud-value">1.247 / 1.250</div>
+                    </div>
+                </div>
+
+                <div class="fraud-indicator">
+                    <div class="fraud-score medium">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
+                    <div class="fraud-info">
+                        <div class="fraud-label">Alertas Ativos</div>
+                        <div class="fraud-value">2 Verificações</div>
+                    </div>
+                </div>
+
+                <div class="fraud-indicator">
+                    <div class="fraud-score low">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="fraud-info">
+                        <div class="fraud-label">ML Accuracy</div>
+                        <div class="fraud-value">98.7%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto Recharge Settings -->
+        <div class="auto-recharge">
+            <h3 class="section-title">
+                <i class="fas fa-magic"></i>
+                Recarga Automática Inteligente com IA
+            </h3>
+            <div class="recharge-settings">
+                <div class="recharge-option active">
+                    <div class="recharge-toggle">
+                        <span class="recharge-label">Smart Recharge</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="recharge-details">
+                        IA analisa seus padrões de gastos e recarrega automaticamente antes do saldo acabar.
+                    </div>
+                    <div class="recharge-threshold">
+                        <div class="threshold-label">Saldo mínimo para recarga</div>
+                        <input type="text" class="threshold-input" value="R$ 50,00">
+                    </div>
+                </div>
+
+                <div class="recharge-option">
+                    <div class="recharge-toggle">
+                        <span class="recharge-label">Predictive Loading</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="recharge-details">
+                        ML prevê seus gastos futuros baseado em eventos e histórico.
+                    </div>
+                    <div class="recharge-threshold">
+                        <div class="threshold-label">Valor sugerido: R$ 250,00</div>
+                        <input type="text" class="threshold-input" value="R$ 250,00">
+                    </div>
+                </div>
+
+                <div class="recharge-option">
+                    <div class="recharge-toggle">
+                        <span class="recharge-label">Event-based</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="recharge-details">
+                        Recarga automática quando detecta entrada em eventos ou locais específicos.
+                    </div>
+                    <div class="recharge-threshold">
+                        <div class="threshold-label">Valor por evento</div>
+                        <input type="text" class="threshold-input" value="R$ 500,00">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Charts -->
+        <div class="analytics-grid">
+            <div class="chart-container">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Análise de Gastos (ML)
+                </h3>
+                <canvas id="spendingChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Categorias de Gastos
+                </h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="transactions">
+            <h3 class="section-title">
+                <i class="fas fa-history"></i>
+                Histórico de Transações
+            </h3>
+            
+            <div class="transaction-filters">
+                <div class="filter-chip active">Todas</div>
+                <div class="filter-chip">Pagamentos</div>
+                <div class="filter-chip">Recargas</div>
+                <div class="filter-chip">Transferências</div>
+                <div class="filter-chip">Cashback</div>
+                <div class="filter-chip">Crypto</div>
+            </div>
+
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="transaction-icon received">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-merchant">Cashback Recebido</div>
+                        <div class="transaction-time">Hoje, 14:23</div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">+ R$ 45,00</div>
+                        <div class="amount-status success">Concluído</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-icon sent">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-merchant">Bar Royal - Mesa 12</div>
+                        <div class="transaction-time">Hoje, 13:45</div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">- R$ 156,80</div>
+                        <div class="amount-status success">Aprovado</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-icon recharge">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-merchant">Auto-Recarga IA</div>
+                        <div class="transaction-time">Ontem, 22:15</div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">+ R$ 500,00</div>
+                        <div class="amount-status success">Automático</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-icon sent">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-merchant">Cervejaria Premium</div>
+                        <div class="transaction-time">Ontem, 20:30</div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">- R$ 89,90</div>
+                        <div class="amount-status success">Split 3x</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-icon received">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-merchant">Bitcoin Purchase</div>
+                        <div class="transaction-time">2 dias atrás</div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">0.00234 BTC</div>
+                        <div class="amount-status pending">Confirmando</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Payment Modal -->
+    <div class="modal" id="qrModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Pagamento por QR Code</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="qr-container">
+                <div id="qrcode"></div>
+            </div>
+            <div class="qr-amount">R$ 156,80</div>
+            <div class="qr-info">
+                Escaneie o código para pagar<br>
+                Válido por 5 minutos
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Charts
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.8)';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Spending Analysis Chart
+        const spendingCtx = document.getElementById('spendingChart').getContext('2d');
+        const spendingChart = new Chart(spendingCtx, {
+            type: 'line',
+            data: {
+                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                datasets: [{
+                    label: 'Gastos Reais',
+                    data: [120, 190, 150, 250, 320, 480, 390],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Previsão IA',
+                    data: [null, null, null, null, null, null, 390, 420, 380],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    borderDash: [5, 5],
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': R$ ' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Alimentação', 'Bebidas', 'Entretenimento', 'Transporte', 'Outros'],
+                datasets: [{
+                    data: [35, 25, 20, 15, 5],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(99, 102, 241, 0.8)',
+                        'rgba(236, 72, 153, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // QR Code Generation
+        let qrcode = null;
+
+        function showQRPayment() {
+            const modal = document.getElementById('qrModal');
+            modal.classList.add('active');
+            
+            if (!qrcode) {
+                qrcode = new QRCode(document.getElementById("qrcode"), {
+                    text: "supremo-wallet://pay?amount=156.80&merchant=BarRoyal&id=" + Date.now(),
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        }
+
+        function showReceiveQR() {
+            // Similar implementation for receive QR
+            showQRPayment();
+        }
+
+        function closeModal() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+
+        // Auto Recharge Simulation
+        function showAutoRecharge() {
+            console.log('Auto recharge settings');
+            // Implement auto recharge modal
+        }
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update balance randomly
+            const balanceElement = document.querySelector('.balance-amount span:last-child');
+            const currentBalance = parseFloat(balanceElement.textContent.replace(',', '.'));
+            const change = (Math.random() - 0.5) * 10;
+            const newBalance = (currentBalance + change).toFixed(2).replace('.', ',');
+            balanceElement.textContent = newBalance;
+        }, 10000);
+
+        // Fraud Detection ML Simulation
+        async function detectFraud(transaction) {
+            // Simulate ML fraud detection
+            const features = {
+                amount: transaction.amount,
+                time: new Date().getHours(),
+                merchant: transaction.merchant,
+                location: transaction.location,
+                frequency: Math.random() * 10
+            };
+            
+            // Simulate ML scoring
+            const score = Math.random() * 100;
+            return {
+                score: score,
+                risk: score > 80 ? 'high' : score > 50 ? 'medium' : 'low',
+                factors: ['Unusual amount', 'New merchant', 'Different location']
+            };
+        }
+
+        // Voice Payment Simulation
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
+            
+            recognition.onresult = function(event) {
+                const command = event.results[0][0].transcript;
+                console.log('Voice command:', command);
+                // Process voice payment command
+            };
+        }
+
+        // Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw-payments.js').then(registration => {
+                console.log('Service Worker registered:', registration);
+            });
+        }
+
+        // Biometric Authentication
+        async function authenticateWithBiometric() {
+            if (window.PublicKeyCredential) {
+                // WebAuthn API for biometric authentication
+                console.log('Biometric authentication available');
+            }
+        }
+
+        // Initialize ML Model for spending prediction
+        async function loadMLModel() {
+            console.log('Loading ML model for spending prediction...');
+            // Load TensorFlow.js model here
+        }
+
+        // Multi-gateway routing
+        function selectOptimalGateway(amount, merchantType) {
+            const gateways = [
+                { name: 'Stripe', fee: 2.9, successRate: 0.98 },
+                { name: 'PagSeguro', fee: 3.5, successRate: 0.95 },
+                { name: 'MercadoPago', fee: 3.2, successRate: 0.96 }
+            ];
+            
+            // Select gateway with lowest cost and highest success rate
+            return gateways.reduce((best, current) => {
+                const currentScore = current.successRate / current.fee;
+                const bestScore = best.successRate / best.fee;
+                return currentScore > bestScore ? current : best;
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMLModel();
+            authenticateWithBiometric();
+            console.log('Digital Wallet SUPREMO initialized');
+        });
+    </script>
+</body>
+</html>
