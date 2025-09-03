@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operational Intelligence SUPREMO - 3000x Superior ao MIP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        :root {
+            --primary: #7C3AED;
+            --secondary: #2563EB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1F2937;
+            --light: #F3F4F6;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background - Neural Network */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .neural-node {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        .neural-connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: flow 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            animation: fadeIn 0.8s ease;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        /* AI Command Center */
+        .command-center {
+            grid-column: span 2;
+        }
+
+        .ai-terminal {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #00FF00;
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .ai-terminal .line {
+            margin: 0.5rem 0;
+            animation: typewriter 0.5s ease;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Staff Intelligence */
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .operator-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .operator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
+            animation: slide 2s infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .operator-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .operator-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .operator-status {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* Equipment Monitor */
+        .equipment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .equipment-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .equipment-info {
+            flex: 1;
+        }
+
+        .equipment-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .equipment-id {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .equipment-health {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .health-bar {
+            width: 100px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--warning));
+            transition: width 1s ease;
+        }
+
+        .health-percentage {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Printing Intelligence */
+        .printer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .printer-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+        }
+
+        .printer-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .printer-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online {
+            background: var(--success);
+        }
+
+        .status-dot.busy {
+            background: var(--warning);
+        }
+
+        .status-dot.offline {
+            background: var(--danger);
+        }
+
+        .printer-queue {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Metrics Dashboard */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: var(--success);
+        }
+
+        /* Automation Workflows */
+        .workflow-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .workflow-step {
+            min-width: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .workflow-step::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: white;
+            opacity: 0.5;
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        .workflow-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .workflow-status {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #DC2626);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Real-time Indicators */
+        .realtime-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: ping 1s infinite;
+        }
+
+        @keyframes ping {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .command-center {
+                grid-column: span 1;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background -->
+    <div class="neural-network" id="neuralNetwork"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                ⚡ Operational Intelligence SUPREMO
+                <span class="status-badge">LIVE - 3000x Superior</span>
+            </h1>
+            <p class="subtitle">Sistema de Gestão Operacional com AI, IoT e Automação Completa</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- AI Command Center -->
+            <div class="card command-center">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">🧠</span>
+                        AI Command Center
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="ai-terminal" id="aiTerminal">
+                    <div class="line">[AI] Iniciando Operational Intelligence System...</div>
+                    <div class="line">[IoT] Conectando 127 dispositivos...</div>
+                    <div class="line">[ML] Carregando modelos preditivos...</div>
+                    <div class="line">[OK] Sistema 100% operacional</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="runPredictiveAnalysis()">
+                        Análise Preditiva
+                    </button>
+                    <button class="btn btn-success" onclick="optimizeOperations()">
+                        Otimizar Operações
+                    </button>
+                    <button class="btn btn-warning" onclick="emergencyMode()">
+                        Modo Autônomo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Staff Intelligence -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">👥</span>
+                        Staff Intelligence AI
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="operator-grid" id="operatorGrid">
+                    <div class="operator-card">
+                        <div class="operator-name">João Silva</div>
+                        <div class="operator-score">98%</div>
+                        <div class="operator-status">Peak Performance</div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">Maria Santos</div>
+                        <div class="operator-score">95%</div>
+                        <div class="operator-status">Excellent</div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">Pedro Costa</div>
+                        <div class="operator-score">87%</div>
+                        <div class="operator-status">Good - Coaching</div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">Ana Lima</div>
+                        <div class="operator-score">92%</div>
+                        <div class="operator-status">Very Good</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" onclick="analyzeStaff()">
+                    AI Performance Analysis
+                </button>
+            </div>
+
+            <!-- Equipment IoT Monitor -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">📡</span>
+                        Equipment IoT Ecosystem
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="equipment-list" id="equipmentList">
+                    <div class="equipment-item">
+                        <div class="equipment-info">
+                            <div class="equipment-name">POS+ Terminal</div>
+                            <div class="equipment-id">MP01608</div>
+                        </div>
+                        <div class="equipment-health">
+                            <div class="health-percentage">98%</div>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 98%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-info">
+                            <div class="equipment-name">Totem Self-Service</div>
+                            <div class="equipment-id">TS00245</div>
+                        </div>
+                        <div class="equipment-health">
+                            <div class="health-percentage">94%</div>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-info">
+                            <div class="equipment-name">MeepCheck Scanner</div>
+                            <div class="equipment-id">MC00789</div>
+                        </div>
+                        <div class="equipment-health">
+                            <div class="health-percentage">89%</div>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 89%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-item">
+                        <div class="equipment-info">
+                            <div class="equipment-name">Tablet Mobile</div>
+                            <div class="equipment-id">TM00156</div>
+                        </div>
+                        <div class="equipment-health">
+                            <div class="health-percentage">96%</div>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" style="margin-top: 1rem; width: 100%;" onclick="predictMaintenance()">
+                    Predictive Maintenance AI
+                </button>
+            </div>
+
+            <!-- Printing Intelligence -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">🖨️</span>
+                        Autonomous Printing AI
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="printer-grid" id="printerGrid">
+                    <div class="printer-card">
+                        <div class="printer-name">BAR Royal 888</div>
+                        <div class="printer-status">
+                            <span class="status-dot online"></span>
+                            Online - Otimizado
+                        </div>
+                        <div class="printer-queue">Queue: 3 jobs (45s)</div>
+                    </div>
+                    <div class="printer-card">
+                        <div class="printer-name">DRINK Royal</div>
+                        <div class="printer-status">
+                            <span class="status-dot busy"></span>
+                            Imprimindo
+                        </div>
+                        <div class="printer-queue">Queue: 7 jobs (2m)</div>
+                    </div>
+                    <div class="printer-card">
+                        <div class="printer-name">NARGUILE 03</div>
+                        <div class="printer-status">
+                            <span class="status-dot online"></span>
+                            Standby
+                        </div>
+                        <div class="printer-queue">Queue: 0 jobs</div>
+                    </div>
+                    <div class="printer-card">
+                        <div class="printer-name">Recibo Principal</div>
+                        <div class="printer-status">
+                            <span class="status-dot online"></span>
+                            Auto-routing ON
+                        </div>
+                        <div class="printer-queue">Smart batching: ON</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" onclick="optimizePrinting()">
+                    Optimize Print Routes
+                </button>
+            </div>
+
+            <!-- Real-time Metrics -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">📊</span>
+                        Operational Metrics - Real-time
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="metrics-grid" id="metricsGrid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="efficiency">98.7%</div>
+                        <div class="metric-label">Eficiência Operacional</div>
+                        <div class="metric-change">↑ 15% hoje</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="uptime">99.99%</div>
+                        <div class="metric-label">Uptime Sistema</div>
+                        <div class="metric-change">↑ 0.5% mês</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="tasks">2,847</div>
+                        <div class="metric-label">Tasks/hora</div>
+                        <div class="metric-change">↑ 234% MIP</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="savings">R$ 47K</div>
+                        <div class="metric-label">Economia Hoje</div>
+                        <div class="metric-change">↑ 380% YoY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automation Workflows -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <span class="card-icon">⚙️</span>
+                        Automation Workflows Active
+                    </h2>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="workflow-container" id="workflowContainer">
+                    <div class="workflow-step">
+                        <div class="workflow-icon">📥</div>
+                        <div class="workflow-name">Order Intake</div>
+                        <div class="workflow-status">Auto-routing</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🤖</div>
+                        <div class="workflow-name">AI Processing</div>
+                        <div class="workflow-status">Optimizing</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">👨‍🍳</div>
+                        <div class="workflow-name">Staff Assignment</div>
+                        <div class="workflow-status">Skill-based</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🖨️</div>
+                        <div class="workflow-name">Smart Print</div>
+                        <div class="workflow-status">Batching</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">✅</div>
+                        <div class="workflow-name">Completion</div>
+                        <div class="workflow-status">Auto-verify</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="toggleAIAssistant()">🤖</div>
+
+    <script>
+        // Neural Network Background Animation
+        function createNeuralNetwork() {
+            const network = document.getElementById('neuralNetwork');
+            
+            // Create nodes
+            for (let i = 0; i < 20; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                network.appendChild(node);
+            }
+            
+            // Create connections
+            for (let i = 0; i < 10; i++) {
+                const connection = document.createElement('div');
+                connection.className = 'neural-connection';
+                connection.style.width = Math.random() * 200 + 100 + 'px';
+                connection.style.left = Math.random() * 100 + '%';
+                connection.style.top = Math.random() * 100 + '%';
+                connection.style.transform = `rotate(${Math.random() * 360}deg)`;
+                connection.style.animationDelay = Math.random() * 3 + 's';
+                network.appendChild(connection);
+            }
+        }
+
+        // AI Terminal Updates
+        function updateTerminal(message) {
+            const terminal = document.getElementById('aiTerminal');
+            const newLine = document.createElement('div');
+            newLine.className = 'line';
+            newLine.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            terminal.appendChild(newLine);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Real-time Metrics Update
+        function updateMetrics() {
+            // Efficiency
+            const efficiency = document.getElementById('efficiency');
+            const newEfficiency = (95 + Math.random() * 4).toFixed(1);
+            efficiency.textContent = newEfficiency + '%';
+            
+            // Tasks
+            const tasks = document.getElementById('tasks');
+            const newTasks = Math.floor(2800 + Math.random() * 200);
+            tasks.textContent = newTasks.toLocaleString();
+            
+            // Savings
+            const savings = document.getElementById('savings');
+            const newSavings = Math.floor(45 + Math.random() * 5);
+            savings.textContent = `R$ ${newSavings}K`;
+        }
+
+        // Update Operator Scores
+        function updateOperatorScores() {
+            const operators = document.querySelectorAll('.operator-score');
+            operators.forEach(op => {
+                const currentScore = parseInt(op.textContent);
+                const variation = Math.floor(Math.random() * 5) - 2;
+                const newScore = Math.max(85, Math.min(100, currentScore + variation));
+                op.textContent = newScore + '%';
+                
+                // Update color based on score
+                if (newScore >= 95) {
+                    op.style.color = '#10B981';
+                } else if (newScore >= 90) {
+                    op.style.color = '#3B82F6';
+                } else {
+                    op.style.color = '#F59E0B';
+                }
+            });
+        }
+
+        // Update Equipment Health
+        function updateEquipmentHealth() {
+            const healthBars = document.querySelectorAll('.health-fill');
+            healthBars.forEach((bar, index) => {
+                const currentWidth = parseInt(bar.style.width);
+                const variation = Math.floor(Math.random() * 3) - 1;
+                const newWidth = Math.max(85, Math.min(100, currentWidth + variation));
+                bar.style.width = newWidth + '%';
+                
+                // Update percentage text
+                const percentageEl = bar.closest('.equipment-health').querySelector('.health-percentage');
+                percentageEl.textContent = newWidth + '%';
+                
+                // Alert if below threshold
+                if (newWidth < 90) {
+                    updateTerminal(`[ALERT] Equipment health below 90% - Predictive maintenance scheduled`);
+                }
+            });
+        }
+
+        // Button Actions
+        function runPredictiveAnalysis() {
+            updateTerminal('[AI] Iniciando análise preditiva completa...');
+            setTimeout(() => {
+                updateTerminal('[ML] Analisando padrões comportamentais...');
+            }, 500);
+            setTimeout(() => {
+                updateTerminal('[RESULT] 3 oportunidades de otimização identificadas');
+                updateTerminal('[ACTION] Implementando melhorias automáticas...');
+            }, 1500);
+            setTimeout(() => {
+                updateTerminal('[SUCCESS] Eficiência aumentada em 12%');
+            }, 2500);
+        }
+
+        function optimizeOperations() {
+            updateTerminal('[OPTIMIZER] Iniciando otimização global...');
+            setTimeout(() => {
+                updateTerminal('[STAFF] Realocando operadores baseado em skills...');
+                updateTerminal('[EQUIPMENT] Balanceando carga entre dispositivos...');
+                updateTerminal('[PRINT] Otimizando rotas de impressão...');
+            }, 800);
+            setTimeout(() => {
+                updateTerminal('[COMPLETE] Sistema otimizado - Ganho de 18% em performance');
+            }, 2000);
+        }
+
+        function emergencyMode() {
+            updateTerminal('[AUTONOMOUS] Ativando modo de operação autônoma...');
+            setTimeout(() => {
+                updateTerminal('[AI] Assumindo controle total das operações...');
+                updateTerminal('[ML] Ajustando parâmetros para máxima eficiência...');
+            }, 500);
+            setTimeout(() => {
+                updateTerminal('[ACTIVE] Modo autônomo ativo - Intervenção humana mínima');
+            }, 1500);
+        }
+
+        function analyzeStaff() {
+            updateTerminal('[STAFF AI] Analisando performance individual...');
+            setTimeout(() => {
+                updateTerminal('[BEHAVIORAL] Detectando padrões de comportamento...');
+                updateTerminal('[COACHING] Gerando recomendações personalizadas...');
+            }, 700);
+            setTimeout(() => {
+                updateTerminal('[RESULTS] 4 operadores com sugestões de melhoria');
+            }, 1800);
+        }
+
+        function predictMaintenance() {
+            updateTerminal('[IoT] Coletando dados de sensores...');
+            setTimeout(() => {
+                updateTerminal('[PREDICTION] Calculando probabilidade de falha...');
+                updateTerminal('[SCHEDULE] Agendando manutenção preventiva...');
+            }, 800);
+            setTimeout(() => {
+                updateTerminal('[PREVENTED] 2 falhas potenciais evitadas');
+            }, 2000);
+        }
+
+        function optimizePrinting() {
+            updateTerminal('[PRINT AI] Analisando filas de impressão...');
+            setTimeout(() => {
+                updateTerminal('[ROUTING] Recalculando rotas otimizadas...');
+                updateTerminal('[BATCHING] Agrupando jobs similares...');
+            }, 600);
+            setTimeout(() => {
+                updateTerminal('[OPTIMIZED] Tempo de impressão reduzido em 45%');
+            }, 1500);
+        }
+
+        function toggleAIAssistant() {
+            updateTerminal('[ASSISTANT] AI Assistant ativado - Como posso ajudar?');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createNeuralNetwork();
+            
+            // Start real-time updates
+            setInterval(updateMetrics, 3000);
+            setInterval(updateOperatorScores, 5000);
+            setInterval(updateEquipmentHealth, 8000);
+            
+            // Periodic AI actions
+            setInterval(() => {
+                const actions = [
+                    '[AUTO] Otimização automática executada',
+                    '[IoT] 127 dispositivos monitorados',
+                    '[ML] Modelos re-treinados com sucesso',
+                    '[SAVE] R$ 2,450 economizados na última hora',
+                    '[PREVENT] Burnout prevenido - Operador realocado',
+                    '[EFFICIENCY] Novo recorde de eficiência: 99.2%'
+                ];
+                updateTerminal(actions[Math.floor(Math.random() * actions.length)]);
+            }, 10000);
+            
+            // Initial success message
+            setTimeout(() => {
+                updateTerminal('[SUPREMO] Sistema 3000x superior ao MIP ativo!');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
