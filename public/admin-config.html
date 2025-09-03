@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEEP SUPREMO - Configuração Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button:hover {
+            color: white;
+        }
+
+        .tab-button.active {
+            color: white;
+            border-bottom-color: var(--primary);
+        }
+
+        .config-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .config-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .switch {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .switch-slider {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .switch input:checked + .switch-slider {
+            transform: translateX(24px);
+            background: var(--primary);
+        }
+
+        .switch input:checked ~ .switch {
+            background: rgba(124, 58, 237, 0.3);
+        }
+
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .permission-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .audit-log-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .status-badge.danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .feature-card {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .integration-card {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .integration-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .color-picker {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+
+        .backup-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">⚙️ Configurações Admin</h1>
+                    <p class="text-white opacity-75 mt-2">Controle total do sistema MEEP SUPREMO</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="saveAllConfigs()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                        💾 Salvar Tudo
+                    </button>
+                    <button onclick="window.location.href='/dashboard-supremo.html'" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                        ← Voltar ao Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="glass rounded-2xl p-2 mb-6">
+            <div class="flex overflow-x-auto">
+                <button class="tab-button active" onclick="showTab('tenant')">🏢 Tenant</button>
+                <button class="tab-button" onclick="showTab('users')">👥 Usuários</button>
+                <button class="tab-button" onclick="showTab('permissions')">🔐 Permissões</button>
+                <button class="tab-button" onclick="showTab('features')">⚡ Features</button>
+                <button class="tab-button" onclick="showTab('integrations')">🔌 Integrações</button>
+                <button class="tab-button" onclick="showTab('whitelabel')">🎨 White Label</button>
+                <button class="tab-button" onclick="showTab('security')">🛡️ Segurança</button>
+                <button class="tab-button" onclick="showTab('backup')">💾 Backup</button>
+                <button class="tab-button" onclick="showTab('audit')">📋 Auditoria</button>
+            </div>
+        </div>
+
+        <!-- Tenant Configuration -->
+        <div id="tenant-tab" class="config-section active">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Configuração do Tenant</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="text-white block mb-2">Nome da Empresa</label>
+                        <input type="text" value="MEEP SUPREMO" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">CNPJ</label>
+                        <input type="text" value="00.000.000/0001-00" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">Domínio</label>
+                        <input type="text" value="meep.supremo.com.br" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">Timezone</label>
+                        <select class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                            <option>America/Sao_Paulo</option>
+                            <option>America/New_York</option>
+                            <option>Europe/London</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">Moeda</label>
+                        <select class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                            <option>BRL - Real Brasileiro</option>
+                            <option>USD - Dólar Americano</option>
+                            <option>EUR - Euro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">Plano</label>
+                        <select class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                            <option>SUPREME - Ilimitado</option>
+                            <option>Premium - 10.000 transações</option>
+                            <option>Standard - 5.000 transações</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Limites do Tenant</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white bg-opacity-5 rounded-lg">
+                            <label class="text-white opacity-75 text-sm">Max Usuários</label>
+                            <input type="number" value="1000" class="w-full mt-2 p-2 rounded bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div class="p-4 bg-white bg-opacity-5 rounded-lg">
+                            <label class="text-white opacity-75 text-sm">Max Eventos/Mês</label>
+                            <input type="number" value="100" class="w-full mt-2 p-2 rounded bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div class="p-4 bg-white bg-opacity-5 rounded-lg">
+                            <label class="text-white opacity-75 text-sm">Max Transações/Dia</label>
+                            <input type="number" value="50000" class="w-full mt-2 p-2 rounded bg-white bg-opacity-10 text-white">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Management -->
+        <div id="users-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">Gestão de Usuários</h2>
+                    <button onclick="addUser()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        + Adicionar Usuário
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-white">
+                        <thead>
+                            <tr class="border-b border-white border-opacity-20">
+                                <th class="text-left p-4">Nome</th>
+                                <th class="text-left p-4">Email</th>
+                                <th class="text-left p-4">Role</th>
+                                <th class="text-left p-4">Status</th>
+                                <th class="text-left p-4">Último Acesso</th>
+                                <th class="text-left p-4">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-white border-opacity-10">
+                                <td class="p-4">Admin Master</td>
+                                <td class="p-4">admin@meep.com</td>
+                                <td class="p-4"><span class="status-badge danger">Super Admin</span></td>
+                                <td class="p-4"><span class="status-badge success">Ativo</span></td>
+                                <td class="p-4">Agora</td>
+                                <td class="p-4">
+                                    <button class="text-blue-400 hover:text-blue-300 mr-3">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white border-opacity-10">
+                                <td class="p-4">João Silva</td>
+                                <td class="p-4">joao@meep.com</td>
+                                <td class="p-4"><span class="status-badge warning">Manager</span></td>
+                                <td class="p-4"><span class="status-badge success">Ativo</span></td>
+                                <td class="p-4">2 horas atrás</td>
+                                <td class="p-4">
+                                    <button class="text-blue-400 hover:text-blue-300 mr-3">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white border-opacity-10">
+                                <td class="p-4">Maria Santos</td>
+                                <td class="p-4">maria@meep.com</td>
+                                <td class="p-4"><span class="status-badge success">Operator</span></td>
+                                <td class="p-4"><span class="status-badge success">Ativo</span></td>
+                                <td class="p-4">5 minutos atrás</td>
+                                <td class="p-4">
+                                    <button class="text-blue-400 hover:text-blue-300 mr-3">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Permissions -->
+        <div id="permissions-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Gestão de Permissões</h2>
+                
+                <div class="mb-6">
+                    <label class="text-white block mb-2">Selecionar Role</label>
+                    <select class="w-full md:w-1/3 p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                        <option>Super Admin</option>
+                        <option>Manager</option>
+                        <option>Operator</option>
+                        <option>Viewer</option>
+                    </select>
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-4">Permissões do Role</h3>
+                <div class="permission-grid">
+                    <div class="permission-item">
+                        <span class="text-white">Dashboard</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Clientes</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">PDV</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Financeiro</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Relatórios</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Configurações</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Marketing 👑</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">BI 👑</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="permission-item">
+                        <span class="text-white">Automação 👑</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div id="features-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Feature Flags</h2>
+                
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">🧠 IA Real-Time</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Ativa previsões e análises com Claude AI</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">📊 Dashboard Drag & Drop</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Permite reorganizar widgets do dashboard</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">🌙 Dark Mode</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Ativa tema escuro no sistema</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">💳 Cashless RFID</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Sistema de pagamento por aproximação</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">📱 PWA Mobile</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">App progressivo para mobile</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">🔔 Push Notifications</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Notificações em tempo real</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">🎤 Voice Commands</h3>
+                            <p class="text-white opacity-75 text-sm mt-1">Comandos por voz (BETA)</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integrations -->
+        <div id="integrations-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Integrações</h2>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">🤖</div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white">Claude AI (Anthropic)</h3>
+                        <p class="text-white opacity-75 text-sm">API Key: sk-ant-api03-***************</p>
+                    </div>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg">Conectado</button>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-icon">💳</div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white">Stripe</h3>
+                        <p class="text-white opacity-75 text-sm">Processamento de pagamentos</p>
+                    </div>
+                    <button class="px-4 py-2 bg-yellow-600 text-white rounded-lg">Configurar</button>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-icon">📱</div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white">WhatsApp Business</h3>
+                        <p class="text-white opacity-75 text-sm">Notificações e suporte</p>
+                    </div>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg">Conectado</button>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-icon">📊</div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white">Google Analytics</h3>
+                        <p class="text-white opacity-75 text-sm">Tracking ID: GA-123456789</p>
+                    </div>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg">Conectado</button>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-icon">📧</div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white">SendGrid</h3>
+                        <p class="text-white opacity-75 text-sm">Email transacional</p>
+                    </div>
+                    <button class="px-4 py-2 bg-gray-600 text-white rounded-lg">Desconectado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- White Label -->
+        <div id="whitelabel-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Configuração White Label</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="text-white block mb-2">Logo URL</label>
+                        <input type="text" placeholder="https://seu-logo.com/logo.png" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                    </div>
+                    <div>
+                        <label class="text-white block mb-2">Favicon URL</label>
+                        <input type="text" placeholder="https://seu-logo.com/favicon.ico" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Cores do Tema</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Cor Primária</label>
+                            <input type="color" value="#7c3aed" class="color-picker">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Cor Secundária</label>
+                            <input type="color" value="#06b6d4" class="color-picker">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Cor Sucesso</label>
+                            <input type="color" value="#10b981" class="color-picker">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Cor Perigo</label>
+                            <input type="color" value="#ef4444" class="color-picker">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Textos Customizados</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Título do Sistema</label>
+                            <input type="text" value="MEEP SUPREMO" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Slogan</label>
+                            <input type="text" value="O melhor sistema de eventos com IA" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Footer Text</label>
+                            <input type="text" value="© 2025 MEEP SUPREMO - Todos os direitos reservados" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm block mb-2">Email de Suporte</label>
+                            <input type="email" value="suporte@meep.supremo.com.br" class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div id="security-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Configurações de Segurança</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="feature-card">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">🔐 Autenticação 2FA</h3>
+                                <p class="text-white opacity-75 text-sm mt-1">Obrigatório para admin</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">🛡️ Rate Limiting</h3>
+                                <p class="text-white opacity-75 text-sm mt-1">100 req/min por IP</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">🔒 SSL/TLS</h3>
+                                <p class="text-white opacity-75 text-sm mt-1">HTTPS obrigatório</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">📝 Audit Logs</h3>
+                                <p class="text-white opacity-75 text-sm mt-1">Registrar todas ações</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Política de Senhas</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-white opacity-75 text-sm">Comprimento Mínimo</label>
+                            <input type="number" value="8" class="w-full mt-2 p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm">Expiração (dias)</label>
+                            <input type="number" value="90" class="w-full mt-2 p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <label class="flex items-center text-white">
+                            <input type="checkbox" checked class="mr-2">
+                            Requer letras maiúsculas
+                        </label>
+                        <label class="flex items-center text-white">
+                            <input type="checkbox" checked class="mr-2">
+                            Requer números
+                        </label>
+                        <label class="flex items-center text-white">
+                            <input type="checkbox" checked class="mr-2">
+                            Requer caracteres especiais
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup -->
+        <div id="backup-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Backup & Restore</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Configuração de Backup Automático</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="text-white opacity-75 text-sm">Frequência</label>
+                            <select class="w-full mt-2 p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                                <option>Diário</option>
+                                <option>Semanal</option>
+                                <option>Mensal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm">Horário</label>
+                            <input type="time" value="03:00" class="w-full mt-2 p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                        <div>
+                            <label class="text-white opacity-75 text-sm">Retenção (dias)</label>
+                            <input type="number" value="30" class="w-full mt-2 p-3 rounded-lg bg-white bg-opacity-10 text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-4">Backups Recentes</h3>
+                <div class="backup-item">
+                    <div>
+                        <div class="text-white font-semibold">Backup Completo</div>
+                        <div class="text-white opacity-75 text-sm">02/09/2025 03:00:00 - 2.5GB</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded">Download</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded">Restaurar</button>
+                    </div>
+                </div>
+                <div class="backup-item">
+                    <div>
+                        <div class="text-white font-semibold">Backup Incremental</div>
+                        <div class="text-white opacity-75 text-sm">01/09/2025 03:00:00 - 450MB</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded">Download</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded">Restaurar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button onclick="createBackup()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        💾 Criar Backup Manual Agora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit -->
+        <div id="audit-tab" class="config-section">
+            <div class="glass rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">Logs de Auditoria</h2>
+                
+                <div class="mb-4">
+                    <input type="text" placeholder="🔍 Buscar nos logs..." class="w-full p-3 rounded-lg bg-white bg-opacity-10 text-white border border-white border-opacity-20">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="audit-log-item">
+                        <div>
+                            <div class="text-white font-semibold">Admin alterou configurações</div>
+                            <div class="text-white opacity-75 text-sm">admin@meep.com - IP: 192.168.1.1</div>
+                        </div>
+                        <div class="text-white opacity-75 text-sm">Agora</div>
+                    </div>
+                    <div class="audit-log-item">
+                        <div>
+                            <div class="text-white font-semibold">Novo usuário criado</div>
+                            <div class="text-white opacity-75 text-sm">joao@meep.com - IP: 192.168.1.2</div>
+                        </div>
+                        <div class="text-white opacity-75 text-sm">15 min atrás</div>
+                    </div>
+                    <div class="audit-log-item">
+                        <div>
+                            <div class="text-white font-semibold">Login bem-sucedido</div>
+                            <div class="text-white opacity-75 text-sm">maria@meep.com - IP: 192.168.1.3</div>
+                        </div>
+                        <div class="text-white opacity-75 text-sm">1 hora atrás</div>
+                    </div>
+                    <div class="audit-log-item">
+                        <div>
+                            <div class="text-white font-semibold">Feature flag alterada</div>
+                            <div class="text-white opacity-75 text-sm">admin@meep.com - Dark Mode: ON</div>
+                        </div>
+                        <div class="text-white opacity-75 text-sm">2 horas atrás</div>
+                    </div>
+                    <div class="audit-log-item">
+                        <div>
+                            <div class="text-white font-semibold">Backup automático executado</div>
+                            <div class="text-white opacity-75 text-sm">Sistema - Sucesso: 2.5GB</div>
+                        </div>
+                        <div class="text-white opacity-75 text-sm">6 horas atrás</div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button class="px-4 py-2 bg-purple-600 text-white rounded-lg">
+                        📥 Exportar Logs (CSV)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab navigation
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.config-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Save all configurations
+        function saveAllConfigs() {
+            // Simulate saving
+            const configs = {
+                tenant: collectTenantConfig(),
+                features: collectFeatureFlags(),
+                whitelabel: collectWhiteLabelConfig(),
+                security: collectSecurityConfig(),
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('meep_admin_config', JSON.stringify(configs));
+            
+            showNotification('✅ Configurações salvas com sucesso!', 'success');
+        }
+
+        // Collect tenant configuration
+        function collectTenantConfig() {
+            return {
+                companyName: document.querySelector('input[value="MEEP SUPREMO"]').value,
+                cnpj: document.querySelector('input[value="00.000.000/0001-00"]').value,
+                domain: document.querySelector('input[value="meep.supremo.com.br"]').value,
+                // Add more fields as needed
+            };
+        }
+
+        // Collect feature flags
+        function collectFeatureFlags() {
+            const features = {};
+            document.querySelectorAll('#features-tab input[type="checkbox"]').forEach(checkbox => {
+                const label = checkbox.closest('.feature-card').querySelector('h3').textContent;
+                features[label] = checkbox.checked;
+            });
+            return features;
+        }
+
+        // Collect white label configuration
+        function collectWhiteLabelConfig() {
+            return {
+                primaryColor: document.querySelector('input[value="#7c3aed"]').value,
+                secondaryColor: document.querySelector('input[value="#06b6d4"]').value,
+                // Add more fields
+            };
+        }
+
+        // Collect security configuration
+        function collectSecurityConfig() {
+            return {
+                twoFactorAuth: document.querySelector('#security-tab input[type="checkbox"]').checked,
+                passwordMinLength: document.querySelector('input[value="8"]').value,
+                passwordExpiration: document.querySelector('input[value="90"]').value,
+                // Add more fields
+            };
+        }
+
+        // Create backup
+        function createBackup() {
+            showNotification('🔄 Criando backup...', 'info');
+            
+            setTimeout(() => {
+                showNotification('✅ Backup criado com sucesso!', 'success');
+                
+                // Add new backup to list
+                const backupList = document.querySelector('#backup-tab .backup-item').parentElement;
+                const newBackup = document.createElement('div');
+                newBackup.className = 'backup-item';
+                newBackup.innerHTML = `
+                    <div>
+                        <div class="text-white font-semibold">Backup Manual</div>
+                        <div class="text-white opacity-75 text-sm">${new Date().toLocaleString('pt-BR')} - 2.5GB</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded">Download</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded">Restaurar</button>
+                    </div>
+                `;
+                backupList.insertBefore(newBackup, backupList.firstChild);
+            }, 2000);
+        }
+
+        // Add user
+        function addUser() {
+            // Open modal or redirect to user creation page
+            showNotification('📝 Abrindo formulário de novo usuário...', 'info');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-6 right-6 p-4 rounded-lg shadow-lg z-50 flex items-center gap-3';
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#7c3aed';
+            notification.innerHTML = `
+                <span class="text-white font-semibold">${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Por favor, faça login primeiro!');
+                window.location.href = '/';
+            }
+            
+            // Load saved configurations if exists
+            const savedConfig = localStorage.getItem('meep_admin_config');
+            if (savedConfig) {
+                console.log('Configurações carregadas:', JSON.parse(savedConfig));
+            }
+        });
+    </script>
+</body>
+</html>
