@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEEP SUPREMO - Dashboard Ultimate</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #111827;
+            --light: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+        }
+
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .dark-mode .glass {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .sidebar-item.premium::after {
+            content: '👑';
+            position: absolute;
+            right: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 80px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: move;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metric-change {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .metric-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .metric-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        /* Charts */
+        .chart-container {
+            padding: 24px;
+            border-radius: 16px;
+            height: 400px;
+            position: relative;
+        }
+
+        /* Widgets Grid */
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Real-time indicator */
+        .realtime-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .realtime-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            border: none;
+            background: transparent;
+        }
+
+        .filter-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-slider {
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .theme-toggle-slider {
+            transform: translateX(30px);
+            background: #fbbf24;
+        }
+
+        /* Admin Config Button */
+        .admin-config-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .admin-config-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        /* Rankings */
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .ranking-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            z-index: 2000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar glass" id="sidebar">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+                <span id="sidebarLogo">🚀</span>
+                <span class="sidebar-text">MEEP SUPREMO</span>
+            </h1>
+        </div>
+        
+        <nav class="mt-8">
+            <a href="#" class="sidebar-item active" data-page="dashboard">
+                <span>📊</span>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="geral">
+                <span>🏠</span>
+                <span class="sidebar-text">Geral</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="clientes">
+                <span>👥</span>
+                <span class="sidebar-text">Clientes</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="equipe">
+                <span>👨‍💼</span>
+                <span class="sidebar-text">Equipe</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="cardapio">
+                <span>🍽️</span>
+                <span class="sidebar-text">Cardápio</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="vendas">
+                <span>💰</span>
+                <span class="sidebar-text">Gestão de Venda</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="ingressos">
+                <span>🎫</span>
+                <span class="sidebar-text">Ingressos</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="pdv">
+                <span>💳</span>
+                <span class="sidebar-text">PDV</span>
+            </a>
+            <a href="#" class="sidebar-item" data-page="financeiro">
+                <span>📈</span>
+                <span class="sidebar-text">Financeiro</span>
+            </a>
+            <a href="#" class="sidebar-item premium" data-page="marketing">
+                <span>🎯</span>
+                <span class="sidebar-text">Marketing</span>
+            </a>
+            <a href="#" class="sidebar-item premium" data-page="bi">
+                <span>📊</span>
+                <span class="sidebar-text">BI</span>
+            </a>
+            <a href="#" class="sidebar-item premium" data-page="automacao">
+                <span>🤖</span>
+                <span class="sidebar-text">Automação</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Toggle -->
+        <div class="absolute bottom-4 left-4">
+            <button onclick="toggleSidebar()" class="text-white p-2">
+                <span id="toggleIcon">◀</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header glass rounded-2xl">
+            <div>
+                <h2 class="text-3xl font-bold text-white">Dashboard Principal</h2>
+                <div class="realtime-indicator mt-2">
+                    <span class="realtime-dot"></span>
+                    <span class="text-white">Dados em tempo real</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Theme Toggle -->
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider"></div>
+                </div>
+                <!-- User Menu -->
+                <div class="flex items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=7c3aed&color=fff" 
+                         class="w-10 h-10 rounded-full" alt="User">
+                    <div class="text-white">
+                        <div class="font-semibold">Admin</div>
+                        <div class="text-xs opacity-75">admin@meep.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs glass">
+            <button class="filter-tab active" onclick="setFilter('caixa')">Por Caixa</button>
+            <button class="filter-tab" onclick="setFilter('hora')">Última Hora</button>
+            <button class="filter-tab" onclick="setFilter('24h')">Últimas 24h</button>
+            <button class="filter-tab" onclick="setFilter('7d')">7 Dias</button>
+            <button class="filter-tab" onclick="setFilter('mes')">Por Mês</button>
+        </div>
+
+        <!-- Main Metrics -->
+        <div class="widgets-grid" id="metricsGrid">
+            <!-- Saldo Disponível -->
+            <div class="metric-card glass" data-widget="saldo-disponivel">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Saldo Disponível</span>
+                    <span class="text-2xl">💰</span>
+                </div>
+                <div class="metric-value text-white" id="saldoDisponivel">R$ 0,00</div>
+                <span class="metric-change positive">+12.5% ↑</span>
+            </div>
+
+            <!-- Saldo A Liberar -->
+            <div class="metric-card glass" data-widget="saldo-liberar">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">A Liberar</span>
+                    <span class="text-2xl">⏳</span>
+                </div>
+                <div class="metric-value text-white" id="saldoLiberar">R$ 0,00</div>
+                <span class="metric-change positive">+8.3% ↑</span>
+            </div>
+
+            <!-- Saldo Retido -->
+            <div class="metric-card glass" data-widget="saldo-retido">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Retido</span>
+                    <span class="text-2xl">🔒</span>
+                </div>
+                <div class="metric-value text-white" id="saldoRetido">R$ 0,00</div>
+                <span class="metric-change negative">-2.1% ↓</span>
+            </div>
+        </div>
+
+        <!-- Payment Methods Grid -->
+        <div class="widgets-grid" id="paymentGrid">
+            <!-- Total Vendas -->
+            <div class="metric-card glass" data-widget="total-vendas">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Total Vendas</span>
+                    <span class="text-2xl">📊</span>
+                </div>
+                <div class="metric-value text-white" id="totalVendas">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">127 transações</div>
+            </div>
+
+            <!-- Cashless -->
+            <div class="metric-card glass" data-widget="cashless">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Cashless</span>
+                    <span class="text-2xl">💳</span>
+                </div>
+                <div class="metric-value text-white" id="cashless">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">45 transações</div>
+            </div>
+
+            <!-- Crédito -->
+            <div class="metric-card glass" data-widget="credito">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Crédito</span>
+                    <span class="text-2xl">💳</span>
+                </div>
+                <div class="metric-value text-white" id="credito">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">32 transações</div>
+            </div>
+
+            <!-- Débito -->
+            <div class="metric-card glass" data-widget="debito">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Débito</span>
+                    <span class="text-2xl">💳</span>
+                </div>
+                <div class="metric-value text-white" id="debito">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">28 transações</div>
+            </div>
+
+            <!-- Dinheiro -->
+            <div class="metric-card glass" data-widget="dinheiro">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Dinheiro</span>
+                    <span class="text-2xl">💵</span>
+                </div>
+                <div class="metric-value text-white" id="dinheiro">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">15 transações</div>
+            </div>
+
+            <!-- Outros -->
+            <div class="metric-card glass" data-widget="outros">
+                <div class="flex justify-between items-center">
+                    <span class="text-white opacity-75">Outros</span>
+                    <span class="text-2xl">📱</span>
+                </div>
+                <div class="metric-value text-white" id="outros">R$ 0,00</div>
+                <div class="text-white opacity-75 text-sm mt-2">7 transações</div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Sales Chart -->
+            <div class="chart-container glass">
+                <h3 class="text-xl font-bold text-white mb-4">Vendas em Tempo Real</h3>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <!-- Category Chart -->
+            <div class="chart-container glass">
+                <h3 class="text-xl font-bold text-white mb-4">Vendas por Categoria</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Rankings Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- TOP Produtos -->
+            <div class="glass rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-white mb-4">🏆 TOP Produtos</h3>
+                <div id="topProducts">
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">1</span>
+                            <span class="text-white">Combo VIP Premium</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 15.420</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">2</span>
+                            <span class="text-white">Ingresso Pista</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 12.300</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">3</span>
+                            <span class="text-white">Bebida Premium</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 8.750</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP Operadores -->
+            <div class="glass rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-white mb-4">👥 TOP Operadores</h3>
+                <div id="topOperators">
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">1</span>
+                            <span class="text-white">João Silva</span>
+                        </div>
+                        <span class="text-white font-bold">247 vendas</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">2</span>
+                            <span class="text-white">Maria Santos</span>
+                        </div>
+                        <span class="text-white font-bold">198 vendas</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">3</span>
+                            <span class="text-white">Pedro Lima</span>
+                        </div>
+                        <span class="text-white font-bold">156 vendas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP Clientes -->
+            <div class="glass rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-white mb-4">⭐ TOP Clientes</h3>
+                <div id="topClients">
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">1</span>
+                            <span class="text-white">VIP Gold #1247</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 3.450</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">2</span>
+                            <span class="text-white">Premium #892</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 2.890</span>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="flex items-center gap-3">
+                            <span class="ranking-number">3</span>
+                            <span class="text-white">Cliente #456</span>
+                        </div>
+                        <span class="text-white font-bold">R$ 1.750</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Config Button -->
+    <div class="admin-config-btn" onclick="openAdminPanel()">
+        <span class="text-white text-2xl">⚙️</span>
+    </div>
+
+    <script>
+        // Initialize WebSocket connection
+        let ws = null;
+        let charts = {};
+        let currentFilter = 'caixa';
+        let isDarkMode = false;
+
+        // Connect to WebSocket
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+                showNotification('✅ Conectado ao servidor em tempo real', 'success');
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                updateDashboard(data);
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                showNotification('⚠️ Erro na conexão', 'error');
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket disconnected');
+                setTimeout(connectWebSocket, 5000);
+            };
+        }
+
+        // Update dashboard with real-time data
+        function updateDashboard(data) {
+            // Update metrics with animation
+            animateValue('saldoDisponivel', data.saldoDisponivel || 0);
+            animateValue('saldoLiberar', data.saldoLiberar || 0);
+            animateValue('saldoRetido', data.saldoRetido || 0);
+            animateValue('totalVendas', data.totalVendas || 0);
+            animateValue('cashless', data.cashless || 0);
+            animateValue('credito', data.credito || 0);
+            animateValue('debito', data.debito || 0);
+            animateValue('dinheiro', data.dinheiro || 0);
+            animateValue('outros', data.outros || 0);
+
+            // Update charts
+            if (charts.sales && data.salesData) {
+                updateSalesChart(data.salesData);
+            }
+
+            if (charts.category && data.categoryData) {
+                updateCategoryChart(data.categoryData);
+            }
+
+            // Update rankings
+            if (data.topProducts) updateRanking('topProducts', data.topProducts);
+            if (data.topOperators) updateRanking('topOperators', data.topOperators);
+            if (data.topClients) updateRanking('topClients', data.topClients);
+        }
+
+        // Animate value changes
+        function animateValue(id, value) {
+            const element = document.getElementById(id);
+            if (!element) return;
+
+            const current = parseFloat(element.textContent.replace('R$ ', '').replace('.', '').replace(',', '.')) || 0;
+            const increment = (value - current) / 20;
+            let step = 0;
+
+            const timer = setInterval(() => {
+                step++;
+                const newValue = current + (increment * step);
+                element.textContent = `R$ ${newValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                
+                if (step >= 20) {
+                    clearInterval(timer);
+                    element.textContent = `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                }
+            }, 50);
+        }
+
+        // Initialize charts
+        function initCharts() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            charts.sales = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(),
+                    datasets: [{
+                        label: 'Vendas',
+                        data: generateRandomData(24, 1000, 5000),
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#fff' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#fff' }
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            charts.category = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Ingressos', 'Bebidas', 'Comidas', 'Merchandise', 'Combos'],
+                    datasets: [{
+                        data: [35, 25, 20, 10, 10],
+                        backgroundColor: [
+                            '#7c3aed',
+                            '#06b6d4',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#fff' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate time labels
+        function generateTimeLabels() {
+            const labels = [];
+            for (let i = 23; i >= 0; i--) {
+                const hour = new Date();
+                hour.setHours(hour.getHours() - i);
+                labels.push(hour.getHours() + ':00');
+            }
+            return labels;
+        }
+
+        // Generate random data
+        function generateRandomData(count, min, max) {
+            const data = [];
+            for (let i = 0; i < count; i++) {
+                data.push(Math.floor(Math.random() * (max - min) + min));
+            }
+            return data;
+        }
+
+        // Update sales chart
+        function updateSalesChart(data) {
+            charts.sales.data.datasets[0].data = data;
+            charts.sales.update();
+        }
+
+        // Update category chart
+        function updateCategoryChart(data) {
+            charts.category.data.datasets[0].data = data;
+            charts.category.update();
+        }
+
+        // Update ranking
+        function updateRanking(id, items) {
+            const container = document.getElementById(id);
+            container.innerHTML = items.map((item, index) => `
+                <div class="ranking-item">
+                    <div class="flex items-center gap-3">
+                        <span class="ranking-number">${index + 1}</span>
+                        <span class="text-white">${item.name}</span>
+                    </div>
+                    <span class="text-white font-bold">${item.value}</span>
+                </div>
+            `).join('');
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            sidebar.classList.toggle('collapsed');
+            toggleIcon.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+            
+            // Hide text when collapsed
+            document.querySelectorAll('.sidebar-text').forEach(text => {
+                text.style.display = sidebar.classList.contains('collapsed') ? 'none' : 'block';
+            });
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        }
+
+        // Set filter
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Request filtered data
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'filter', filter: currentFilter }));
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <span class="text-2xl">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Open admin panel
+        function openAdminPanel() {
+            window.location.href = '/admin-config.html';
+        }
+
+        // Initialize drag and drop for widgets
+        function initDragDrop() {
+            const metricsGrid = document.getElementById('metricsGrid');
+            const paymentGrid = document.getElementById('paymentGrid');
+
+            new Sortable(metricsGrid, {
+                animation: 150,
+                ghostClass: 'opacity-50',
+                onEnd: saveWidgetLayout
+            });
+
+            new Sortable(paymentGrid, {
+                animation: 150,
+                ghostClass: 'opacity-50',
+                onEnd: saveWidgetLayout
+            });
+        }
+
+        // Save widget layout
+        function saveWidgetLayout() {
+            const layout = {
+                metrics: Array.from(document.querySelectorAll('#metricsGrid .metric-card')).map(el => el.dataset.widget),
+                payment: Array.from(document.querySelectorAll('#paymentGrid .metric-card')).map(el => el.dataset.widget)
+            };
+            localStorage.setItem('widgetLayout', JSON.stringify(layout));
+        }
+
+        // Load widget layout
+        function loadWidgetLayout() {
+            const layout = JSON.parse(localStorage.getItem('widgetLayout') || '{}');
+            // Apply saved layout if exists
+            // Implementation depends on specific requirements
+        }
+
+        // Simulate real-time updates
+        function simulateRealTimeUpdates() {
+            setInterval(() => {
+                const data = {
+                    saldoDisponivel: Math.random() * 100000,
+                    saldoLiberar: Math.random() * 50000,
+                    saldoRetido: Math.random() * 20000,
+                    totalVendas: Math.random() * 200000,
+                    cashless: Math.random() * 80000,
+                    credito: Math.random() * 60000,
+                    debito: Math.random() * 40000,
+                    dinheiro: Math.random() * 20000,
+                    outros: Math.random() * 10000,
+                    salesData: generateRandomData(24, 1000, 5000),
+                    categoryData: [
+                        Math.random() * 40,
+                        Math.random() * 30,
+                        Math.random() * 25,
+                        Math.random() * 15,
+                        Math.random() * 10
+                    ]
+                };
+                updateDashboard(data);
+            }, 5000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                isDarkMode = true;
+            }
+
+            // Initialize components
+            initCharts();
+            initDragDrop();
+            loadWidgetLayout();
+            
+            // Connect WebSocket
+            connectWebSocket();
+            
+            // Start simulation if WebSocket fails
+            setTimeout(() => {
+                if (!ws || ws.readyState !== WebSocket.OPEN) {
+                    simulateRealTimeUpdates();
+                }
+            }, 3000);
+
+            // Check authentication
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showNotification('⚠️ Faça login para acessar todos os recursos', 'warning');
+            }
+        });
+    </script>
+</body>
+</html>

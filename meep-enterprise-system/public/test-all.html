@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTE COMPLETO - MEEP SUPREME</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .test-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .test-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .test-btn.success {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+        }
+
+        .test-btn.warning {
+            background: linear-gradient(135deg, #ffd700, #ffac00);
+        }
+
+        .test-btn.danger {
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+        }
+
+        .test-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .result-box {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="status">Status: Pronto</div>
+    
+    <h1>🧪 TESTE COMPLETO DO SISTEMA MEEP SUPREME</h1>
+    
+    <div class="test-container">
+        <!-- Navegação -->
+        <div class="test-section">
+            <h2 class="test-title">📍 NAVEGAÇÃO - Páginas do Sistema</h2>
+            <div class="test-grid">
+                <button class="test-btn" onclick="window.open('/', '_blank')">
+                    🏠 Dashboard Principal
+                </button>
+                <button class="test-btn success" onclick="window.open('/ai-dashboard.html', '_blank')">
+                    🧠 IA Dashboard
+                </button>
+                <button class="test-btn" onclick="window.open('/pdv.html', '_blank')">
+                    💳 PDV
+                </button>
+                <button class="test-btn" onclick="window.open('/checkin.html', '_blank')">
+                    ✅ Check-in
+                </button>
+                <button class="test-btn" onclick="window.open('/financeiro.html', '_blank')">
+                    💰 Financeiro
+                </button>
+                <button class="test-btn" onclick="window.open('/supreme-dashboard.html', '_blank')">
+                    💎 Supreme Dashboard
+                </button>
+                <button class="test-btn warning" onclick="window.open('/menu-navigation.html', '_blank')">
+                    📋 Menu Principal
+                </button>
+            </div>
+        </div>
+
+        <!-- Autenticação -->
+        <div class="test-section">
+            <h2 class="test-title">🔐 AUTENTICAÇÃO</h2>
+            <input type="email" id="loginEmail" class="test-input" placeholder="Email" value="admin@meep.com">
+            <input type="password" id="loginPassword" class="test-input" placeholder="Senha" value="admin123">
+            <div class="test-grid">
+                <button class="test-btn success" onclick="testLogin()">Fazer Login</button>
+                <button class="test-btn danger" onclick="testLogout()">Fazer Logout</button>
+                <button class="test-btn" onclick="checkAuth()">Verificar Token</button>
+            </div>
+            <div id="authResult" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- APIs -->
+        <div class="test-section">
+            <h2 class="test-title">🔌 TESTE DE APIs</h2>
+            <div class="test-grid">
+                <button class="test-btn" onclick="testAPI('/api/dashboard/metrics', 'GET')">
+                    📊 Dashboard Metrics
+                </button>
+                <button class="test-btn" onclick="testAPI('/api/clients', 'GET')">
+                    👥 Listar Clientes
+                </button>
+                <button class="test-btn" onclick="testAPI('/api/products', 'GET')">
+                    📦 Listar Produtos
+                </button>
+                <button class="test-btn" onclick="testAPI('/api/events', 'GET')">
+                    🎉 Listar Eventos
+                </button>
+                <button class="test-btn success" onclick="testAPI('/api/ai/status', 'GET')">
+                    🧠 Status da IA
+                </button>
+                <button class="test-btn" onclick="testAPI('/api/sales/list', 'GET')">
+                    💰 Listar Vendas
+                </button>
+            </div>
+            <div id="apiResult" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="test-section">
+            <h2 class="test-title">⚡ FUNCIONALIDADES</h2>
+            <div class="test-grid">
+                <button class="test-btn" onclick="testPDV()">Simular Venda PDV</button>
+                <button class="test-btn" onclick="testCheckin()">Simular Check-in</button>
+                <button class="test-btn success" onclick="testAIChat()">Testar Chat IA</button>
+                <button class="test-btn" onclick="testWebSocket()">Testar WebSocket</button>
+                <button class="test-btn" onclick="testStorage()">Testar Storage</button>
+                <button class="test-btn warning" onclick="testAll()">🚀 TESTAR TUDO</button>
+            </div>
+            <div id="funcResult" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- Console -->
+        <div class="test-section">
+            <h2 class="test-title">💻 CONSOLE</h2>
+            <div id="console" class="result-box" style="display:block; height: 300px;">
+Bem-vindo ao teste do MEEP SUPREME!
+Clique nos botões acima para testar cada funcionalidade.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utility function to log
+        function log(message, type = 'info') {
+            const console = document.getElementById('console');
+            const time = new Date().toLocaleTimeString();
+            const color = type === 'success' ? '#00ff88' : type === 'error' ? '#ff6b6b' : '#fff';
+            console.innerHTML += `<span style="color:${color}">[${time}] ${message}</span>\n`;
+            console.scrollTop = console.scrollHeight;
+            
+            // Update status
+            const status = document.getElementById('status');
+            status.textContent = `Status: ${message.substring(0, 50)}...`;
+        }
+
+        // Test Login
+        async function testLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            log('Testando login...');
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    document.getElementById('authResult').style.display = 'block';
+                    document.getElementById('authResult').textContent = JSON.stringify(data, null, 2);
+                    
+                    log('✅ Login bem-sucedido!', 'success');
+                    log(`Token: ${data.token.substring(0, 20)}...`);
+                    log(`Usuário: ${data.user.name} (${data.user.role})`);
+                } else {
+                    log('❌ Falha no login', 'error');
+                }
+            } catch (error) {
+                log(`❌ Erro no login: ${error.message}`, 'error');
+            }
+        }
+
+        // Test Logout
+        function testLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            log('✅ Logout realizado', 'success');
+        }
+
+        // Check Auth
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token) {
+                log('✅ Autenticado', 'success');
+                log(`Token: ${token.substring(0, 20)}...`);
+                log(`Usuário: ${user.name || 'Unknown'}`);
+            } else {
+                log('⚠️ Não autenticado', 'error');
+            }
+        }
+
+        // Test API
+        async function testAPI(endpoint, method = 'GET') {
+            log(`Testando API: ${endpoint}`);
+            
+            const token = localStorage.getItem('token');
+            if (!token && endpoint !== '/api/auth/login') {
+                log('⚠️ Faça login primeiro!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('apiResult').style.display = 'block';
+                document.getElementById('apiResult').textContent = JSON.stringify(data, null, 2);
+                
+                if (response.ok) {
+                    log(`✅ API ${endpoint} OK`, 'success');
+                } else {
+                    log(`❌ API ${endpoint} erro: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Erro na API: ${error.message}`, 'error');
+            }
+        }
+
+        // Test PDV
+        async function testPDV() {
+            log('Simulando venda no PDV...');
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('⚠️ Faça login primeiro!', 'error');
+                return;
+            }
+            
+            try {
+                // Open transaction
+                const transResponse = await fetch('/api/pdv/transactions/open', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ eventId: 1 })
+                });
+                
+                const transaction = await transResponse.json();
+                
+                if (transaction.success) {
+                    log(`✅ Transação aberta: ${transaction.transaction.code}`, 'success');
+                    
+                    document.getElementById('funcResult').style.display = 'block';
+                    document.getElementById('funcResult').textContent = JSON.stringify(transaction, null, 2);
+                } else {
+                    log('❌ Erro ao abrir transação', 'error');
+                }
+            } catch (error) {
+                log(`❌ Erro no PDV: ${error.message}`, 'error');
+            }
+        }
+
+        // Test Check-in
+        function testCheckin() {
+            log('Simulando check-in...');
+            const code = 'TICKET-' + Math.random().toString(36).substr(2, 9);
+            log(`✅ Check-in simulado para: ${code}`, 'success');
+            
+            document.getElementById('funcResult').style.display = 'block';
+            document.getElementById('funcResult').textContent = `Check-in realizado!\nCódigo: ${code}\nPortão: A\nHorário: ${new Date().toLocaleString()}`;
+        }
+
+        // Test AI Chat
+        async function testAIChat() {
+            log('Testando chat com IA...');
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('⚠️ Faça login primeiro!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/ai/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Olá, qual a previsão de vendas para hoje?',
+                        context: { module: 'test' }
+                    })
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('funcResult').style.display = 'block';
+                document.getElementById('funcResult').textContent = JSON.stringify(data, null, 2);
+                
+                log('✅ IA respondeu!', 'success');
+            } catch (error) {
+                log(`⚠️ IA em modo simulado: ${error.message}`);
+                
+                // Simulate response
+                const mockResponse = {
+                    response: 'Previsão de vendas: R$ 15.000',
+                    confidence: 0.85
+                };
+                
+                document.getElementById('funcResult').style.display = 'block';
+                document.getElementById('funcResult').textContent = JSON.stringify(mockResponse, null, 2);
+            }
+        }
+
+        // Test WebSocket
+        function testWebSocket() {
+            log('Testando WebSocket...');
+            
+            try {
+                const ws = new WebSocket(`ws://${window.location.host}`);
+                
+                ws.onopen = () => {
+                    log('✅ WebSocket conectado!', 'success');
+                    ws.send(JSON.stringify({ type: 'test', message: 'Hello MEEP!' }));
+                };
+                
+                ws.onmessage = (event) => {
+                    log(`📨 Mensagem recebida: ${event.data}`);
+                };
+                
+                ws.onerror = (error) => {
+                    log(`❌ Erro WebSocket: ${error}`, 'error');
+                };
+                
+                setTimeout(() => ws.close(), 5000);
+            } catch (error) {
+                log(`❌ Erro ao conectar WebSocket: ${error.message}`, 'error');
+            }
+        }
+
+        // Test Storage
+        function testStorage() {
+            log('Testando localStorage...');
+            
+            // Save test data
+            const testData = {
+                timestamp: Date.now(),
+                random: Math.random(),
+                message: 'MEEP SUPREME Test'
+            };
+            
+            localStorage.setItem('meep_test', JSON.stringify(testData));
+            
+            // Read back
+            const retrieved = JSON.parse(localStorage.getItem('meep_test') || '{}');
+            
+            if (retrieved.timestamp === testData.timestamp) {
+                log('✅ localStorage funcionando!', 'success');
+                
+                document.getElementById('funcResult').style.display = 'block';
+                document.getElementById('funcResult').textContent = JSON.stringify(retrieved, null, 2);
+            } else {
+                log('❌ Erro no localStorage', 'error');
+            }
+        }
+
+        // Test All
+        async function testAll() {
+            log('🚀 INICIANDO TESTE COMPLETO...', 'success');
+            
+            // Run all tests sequentially
+            await testLogin();
+            await new Promise(r => setTimeout(r, 1000));
+            
+            checkAuth();
+            await new Promise(r => setTimeout(r, 500));
+            
+            await testAPI('/api/dashboard/metrics', 'GET');
+            await new Promise(r => setTimeout(r, 500));
+            
+            await testAPI('/api/ai/status', 'GET');
+            await new Promise(r => setTimeout(r, 500));
+            
+            await testPDV();
+            await new Promise(r => setTimeout(r, 500));
+            
+            testCheckin();
+            await new Promise(r => setTimeout(r, 500));
+            
+            await testAIChat();
+            await new Promise(r => setTimeout(r, 500));
+            
+            testWebSocket();
+            await new Promise(r => setTimeout(r, 500));
+            
+            testStorage();
+            
+            log('✅ TESTE COMPLETO FINALIZADO!', 'success');
+        }
+
+        // Auto-check auth on load
+        window.onload = () => {
+            checkAuth();
+            log('Sistema pronto para testes!', 'success');
+        };
+    </script>
+</body>
+</html>

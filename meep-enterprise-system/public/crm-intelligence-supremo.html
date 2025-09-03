@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Intelligence SUPREMO - Customer 360° & Loyalty Engine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f1f5f9;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .floating-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(50px) translateX(-100px); }
+            75% { transform: translateY(-50px) translateX(-50px); }
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .supremo-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-tab {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Customer 360 Profile Section */
+        .customer-360-section {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Customer Card */
+        .customer-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            animation: slideInLeft 0.6s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .customer-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .vip-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+
+        .customer-name {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .customer-category {
+            text-align: center;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Customer Metrics */
+        .customer-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+
+        /* Engagement Score */
+        .engagement-score {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .engagement-title {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .engagement-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .engagement-fill {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            height: 100%;
+            width: 85%;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            font-weight: 700;
+            animation: growWidth 1s ease;
+        }
+
+        @keyframes growWidth {
+            from { width: 0; }
+        }
+
+        /* Churn Risk Indicator */
+        .churn-risk {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .churn-title {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .churn-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .churn-level {
+            flex: 1;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+            height: 10px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .churn-pointer {
+            position: absolute;
+            top: -10px;
+            left: 20%;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Customer Timeline */
+        .customer-timeline {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            animation: slideInRight 0.6s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .timeline-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timeline-filter {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-filter.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        .timeline-events {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .timeline-event {
+            position: relative;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .timeline-content {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-event-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Smart Segmentation Section */
+        .segmentation-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .segment-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .segment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .segment-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .segment-badge {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .segment-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .segment-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .segment-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .segment-stat {
+            text-align: center;
+        }
+
+        .segment-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .segment-stat-label {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* Loyalty Program Section */
+        .loyalty-section {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .loyalty-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .loyalty-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .loyalty-points {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        /* Loyalty Tiers */
+        .loyalty-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tier-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tier-card.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scale(1.05);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tier-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-name {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .tier-requirement {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Rewards Grid */
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .reward-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .reward-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .reward-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .reward-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .reward-points {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        /* Marketing Automation Section */
+        .automation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Campaign Builder */
+        .campaign-builder {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+        }
+
+        .builder-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .campaign-flow {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .flow-node {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: move;
+        }
+
+        .flow-node:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .node-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .node-content {
+            flex: 1;
+        }
+
+        .node-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .node-description {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Omnichannel Stats */
+        .omnichannel-stats {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .channel-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .channel-card:hover {
+            transform: scale(1.05);
+        }
+
+        .channel-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .channel-stat {
+            text-align: center;
+        }
+
+        .channel-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .channel-stat-label {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* Floating Action Buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(360deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .customer-360-section {
+                grid-template-columns: 1fr;
+            }
+
+            .automation-section {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-particle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+        <div class="floating-particle" style="width: 60px; height: 60px; top: 70%; left: 80%;"></div>
+        <div class="floating-particle" style="width: 80px; height: 80px; top: 50%; left: 50%;"></div>
+        <div class="floating-particle" style="width: 120px; height: 120px; top: 80%; left: 20%;"></div>
+        <div class="floating-particle" style="width: 40px; height: 40px; top: 30%; left: 70%;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>👥 CRM Intelligence</h1>
+                <span class="supremo-badge">SUPREMO</span>
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('360')">Customer 360°</button>
+                <button class="nav-tab" onclick="switchTab('segmentation')">Smart Segmentation</button>
+                <button class="nav-tab" onclick="switchTab('loyalty')">Loyalty Program</button>
+                <button class="nav-tab" onclick="switchTab('automation')">Marketing Automation</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Customer 360 Profile Section -->
+        <div id="360-tab" class="tab-content">
+            <div class="customer-360-section">
+                <!-- Customer Card -->
+                <div class="customer-card">
+                    <div class="customer-avatar">
+                        JD
+                        <span class="vip-badge">VIP</span>
+                    </div>
+                    <div class="customer-name">John Doe</div>
+                    <div class="customer-category">🌟 Premium Customer</div>
+                    
+                    <!-- Customer Metrics -->
+                    <div class="customer-metrics">
+                        <div class="metric-card">
+                            <div class="metric-value">$42,350</div>
+                            <div class="metric-label">Lifetime Value</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">127</div>
+                            <div class="metric-label">Total Orders</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">4.8</div>
+                            <div class="metric-label">Avg Rating</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">2.5y</div>
+                            <div class="metric-label">Customer Since</div>
+                        </div>
+                    </div>
+
+                    <!-- Engagement Score -->
+                    <div class="engagement-score">
+                        <div class="engagement-title">Engagement Score</div>
+                        <div class="engagement-bar">
+                            <div class="engagement-fill">85%</div>
+                        </div>
+                    </div>
+
+                    <!-- Churn Risk -->
+                    <div class="churn-risk">
+                        <div class="churn-title">Churn Risk Analysis</div>
+                        <div class="churn-indicator">
+                            <div class="churn-level">
+                                <div class="churn-pointer">20%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Timeline -->
+                <div class="customer-timeline">
+                    <div class="timeline-header">
+                        <h2 class="timeline-title">Customer Journey Timeline</h2>
+                        <div class="timeline-filters">
+                            <button class="timeline-filter active">All</button>
+                            <button class="timeline-filter">Purchases</button>
+                            <button class="timeline-filter">Support</button>
+                            <button class="timeline-filter">Marketing</button>
+                        </div>
+                    </div>
+                    <div class="timeline-events">
+                        <div class="timeline-line"></div>
+                        
+                        <div class="timeline-event">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Today, 2:30 PM</div>
+                                <div class="timeline-event-title">🛍️ New Purchase</div>
+                                <div class="timeline-description">Premium subscription renewal - $299</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Yesterday, 5:15 PM</div>
+                                <div class="timeline-event-title">📧 Email Campaign Opened</div>
+                                <div class="timeline-description">Black Friday special offers - 85% engagement rate</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">3 days ago</div>
+                                <div class="timeline-event-title">⭐ Product Review</div>
+                                <div class="timeline-description">5-star review with detailed feedback</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">1 week ago</div>
+                                <div class="timeline-event-title">💬 Support Ticket Resolved</div>
+                                <div class="timeline-description">Issue resolved in 24 hours - High satisfaction</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">2 weeks ago</div>
+                                <div class="timeline-event-title">🎁 Referral Completed</div>
+                                <div class="timeline-description">Successfully referred 2 new customers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart Segmentation Section -->
+        <div id="segmentation-tab" class="tab-content" style="display: none;">
+            <div class="segmentation-section">
+                <!-- VIP Segment -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">👑</div>
+                        <span class="segment-badge">Auto ML</span>
+                    </div>
+                    <div class="segment-name">VIP Champions</div>
+                    <div class="segment-description">High-value customers with consistent engagement and purchase history</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">234</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">$45K</div>
+                            <div class="segment-stat-label">Avg CLV</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">92%</div>
+                            <div class="segment-stat-label">Retention</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Potential -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">📈</div>
+                        <span class="segment-badge">AI Predicted</span>
+                    </div>
+                    <div class="segment-name">Growth Potential</div>
+                    <div class="segment-description">Customers showing increasing engagement and purchase frequency</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">567</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">$12K</div>
+                            <div class="segment-stat-label">Avg CLV</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">78%</div>
+                            <div class="segment-stat-label">Growth Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- At Risk -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">⚠️</div>
+                        <span class="segment-badge">Alert</span>
+                    </div>
+                    <div class="segment-name">At Risk</div>
+                    <div class="segment-description">Previously active customers showing declining engagement</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">89</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">65%</div>
+                            <div class="segment-stat-label">Churn Risk</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">-32%</div>
+                            <div class="segment-stat-label">Activity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Customers -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">🎯</div>
+                        <span class="segment-badge">Onboarding</span>
+                    </div>
+                    <div class="segment-name">New Arrivals</div>
+                    <div class="segment-description">Recently acquired customers in their first 30 days</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">145</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">$2.5K</div>
+                            <div class="segment-stat-label">Avg Order</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">45%</div>
+                            <div class="segment-stat-label">Activation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loyal Advocates -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">💖</div>
+                        <span class="segment-badge">Top Tier</span>
+                    </div>
+                    <div class="segment-name">Brand Advocates</div>
+                    <div class="segment-description">Customers with high NPS scores and referral activity</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">342</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">9.2</div>
+                            <div class="segment-stat-label">NPS Score</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">3.5</div>
+                            <div class="segment-stat-label">Referrals/mo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seasonal Buyers -->
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">🎄</div>
+                        <span class="segment-badge">Pattern</span>
+                    </div>
+                    <div class="segment-name">Seasonal Shoppers</div>
+                    <div class="segment-description">Customers with predictable seasonal purchase patterns</div>
+                    <div class="segment-stats">
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">891</div>
+                            <div class="segment-stat-label">Customers</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">Q4</div>
+                            <div class="segment-stat-label">Peak Period</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-value">4x</div>
+                            <div class="segment-stat-label">Peak Spend</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loyalty Program Section -->
+        <div id="loyalty-tab" class="tab-content" style="display: none;">
+            <div class="loyalty-section">
+                <div class="loyalty-header">
+                    <h2 class="loyalty-title">🎮 Gamified Loyalty Program</h2>
+                    <div class="loyalty-points">12,450 Points</div>
+                </div>
+
+                <!-- Loyalty Tiers -->
+                <div class="loyalty-tiers">
+                    <div class="tier-card">
+                        <div class="tier-icon">🥉</div>
+                        <div class="tier-name">Bronze</div>
+                        <div class="tier-requirement">0 - 1,000 pts</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-icon">🥈</div>
+                        <div class="tier-name">Silver</div>
+                        <div class="tier-requirement">1,001 - 5,000 pts</div>
+                    </div>
+                    <div class="tier-card active">
+                        <div class="tier-icon">🥇</div>
+                        <div class="tier-name">Gold</div>
+                        <div class="tier-requirement">5,001 - 20,000 pts</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-icon">💎</div>
+                        <div class="tier-name">Diamond</div>
+                        <div class="tier-requirement">20,001 - 50,000 pts</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-icon">🌟</div>
+                        <div class="tier-name">Elite</div>
+                        <div class="tier-requirement">50,001+ pts</div>
+                    </div>
+                </div>
+
+                <!-- Current Challenges -->
+                <h3 style="color: white; margin-bottom: 1rem;">🎯 Active Challenges</h3>
+                <div class="rewards-grid">
+                    <div class="reward-card">
+                        <div class="reward-icon">🛍️</div>
+                        <div class="reward-name">Weekend Warrior</div>
+                        <div class="reward-points">+500 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">👥</div>
+                        <div class="reward-name">Refer a Friend</div>
+                        <div class="reward-points">+1,000 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">⭐</div>
+                        <div class="reward-name">Review Master</div>
+                        <div class="reward-points">+250 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">📱</div>
+                        <div class="reward-name">App Explorer</div>
+                        <div class="reward-points">+300 pts</div>
+                    </div>
+                </div>
+
+                <!-- Available Rewards -->
+                <h3 style="color: white; margin-bottom: 1rem;">🎁 Rewards Marketplace</h3>
+                <div class="rewards-grid">
+                    <div class="reward-card">
+                        <div class="reward-icon">💸</div>
+                        <div class="reward-name">$10 Discount</div>
+                        <div class="reward-points">1,000 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">🚚</div>
+                        <div class="reward-name">Free Shipping</div>
+                        <div class="reward-points">500 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">🎂</div>
+                        <div class="reward-name">Birthday Surprise</div>
+                        <div class="reward-points">2,000 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">👕</div>
+                        <div class="reward-name">Exclusive Merch</div>
+                        <div class="reward-points">5,000 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">🎟️</div>
+                        <div class="reward-name">VIP Event Access</div>
+                        <div class="reward-points">10,000 pts</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-icon">✈️</div>
+                        <div class="reward-name">Travel Voucher</div>
+                        <div class="reward-points">20,000 pts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Marketing Automation Section -->
+        <div id="automation-tab" class="tab-content" style="display: none;">
+            <div class="automation-section">
+                <!-- Campaign Builder -->
+                <div class="campaign-builder">
+                    <h3 class="builder-header">🚀 Visual Campaign Builder</h3>
+                    <div class="campaign-flow">
+                        <div class="flow-node">
+                            <div class="node-icon">🎯</div>
+                            <div class="node-content">
+                                <div class="node-title">Trigger: New Customer</div>
+                                <div class="node-description">When a new customer signs up</div>
+                            </div>
+                        </div>
+                        <div class="flow-node">
+                            <div class="node-icon">⏰</div>
+                            <div class="node-content">
+                                <div class="node-title">Wait: 24 Hours</div>
+                                <div class="node-description">Delay before sending welcome email</div>
+                            </div>
+                        </div>
+                        <div class="flow-node">
+                            <div class="node-icon">📧</div>
+                            <div class="node-content">
+                                <div class="node-title">Action: Welcome Email</div>
+                                <div class="node-description">Personalized onboarding message</div>
+                            </div>
+                        </div>
+                        <div class="flow-node">
+                            <div class="node-icon">🔀</div>
+                            <div class="node-content">
+                                <div class="node-title">Condition: Email Opened?</div>
+                                <div class="node-description">Branch based on engagement</div>
+                            </div>
+                        </div>
+                        <div class="flow-node">
+                            <div class="node-icon">🎁</div>
+                            <div class="node-content">
+                                <div class="node-title">Action: Send Coupon</div>
+                                <div class="node-description">10% discount for first purchase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Omnichannel Stats -->
+                <div class="omnichannel-stats">
+                    <h3 class="builder-header">📊 Omnichannel Performance</h3>
+                    <div class="channel-grid">
+                        <div class="channel-card">
+                            <div class="channel-icon">📧</div>
+                            <div class="channel-name">Email</div>
+                            <div class="channel-stats">
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">28%</div>
+                                    <div class="channel-stat-label">Open Rate</div>
+                                </div>
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">4.2%</div>
+                                    <div class="channel-stat-label">CTR</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-card">
+                            <div class="channel-icon">💬</div>
+                            <div class="channel-name">WhatsApp</div>
+                            <div class="channel-stats">
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">92%</div>
+                                    <div class="channel-stat-label">Read Rate</div>
+                                </div>
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">18%</div>
+                                    <div class="channel-stat-label">Response</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-card">
+                            <div class="channel-icon">📱</div>
+                            <div class="channel-name">SMS</div>
+                            <div class="channel-stats">
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">98%</div>
+                                    <div class="channel-stat-label">Delivery</div>
+                                </div>
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">8.5%</div>
+                                    <div class="channel-stat-label">CTR</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-card">
+                            <div class="channel-icon">🔔</div>
+                            <div class="channel-name">Push</div>
+                            <div class="channel-stats">
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">65%</div>
+                                    <div class="channel-stat-label">Opt-in</div>
+                                </div>
+                                <div class="channel-stat">
+                                    <div class="channel-stat-value">12%</div>
+                                    <div class="channel-stat-label">CTR</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A/B Test Results -->
+                    <h3 style="color: white; margin: 2rem 0 1rem;">🧪 Active A/B Tests</h3>
+                    <div style="background: var(--glass); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span>Subject Line Test: "Special Offer" vs "Exclusive Deal"</span>
+                            <span style="color: #10b981; font-weight: 700;">Winner: B (+23%)</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <div style="flex: 1; background: rgba(239, 68, 68, 0.2); padding: 0.5rem; border-radius: 10px; text-align: center;">
+                                Variant A: 18% Open Rate
+                            </div>
+                            <div style="flex: 1; background: rgba(16, 185, 129, 0.2); padding: 0.5rem; border-radius: 10px; text-align: center;">
+                                Variant B: 22% Open Rate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <button class="fab" title="Add Customer">➕</button>
+        <button class="fab" title="AI Assistant">🤖</button>
+        <button class="fab" title="Analytics">📊</button>
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tab) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(navTab => {
+                navTab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tab + '-tab').style.display = 'block';
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Simulate Real-time Updates
+        function updateMetrics() {
+            // Update engagement score
+            const engagementFill = document.querySelector('.engagement-fill');
+            const currentEngagement = parseInt(engagementFill.textContent);
+            const newEngagement = Math.min(100, currentEngagement + Math.floor(Math.random() * 3) - 1);
+            engagementFill.style.width = newEngagement + '%';
+            engagementFill.textContent = newEngagement + '%';
+
+            // Update churn risk
+            const churnPointer = document.querySelector('.churn-pointer');
+            const currentRisk = parseInt(churnPointer.textContent);
+            const newRisk = Math.max(0, Math.min(100, currentRisk + Math.floor(Math.random() * 5) - 2));
+            churnPointer.style.left = newRisk + '%';
+            churnPointer.textContent = newRisk + '%';
+
+            // Update loyalty points
+            const loyaltyPoints = document.querySelector('.loyalty-points');
+            const currentPoints = parseInt(loyaltyPoints.textContent.replace(/[^\d]/g, ''));
+            const newPoints = currentPoints + Math.floor(Math.random() * 50);
+            loyaltyPoints.textContent = newPoints.toLocaleString() + ' Points';
+        }
+
+        // Add new timeline event
+        function addTimelineEvent() {
+            const events = [
+                { icon: '📧', title: 'Email Opened', desc: 'Marketing campaign engagement' },
+                { icon: '🛍️', title: 'Product Viewed', desc: 'Browsed premium collection' },
+                { icon: '💬', title: 'Chat Started', desc: 'Customer support interaction' },
+                { icon: '⭐', title: 'Feedback Received', desc: 'Product satisfaction survey' },
+                { icon: '🎁', title: 'Reward Claimed', desc: 'Loyalty points redeemed' }
+            ];
+
+            const randomEvent = events[Math.floor(Math.random() * events.length)];
+            const timelineEvents = document.querySelector('.timeline-events');
+            
+            const newEvent = document.createElement('div');
+            newEvent.className = 'timeline-event';
+            newEvent.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Just now</div>
+                    <div class="timeline-event-title">${randomEvent.icon} ${randomEvent.title}</div>
+                    <div class="timeline-description">${randomEvent.desc}</div>
+                </div>
+            `;
+
+            // Insert after the timeline line
+            timelineEvents.insertBefore(newEvent, timelineEvents.children[1]);
+
+            // Remove old events if too many
+            if (timelineEvents.children.length > 8) {
+                timelineEvents.removeChild(timelineEvents.lastChild);
+            }
+        }
+
+        // Initialize animations and updates
+        setInterval(updateMetrics, 3000);
+        setInterval(addTimelineEvent, 10000);
+
+        // Simulate ML predictions
+        setTimeout(() => {
+            console.log('🤖 ML Engine: Running customer segmentation...');
+            console.log('📊 Analyzing behavioral patterns...');
+            console.log('🎯 Generating personalized recommendations...');
+            console.log('✨ Customer Intelligence ready!');
+        }, 2000);
+
+        // Drag and drop for campaign builder
+        const flowNodes = document.querySelectorAll('.flow-node');
+        flowNodes.forEach(node => {
+            node.draggable = true;
+            node.addEventListener('dragstart', (e) => {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', e.target.innerHTML);
+                e.target.style.opacity = '0.5';
+            });
+            
+            node.addEventListener('dragend', (e) => {
+                e.target.style.opacity = '';
+            });
+            
+            node.addEventListener('dragover', (e) => {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                e.dataTransfer.dropEffect = 'move';
+                return false;
+            });
+            
+            node.addEventListener('drop', (e) => {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+                return false;
+            });
+        });
+
+        console.log('🚀 CRM Intelligence SUPREMO initialized!');
+        console.log('👥 Customer 360° Profile active');
+        console.log('🧠 Smart Segmentation ML running');
+        console.log('🎮 Loyalty Gamification enabled');
+        console.log('📊 Marketing Automation ready');
+    </script>
+</body>
+</html>

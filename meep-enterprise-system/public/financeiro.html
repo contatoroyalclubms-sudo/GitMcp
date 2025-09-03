@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financeiro - MEEP SUPREME</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .date-range input {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .finance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .finance-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .finance-card.income::before {
+            background: linear-gradient(90deg, #00ff88, #00cc6a);
+        }
+
+        .finance-card.expense::before {
+            background: linear-gradient(90deg, #ff6b6b, #ff4757);
+        }
+
+        .finance-card.balance::before {
+            background: linear-gradient(90deg, #ffd700, #ffac00);
+        }
+
+        .finance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-value.positive {
+            color: #00ff88;
+        }
+
+        .card-value.negative {
+            color: #ff6b6b;
+        }
+
+        .card-value.neutral {
+            color: #ffd700;
+        }
+
+        .card-change {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-change.up {
+            color: #00ff88;
+        }
+
+        .card-change.down {
+            color: #ff6b6b;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chart-tab {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chart-tab:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .chart-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
+
+        .transactions-list {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .transaction-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .transaction-icon.income {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .transaction-icon.expense {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .transaction-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .transaction-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .transaction-category {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .transaction-amount {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .transaction-amount.income {
+            color: #00ff88;
+        }
+
+        .transaction-amount.expense {
+            color: #ff6b6b;
+        }
+
+        .payment-methods-breakdown {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .payment-method-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-method-item:last-child {
+            border-bottom: none;
+        }
+
+        .payment-method-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-method-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-method-name {
+            font-size: 14px;
+        }
+
+        .payment-method-stats {
+            text-align: right;
+        }
+
+        .payment-method-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .payment-method-count {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .export-btn {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .cashflow-timeline {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .timeline-header {
+            margin-bottom: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #667eea;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 18px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .timeline-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FINANCEIRO SUPREME</h1>
+        <div class="date-range">
+            <input type="date" id="startDate" value="2025-01-01">
+            <span>até</span>
+            <input type="date" id="endDate" value="2025-01-31">
+            <button class="export-btn" style="width: auto; padding: 10px 20px;" onclick="updateDateRange()">
+                Atualizar
+            </button>
+        </div>
+    </div>
+
+    <div class="finance-grid">
+        <div class="finance-card income">
+            <div class="card-icon">💰</div>
+            <div class="card-label">RECEITA TOTAL</div>
+            <div class="card-value positive">R$ 697.200,00</div>
+            <div class="card-change up">
+                <span>↑</span>
+                <span>+12.5% vs mês anterior</span>
+            </div>
+        </div>
+
+        <div class="finance-card expense">
+            <div class="card-icon">📊</div>
+            <div class="card-label">DESPESAS</div>
+            <div class="card-value negative">R$ 248.350,00</div>
+            <div class="card-change down">
+                <span>↓</span>
+                <span>-8.3% vs mês anterior</span>
+            </div>
+        </div>
+
+        <div class="finance-card balance">
+            <div class="card-icon">💎</div>
+            <div class="card-label">LUCRO LÍQUIDO</div>
+            <div class="card-value neutral">R$ 448.850,00</div>
+            <div class="card-change up">
+                <span>↑</span>
+                <span>+18.7% vs mês anterior</span>
+            </div>
+        </div>
+
+        <div class="finance-card">
+            <div class="card-icon">🎫</div>
+            <div class="card-label">TICKET MÉDIO</div>
+            <div class="card-value positive">R$ 127,45</div>
+            <div class="card-change up">
+                <span>↑</span>
+                <span>+5.2% vs mês anterior</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Fluxo de Caixa</h2>
+                <div class="chart-tabs">
+                    <button class="chart-tab active" onclick="switchChart('daily')">Diário</button>
+                    <button class="chart-tab" onclick="switchChart('weekly')">Semanal</button>
+                    <button class="chart-tab" onclick="switchChart('monthly')">Mensal</button>
+                </div>
+            </div>
+            <canvas id="cashflowChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="transactions-list">
+            <div class="transactions-header">
+                <h3>Últimas Transações</h3>
+                <button class="export-btn" style="width: auto; padding: 8px 16px;" onclick="viewAllTransactions()">
+                    Ver Todas
+                </button>
+            </div>
+            <div id="transactionsList">
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon income">💳</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Venda PDV #1247</div>
+                            <div class="transaction-category">Vendas • PIX</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount income">+R$ 299,07</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon income">🎫</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ingresso VIP</div>
+                            <div class="transaction-category">Ingressos • Crédito</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount income">+R$ 450,00</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon expense">📦</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Compra Estoque</div>
+                            <div class="transaction-category">Fornecedores</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-R$ 1.250,00</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon income">💳</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Recarga Cashless</div>
+                            <div class="transaction-category">Cashless • Débito</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount income">+R$ 500,00</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon expense">💡</div>
+                        <div class="transaction-details">
+                            <div class="transaction-title">Conta de Luz</div>
+                            <div class="transaction-category">Utilidades</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-R$ 780,00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-methods-breakdown">
+        <h3 style="margin-bottom: 20px;">Métodos de Pagamento</h3>
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">💵</div>
+                <div class="payment-method-name">Dinheiro</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 299.070,00</div>
+                <div class="payment-method-count">2.347 transações</div>
+            </div>
+        </div>
+        
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">💳</div>
+                <div class="payment-method-name">Crédito</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 189.450,00</div>
+                <div class="payment-method-count">1.576 transações</div>
+            </div>
+        </div>
+        
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">💳</div>
+                <div class="payment-method-name">Débito</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 156.230,00</div>
+                <div class="payment-method-count">1.302 transações</div>
+            </div>
+        </div>
+        
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">📱</div>
+                <div class="payment-method-name">PIX</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 10.000,00</div>
+                <div class="payment-method-count">83 transações</div>
+            </div>
+        </div>
+        
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">🎫</div>
+                <div class="payment-method-name">Voucher</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 8.400,00</div>
+                <div class="payment-method-count">70 transações</div>
+            </div>
+        </div>
+        
+        <div class="payment-method-item">
+            <div class="payment-method-info">
+                <div class="payment-method-icon">💳</div>
+                <div class="payment-method-name">Cashless</div>
+            </div>
+            <div class="payment-method-stats">
+                <div class="payment-method-amount">R$ 34.050,00</div>
+                <div class="payment-method-count">284 transações</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="export-buttons">
+        <button class="export-btn" onclick="exportPDF()">
+            <span>📄</span>
+            <span>Exportar PDF</span>
+        </button>
+        <button class="export-btn" onclick="exportExcel()">
+            <span>📊</span>
+            <span>Exportar Excel</span>
+        </button>
+        <button class="export-btn" onclick="exportDFe()">
+            <span>📋</span>
+            <span>Exportar DFe</span>
+        </button>
+    </div>
+
+    <div class="cashflow-timeline">
+        <div class="timeline-header">
+            <h3>Fluxo de Caixa Projetado</h3>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">Hoje</div>
+                <div class="timeline-title">Saldo Atual</div>
+                <div class="timeline-amount">R$ 448.850,00</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">Próximos 7 dias</div>
+                <div class="timeline-title">Receitas Previstas</div>
+                <div class="timeline-amount">+R$ 125.000,00</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">Próximos 7 dias</div>
+                <div class="timeline-title">Despesas Previstas</div>
+                <div class="timeline-amount" style="color: #ff6b6b;">-R$ 45.000,00</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">Fim do período</div>
+                <div class="timeline-title">Saldo Projetado</div>
+                <div class="timeline-amount">R$ 528.850,00</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize Chart
+        const ctx = document.getElementById('cashflowChart').getContext('2d');
+        const cashflowChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
+                datasets: [{
+                    label: 'Receitas',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000, 28000, 35000, 32000, 38000, 42000, 45000, 48000, 52000, 55000],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Despesas',
+                    data: [8000, 9500, 8500, 12000, 11000, 15000, 14000, 16000, 15000, 18000, 19000, 20000, 21000, 22000, 23000],
+                    borderColor: '#ff6b6b',
+                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#fff',
+                            callback: function(value) {
+                                return 'R$ ' + value.toLocaleString('pt-BR');
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Switch chart view
+        function switchChart(period) {
+            document.querySelectorAll('.chart-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update chart data based on period
+            if (period === 'weekly') {
+                cashflowChart.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+                cashflowChart.data.datasets[0].data = [85000, 92000, 88000, 95000];
+                cashflowChart.data.datasets[1].data = [42000, 45000, 43000, 46000];
+            } else if (period === 'monthly') {
+                cashflowChart.data.labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+                cashflowChart.data.datasets[0].data = [350000, 380000, 420000, 450000, 480000, 520000];
+                cashflowChart.data.datasets[1].data = [180000, 190000, 200000, 210000, 220000, 230000];
+            } else {
+                // Daily view (default)
+                cashflowChart.data.labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'];
+                cashflowChart.data.datasets[0].data = [12000, 19000, 15000, 25000, 22000, 30000, 28000, 35000, 32000, 38000, 42000, 45000, 48000, 52000, 55000];
+                cashflowChart.data.datasets[1].data = [8000, 9500, 8500, 12000, 11000, 15000, 14000, 16000, 15000, 18000, 19000, 20000, 21000, 22000, 23000];
+            }
+            cashflowChart.update();
+        }
+
+        // Export functions
+        function exportPDF() {
+            alert('Exportando relatório financeiro em PDF...');
+        }
+
+        function exportExcel() {
+            alert('Exportando relatório financeiro em Excel...');
+        }
+
+        function exportDFe() {
+            alert('Exportando documentos fiscais eletrônicos...');
+        }
+
+        // Update date range
+        function updateDateRange() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            console.log(`Updating financial data from ${startDate} to ${endDate}`);
+            // Fetch new data based on date range
+        }
+
+        // View all transactions
+        function viewAllTransactions() {
+            window.location.href = '/transactions.html';
+        }
+    </script>
+</body>
+</html>

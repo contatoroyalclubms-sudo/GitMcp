@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEEP SUPREME - Menu Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2a 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .menu-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .menu-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #00ff88, #00ccff);
+            border-radius: 20px;
+            font-size: 10px;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #ff00ff, #ffff00);
+        }
+
+        .login-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            margin-left: 10px;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-info">
+        <span id="userInfo">Bem-vindo!</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
+
+    <div class="menu-container">
+        <h1>🚀 MEEP SUPREME</h1>
+        <p class="subtitle">Sistema de Gestão de Eventos com IA Real</p>
+
+        <div class="menu-grid">
+            <a href="/" class="menu-card">
+                <span class="status-badge">ONLINE</span>
+                <div class="menu-icon">📊</div>
+                <div class="menu-title">Dashboard Principal</div>
+                <div class="menu-description">Visão geral do sistema com métricas em tempo real</div>
+            </a>
+
+            <a href="/ai-dashboard.html" class="menu-card">
+                <span class="status-badge ai-badge">IA REAL</span>
+                <div class="menu-icon">🧠</div>
+                <div class="menu-title">IA Dashboard</div>
+                <div class="menu-description">Inteligência Artificial com previsões e análises</div>
+            </a>
+
+            <a href="/pdv.html" class="menu-card">
+                <span class="status-badge">ATIVO</span>
+                <div class="menu-icon">💳</div>
+                <div class="menu-title">PDV - Ponto de Venda</div>
+                <div class="menu-description">Sistema completo com múltiplos pagamentos</div>
+            </a>
+
+            <a href="/checkin.html" class="menu-card">
+                <span class="status-badge">LIVE</span>
+                <div class="menu-icon">✅</div>
+                <div class="menu-title">Check-in de Eventos</div>
+                <div class="menu-description">Scanner QR Code e controle de portões</div>
+            </a>
+
+            <a href="/financeiro.html" class="menu-card">
+                <span class="status-badge">R$ 697.200</span>
+                <div class="menu-icon">💰</div>
+                <div class="menu-title">Financeiro</div>
+                <div class="menu-description">Fluxo de caixa e análises financeiras</div>
+            </a>
+
+            <a href="/supreme-dashboard.html" class="menu-card">
+                <span class="status-badge">PREMIUM</span>
+                <div class="menu-icon">💎</div>
+                <div class="menu-title">Supreme Dashboard</div>
+                <div class="menu-description">Interface premium com design futurista</div>
+            </a>
+
+            <a href="/eventos.html" class="menu-card">
+                <div class="menu-icon">🎉</div>
+                <div class="menu-title">Gestão de Eventos</div>
+                <div class="menu-description">Criação e gerenciamento de eventos</div>
+            </a>
+
+            <a href="/clientes.html" class="menu-card">
+                <div class="menu-icon">👥</div>
+                <div class="menu-title">Clientes</div>
+                <div class="menu-description">CRM e gestão de relacionamento</div>
+            </a>
+
+            <a href="/produtos.html" class="menu-card">
+                <div class="menu-icon">📦</div>
+                <div class="menu-title">Produtos</div>
+                <div class="menu-description">Catálogo e gestão de estoque</div>
+            </a>
+
+            <a href="/relatorios.html" class="menu-card">
+                <div class="menu-icon">📈</div>
+                <div class="menu-title">Relatórios</div>
+                <div class="menu-description">Analytics e insights do negócio</div>
+            </a>
+
+            <a href="/configuracoes.html" class="menu-card">
+                <div class="menu-icon">⚙️</div>
+                <div class="menu-title">Configurações</div>
+                <div class="menu-description">Ajustes e personalizações do sistema</div>
+            </a>
+
+            <a href="/ajuda.html" class="menu-card">
+                <div class="menu-icon">❓</div>
+                <div class="menu-title">Ajuda</div>
+                <div class="menu-description">Documentação e suporte</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (!token) {
+            alert('Por favor, faça login primeiro!\nEmail: admin@meep.com\nSenha: admin123');
+            window.location.href = '/';
+        } else {
+            document.getElementById('userInfo').textContent = `Olá, ${user.name || 'Usuário'}!`;
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        // Add floating animation to cards
+        document.querySelectorAll('.menu-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>

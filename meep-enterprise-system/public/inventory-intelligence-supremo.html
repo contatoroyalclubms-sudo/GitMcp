@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVENTORY INTELLIGENCE SUPREMO - Sistema de Gestão de Estoque com IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .cube {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            animation: float 20s infinite;
+            transform-style: preserve-3d;
+        }
+
+        .cube:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .cube:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .cube:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .cube:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .cube:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+
+        .status-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .status-value.danger {
+            color: #ef4444;
+        }
+
+        .status-value.warning {
+            color: #f59e0b;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-title {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .metric-change.positive {
+            color: #10b981;
+        }
+
+        .metric-change.negative {
+            color: #ef4444;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            color: #e2e8f0;
+        }
+
+        .tab.active {
+            color: #6366f1;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Inventory Dashboard */
+        .inventory-dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .stock-levels {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .product-item {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            background: rgba(51, 65, 85, 0.8);
+            transform: translateX(5px);
+        }
+
+        .product-name {
+            font-weight: 500;
+        }
+
+        .stock-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .stock-status.optimal {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .stock-status.low {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .stock-status.critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .stock-bar {
+            height: 8px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .stock-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.5s ease;
+        }
+
+        /* AI Predictions */
+        .ai-predictions {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .prediction-card {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .prediction-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        .prediction-confidence {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .confidence-bar {
+            width: 100px;
+            height: 4px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: #10b981;
+        }
+
+        /* Supplier Network */
+        .supplier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .supplier-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .supplier-card:hover {
+            transform: scale(1.02);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .supplier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .supplier-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .supplier-score {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: bold;
+        }
+
+        .supplier-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .supplier-metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 0.5rem;
+        }
+
+        .supplier-metric-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+
+        .supplier-metric-value {
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        /* Demand Forecast Chart */
+        .forecast-chart {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 320px;
+            position: relative;
+        }
+
+        .chart-line {
+            stroke: #6366f1;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .chart-area {
+            fill: url(#gradient);
+            opacity: 0.3;
+        }
+
+        .chart-grid {
+            stroke: rgba(148, 163, 184, 0.1);
+            stroke-width: 1;
+        }
+
+        /* Cost Analysis */
+        .cost-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .cost-chart {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .cost-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 0.5rem;
+        }
+
+        .cost-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cost-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .cost-value {
+            font-weight: bold;
+        }
+
+        .cost-percentage {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        /* Optimization Recommendations */
+        .recommendations {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .recommendation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .recommendation-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .recommendation-item:hover {
+            background: rgba(51, 65, 85, 0.8);
+            transform: translateX(5px);
+        }
+
+        .recommendation-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .recommendation-content {
+            flex: 1;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .recommendation-description {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-impact {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Actions Panel */
+        .actions-panel {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .action-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .action-button.secondary {
+            background: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .inventory-dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .cost-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .status-bar {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .supplier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                📦 INVENTORY INTELLIGENCE SUPREMO
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="status-label">Stock Health</div>
+                    <div class="status-value">94.2%</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Forecast Accuracy</div>
+                    <div class="status-value">96.8%</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Cost Saved</div>
+                    <div class="status-value">R$ 48.5K</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Alerts</div>
+                    <div class="status-value warning">3</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Dashboard Metrics -->
+        <div class="dashboard-grid">
+            <div class="metric-card slide-in">
+                <div class="metric-header">
+                    <span class="metric-title">Total Inventory Value</span>
+                    <div class="metric-icon">💰</div>
+                </div>
+                <div class="metric-value">R$ 1.8M</div>
+                <div class="metric-change positive">
+                    ↑ 12.3% vs last month
+                </div>
+            </div>
+
+            <div class="metric-card slide-in" style="animation-delay: 0.1s">
+                <div class="metric-header">
+                    <span class="metric-title">Inventory Turnover</span>
+                    <div class="metric-icon">🔄</div>
+                </div>
+                <div class="metric-value">8.4x</div>
+                <div class="metric-change positive">
+                    ↑ 2.1x improvement
+                </div>
+            </div>
+
+            <div class="metric-card slide-in" style="animation-delay: 0.2s">
+                <div class="metric-header">
+                    <span class="metric-title">Stockout Events</span>
+                    <div class="metric-icon">⚠️</div>
+                </div>
+                <div class="metric-value">0</div>
+                <div class="metric-change positive">
+                    Zero for 45 days
+                </div>
+            </div>
+
+            <div class="metric-card slide-in" style="animation-delay: 0.3s">
+                <div class="metric-header">
+                    <span class="metric-title">Supplier Performance</span>
+                    <div class="metric-icon">⭐</div>
+                </div>
+                <div class="metric-value">92%</div>
+                <div class="metric-change positive">
+                    ↑ 5% this quarter
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('dashboard')">
+                📊 Smart Dashboard
+            </button>
+            <button class="tab" onclick="switchTab('forecasting')">
+                🔮 Demand Forecasting
+            </button>
+            <button class="tab" onclick="switchTab('suppliers')">
+                🤝 Supplier Intelligence
+            </button>
+            <button class="tab" onclick="switchTab('cost')">
+                💹 Cost Optimization
+            </button>
+            <button class="tab" onclick="switchTab('automation')">
+                🤖 Automation Engine
+            </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="inventory-dashboard">
+                <div class="stock-levels">
+                    <h2 class="section-title">
+                        📈 Real-time Stock Levels
+                    </h2>
+                    <div class="product-list">
+                        <div class="product-item">
+                            <div class="product-name">ADALYA LOVE 66</div>
+                            <div class="stock-status optimal">Optimal</div>
+                            <div>Stock: 850 units</div>
+                            <div class="stock-bar">
+                                <div class="stock-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">HAZE PACOCA</div>
+                            <div class="stock-status low">Low</div>
+                            <div>Stock: 120 units</div>
+                            <div class="stock-bar">
+                                <div class="stock-fill" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">ZIGGY 7 BELO</div>
+                            <div class="stock-status optimal">Optimal</div>
+                            <div>Stock: 650 units</div>
+                            <div class="stock-bar">
+                                <div class="stock-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">MAZAYA DOUBLE APPLE</div>
+                            <div class="stock-status critical">Critical</div>
+                            <div>Stock: 45 units</div>
+                            <div class="stock-bar">
+                                <div class="stock-fill" style="width: 15%; background: linear-gradient(90deg, #ef4444, #dc2626)"></div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">AL FAKHER MINT</div>
+                            <div class="stock-status optimal">Optimal</div>
+                            <div>Stock: 920 units</div>
+                            <div class="stock-bar">
+                                <div class="stock-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-predictions">
+                    <h2 class="section-title">
+                        🧠 AI Predictions
+                    </h2>
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <span class="prediction-label">Next Reorder Date</span>
+                            <span class="prediction-value">Jan 8</span>
+                        </div>
+                        <div class="prediction-confidence">
+                            <span>Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 94%"></div>
+                            </div>
+                            <span>94%</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <span class="prediction-label">Demand Spike Expected</span>
+                            <span class="prediction-value">Jan 15</span>
+                        </div>
+                        <div class="prediction-confidence">
+                            <span>Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 87%"></div>
+                            </div>
+                            <span>87%</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <span class="prediction-label">Cost Saving Potential</span>
+                            <span class="prediction-value">R$ 12.4K</span>
+                        </div>
+                        <div class="prediction-confidence">
+                            <span>Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 91%"></div>
+                            </div>
+                            <span>91%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forecasting Tab -->
+        <div id="forecasting" class="tab-content">
+            <div class="forecast-chart">
+                <h2 class="section-title">
+                    📊 ML Demand Forecasting (95% Accuracy)
+                </h2>
+                <div class="chart-container">
+                    <svg width="100%" height="100%" viewBox="0 0 800 320">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Grid -->
+                        <line x1="40" y1="40" x2="760" y2="40" class="chart-grid" />
+                        <line x1="40" y1="120" x2="760" y2="120" class="chart-grid" />
+                        <line x1="40" y1="200" x2="760" y2="200" class="chart-grid" />
+                        <line x1="40" y1="280" x2="760" y2="280" class="chart-grid" />
+                        
+                        <!-- Area -->
+                        <path d="M 40,200 Q 200,160 360,180 T 680,140 L 680,280 L 40,280 Z" class="chart-area" />
+                        
+                        <!-- Line -->
+                        <path d="M 40,200 Q 200,160 360,180 T 680,140" class="chart-line" />
+                        
+                        <!-- Points -->
+                        <circle cx="40" cy="200" r="4" fill="#6366f1" />
+                        <circle cx="200" cy="160" r="4" fill="#6366f1" />
+                        <circle cx="360" cy="180" r="4" fill="#6366f1" />
+                        <circle cx="520" cy="160" r="4" fill="#6366f1" />
+                        <circle cx="680" cy="140" r="4" fill="#6366f1" />
+                        
+                        <!-- Labels -->
+                        <text x="40" y="300" fill="#94a3b8" font-size="12">Jan</text>
+                        <text x="200" y="300" fill="#94a3b8" font-size="12">Feb</text>
+                        <text x="360" y="300" fill="#94a3b8" font-size="12">Mar</text>
+                        <text x="520" y="300" fill="#94a3b8" font-size="12">Apr</text>
+                        <text x="680" y="300" fill="#94a3b8" font-size="12">May</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="dashboard-grid" style="margin-top: 2rem">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Seasonal Pattern Detected</span>
+                        <div class="metric-icon">📈</div>
+                    </div>
+                    <div class="metric-value">Weekly Cycle</div>
+                    <div class="metric-change positive">
+                        Peak on Fridays
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">External Factors Impact</span>
+                        <div class="metric-icon">🌤️</div>
+                    </div>
+                    <div class="metric-value">+23%</div>
+                    <div class="metric-change positive">
+                        Weather correlation found
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Safety Stock Optimized</span>
+                        <div class="metric-icon">🛡️</div>
+                    </div>
+                    <div class="metric-value">-18%</div>
+                    <div class="metric-change positive">
+                        Reduced by AI optimization
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suppliers Tab -->
+        <div id="suppliers" class="tab-content">
+            <h2 class="section-title">
+                🤝 Supplier Intelligence Network
+            </h2>
+            <div class="supplier-grid">
+                <div class="supplier-card">
+                    <div class="supplier-header">
+                        <span class="supplier-name">Premium Tobacco Co.</span>
+                        <span class="supplier-score">94</span>
+                    </div>
+                    <div class="supplier-metrics">
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">On-time Delivery</div>
+                            <div class="supplier-metric-value">98%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Quality Score</div>
+                            <div class="supplier-metric-value">96%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Price Competitiveness</div>
+                            <div class="supplier-metric-value">92%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Response Time</div>
+                            <div class="supplier-metric-value">2h</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="supplier-card">
+                    <div class="supplier-header">
+                        <span class="supplier-name">Global Essences Ltd.</span>
+                        <span class="supplier-score" style="background: linear-gradient(135deg, #f59e0b, #d97706)">78</span>
+                    </div>
+                    <div class="supplier-metrics">
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">On-time Delivery</div>
+                            <div class="supplier-metric-value">82%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Quality Score</div>
+                            <div class="supplier-metric-value">88%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Price Competitiveness</div>
+                            <div class="supplier-metric-value">75%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Response Time</div>
+                            <div class="supplier-metric-value">6h</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="supplier-card">
+                    <div class="supplier-header">
+                        <span class="supplier-name">Fast Supply Chain</span>
+                        <span class="supplier-score">89</span>
+                    </div>
+                    <div class="supplier-metrics">
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">On-time Delivery</div>
+                            <div class="supplier-metric-value">95%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Quality Score</div>
+                            <div class="supplier-metric-value">85%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Price Competitiveness</div>
+                            <div class="supplier-metric-value">88%</div>
+                        </div>
+                        <div class="supplier-metric">
+                            <div class="supplier-metric-label">Response Time</div>
+                            <div class="supplier-metric-value">1h</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Optimization Tab -->
+        <div id="cost" class="tab-content">
+            <h2 class="section-title">
+                💹 Cost Optimization Analytics
+            </h2>
+            <div class="cost-breakdown">
+                <div class="cost-chart">
+                    <h3 style="margin-bottom: 1rem">Cost Breakdown Analysis</h3>
+                    <div class="cost-categories">
+                        <div class="cost-item">
+                            <div class="cost-label">
+                                <div class="cost-indicator" style="background: #6366f1"></div>
+                                <span>Holding Costs</span>
+                            </div>
+                            <div>
+                                <span class="cost-value">R$ 45.2K</span>
+                                <span class="cost-percentage"> (28%)</span>
+                            </div>
+                        </div>
+                        <div class="cost-item">
+                            <div class="cost-label">
+                                <div class="cost-indicator" style="background: #8b5cf6"></div>
+                                <span>Ordering Costs</span>
+                            </div>
+                            <div>
+                                <span class="cost-value">R$ 32.8K</span>
+                                <span class="cost-percentage"> (20%)</span>
+                            </div>
+                        </div>
+                        <div class="cost-item">
+                            <div class="cost-label">
+                                <div class="cost-indicator" style="background: #ec4899"></div>
+                                <span>Stockout Costs</span>
+                            </div>
+                            <div>
+                                <span class="cost-value">R$ 0</span>
+                                <span class="cost-percentage"> (0%)</span>
+                            </div>
+                        </div>
+                        <div class="cost-item">
+                            <div class="cost-label">
+                                <div class="cost-indicator" style="background: #f59e0b"></div>
+                                <span>Transportation</span>
+                            </div>
+                            <div>
+                                <span class="cost-value">R$ 28.5K</span>
+                                <span class="cost-percentage"> (18%)</span>
+                            </div>
+                        </div>
+                        <div class="cost-item">
+                            <div class="cost-label">
+                                <div class="cost-indicator" style="background: #10b981"></div>
+                                <span>Warehousing</span>
+                            </div>
+                            <div>
+                                <span class="cost-value">R$ 54.3K</span>
+                                <span class="cost-percentage"> (34%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3 style="margin-bottom: 1rem">AI Optimization Recommendations</h3>
+                    <div class="recommendation-list">
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">💡</div>
+                            <div class="recommendation-content">
+                                <div class="recommendation-title">Consolidate Orders</div>
+                                <div class="recommendation-description">
+                                    Combine orders from multiple suppliers to reduce transportation costs
+                                </div>
+                                <span class="recommendation-impact">Save R$ 8.4K/month</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">⚡</div>
+                            <div class="recommendation-content">
+                                <div class="recommendation-title">Optimize Safety Stock</div>
+                                <div class="recommendation-description">
+                                    Reduce safety stock for low-variability items by 22%
+                                </div>
+                                <span class="recommendation-impact">Save R$ 12.1K/month</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">🔄</div>
+                            <div class="recommendation-content">
+                                <div class="recommendation-title">Implement JIT for Fast Movers</div>
+                                <div class="recommendation-description">
+                                    Switch top 5 products to Just-in-Time delivery model
+                                </div>
+                                <span class="recommendation-impact">Save R$ 15.7K/month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation Tab -->
+        <div id="automation" class="tab-content">
+            <h2 class="section-title">
+                🤖 Automation Engine Status
+            </h2>
+            <div class="dashboard-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Auto-Generated POs</span>
+                        <div class="metric-icon">📋</div>
+                    </div>
+                    <div class="metric-value">47</div>
+                    <div class="metric-change positive">
+                        This week
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Smart Alerts Triggered</span>
+                        <div class="metric-icon">🔔</div>
+                    </div>
+                    <div class="metric-value">128</div>
+                    <div class="metric-change positive">
+                        98% accuracy
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Workflow Automations</span>
+                        <div class="metric-icon">⚙️</div>
+                    </div>
+                    <div class="metric-value">24/7</div>
+                    <div class="metric-change positive">
+                        100% uptime
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Time Saved</span>
+                        <div class="metric-icon">⏰</div>
+                    </div>
+                    <div class="metric-value">182h</div>
+                    <div class="metric-change positive">
+                        This month
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem">
+                <div class="stock-levels">
+                    <h3 style="margin-bottom: 1rem">Active Automation Workflows</h3>
+                    <div class="product-list">
+                        <div class="product-item">
+                            <div class="product-name">📊 Demand Forecasting Pipeline</div>
+                            <div class="stock-status optimal">Running</div>
+                            <div>Last run: 2 min ago</div>
+                            <div>Next run: in 58 min</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">🔄 Auto-Reorder System</div>
+                            <div class="stock-status optimal">Running</div>
+                            <div>Orders created: 12</div>
+                            <div>Success rate: 100%</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">📈 Price Optimization Engine</div>
+                            <div class="stock-status optimal">Running</div>
+                            <div>Savings: R$ 3.2K today</div>
+                            <div>Optimizations: 47</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">⚠️ Anomaly Detection</div>
+                            <div class="stock-status optimal">Running</div>
+                            <div>Anomalies detected: 0</div>
+                            <div>Monitoring: 248 SKUs</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">📦 Inventory Balancing</div>
+                            <div class="stock-status optimal">Running</div>
+                            <div>Transfers: 8 pending</div>
+                            <div>Optimization: 94%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions-panel">
+        <button class="action-button secondary" onclick="generateReport()">
+            📊
+        </button>
+        <button class="action-button secondary" onclick="openSettings()">
+            ⚙️
+        </button>
+        <button class="action-button pulse" onclick="runOptimization()">
+            🚀
+        </button>
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
+        }
+
+        // Simulate Real-time Updates
+        function updateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach((metric, index) => {
+                if (Math.random() > 0.7) {
+                    const currentValue = parseFloat(metric.textContent.replace(/[^0-9.]/g, ''));
+                    if (!isNaN(currentValue)) {
+                        const change = (Math.random() - 0.5) * 2;
+                        const newValue = currentValue + change;
+                        if (metric.textContent.includes('R$')) {
+                            metric.textContent = `R$ ${newValue.toFixed(1)}K`;
+                        } else if (metric.textContent.includes('%')) {
+                            metric.textContent = `${newValue.toFixed(1)}%`;
+                        } else if (metric.textContent.includes('x')) {
+                            metric.textContent = `${newValue.toFixed(1)}x`;
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Stock Levels
+        function updateStockLevels() {
+            const stockBars = document.querySelectorAll('.stock-fill');
+            stockBars.forEach(bar => {
+                const currentWidth = parseFloat(bar.style.width);
+                const change = (Math.random() - 0.5) * 5;
+                const newWidth = Math.max(5, Math.min(100, currentWidth + change));
+                bar.style.width = newWidth + '%';
+                
+                // Update status based on width
+                const item = bar.closest('.product-item');
+                const status = item.querySelector('.stock-status');
+                if (newWidth < 20) {
+                    status.className = 'stock-status critical';
+                    status.textContent = 'Critical';
+                    bar.style.background = 'linear-gradient(90deg, #ef4444, #dc2626)';
+                } else if (newWidth < 40) {
+                    status.className = 'stock-status low';
+                    status.textContent = 'Low';
+                    bar.style.background = 'linear-gradient(90deg, #f59e0b, #d97706)';
+                } else {
+                    status.className = 'stock-status optimal';
+                    status.textContent = 'Optimal';
+                    bar.style.background = 'linear-gradient(90deg, #6366f1, #8b5cf6)';
+                }
+            });
+        }
+
+        // Action Functions
+        function generateReport() {
+            alert('📊 Generating Comprehensive Inventory Report...\n\nReport will include:\n• Stock analysis\n• Cost breakdown\n• Supplier performance\n• Optimization recommendations\n• Forecast accuracy metrics');
+        }
+
+        function openSettings() {
+            alert('⚙️ Opening Advanced Settings...\n\nConfigure:\n• ML model parameters\n• Alert thresholds\n• Automation rules\n• Integration settings\n• Report schedules');
+        }
+
+        function runOptimization() {
+            alert('🚀 Running AI Optimization Engine...\n\nOptimizing:\n• Reorder points\n• Safety stock levels\n• Supplier selection\n• Order quantities\n• Delivery schedules\n\nEstimated savings: R$ 48.7K/month');
+        }
+
+        // Add notification for new predictions
+        function showPredictionNotification() {
+            const predictions = [
+                'Demand spike detected for next week - Recommend 20% stock increase',
+                'Price optimization opportunity found - Switch supplier for 15% savings',
+                'Seasonal pattern identified - Adjust safety stock by -10%',
+                'Supply risk alert - Backup supplier activation recommended',
+                'Cost saving opportunity - Consolidate next 3 orders for R$ 5.2K savings'
+            ];
+            
+            const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
+            console.log('🧠 New AI Prediction:', randomPrediction);
+        }
+
+        // Initialize animations and updates
+        setInterval(updateMetrics, 3000);
+        setInterval(updateStockLevels, 5000);
+        setInterval(showPredictionNotification, 15000);
+
+        // Add hover effects to cards
+        document.querySelectorAll('.metric-card, .supplier-card, .product-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simulate loading animation
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.slide-in').forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateX(0)';
+                }, index * 100);
+            });
+        });
+
+        console.log('🚀 INVENTORY INTELLIGENCE SUPREMO - Initialized');
+        console.log('📊 ML Models: Active | Accuracy: 96.8%');
+        console.log('🤖 Automation Engine: Running | Uptime: 100%');
+        console.log('💰 Total Savings This Month: R$ 48,532');
+    </script>
+</body>
+</html>

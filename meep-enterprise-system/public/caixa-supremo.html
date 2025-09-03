@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Intelligence SUPREMO - Dashboard Analytics & ML Predictions</title>
+    
+    <!-- Chart.js para visualizações -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
+    
+    <!-- TensorFlow.js para ML -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- D3.js para visualizações avançadas -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Moment.js para datas -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/pt-br.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        body {
+            background: var(--gradient-dark);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.5;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .ai-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .kpi-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .kpi-icon.revenue { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .kpi-icon.transactions { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .kpi-icon.cancellations { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .kpi-icon.commissions { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .kpi-icon.cashflow { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .kpi-icon.margin { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+
+        .kpi-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .kpi-trend.up {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .kpi-trend.down {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .kpi-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .kpi-comparison {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+        }
+
+        .kpi-sparkline {
+            height: 40px;
+            margin-top: 12px;
+        }
+
+        /* Smart Filters */
+        .filters-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filters-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .filters-title i {
+            color: #fbbf24;
+        }
+
+        .filters-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+
+        .filters-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .filter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .filter-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .quick-filter {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-filter:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-filter.active {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Natural Language Query */
+        .nlp-search {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .nlp-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nlp-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .nlp-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nlp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .chart-container {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .chart-container.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chart-action {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chart-action:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Interactive Table */
+        .table-container {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.9s ease-out;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 14px 16px;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .table-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .table-status.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .table-status.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .table-status.danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* Anomaly Detection Panel */
+        .anomaly-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .anomaly-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .anomaly-header i {
+            color: #ef4444;
+            font-size: 1.5rem;
+        }
+
+        .anomaly-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .anomaly-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .anomaly-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .anomaly-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .anomaly-severity {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .anomaly-severity.high {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .anomaly-severity.medium {
+            background: rgba(245, 158, 11, 0.2);
+            border: 2px solid #f59e0b;
+            color: #f59e0b;
+        }
+
+        .anomaly-severity.low {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            color: #10b981;
+        }
+
+        .anomaly-content {
+            flex: 1;
+        }
+
+        .anomaly-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .anomaly-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .anomaly-action {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .anomaly-action:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Reconciliation Panel */
+        .reconciliation-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            animation: fadeInUp 1.1s ease-out;
+        }
+
+        .reconciliation-progress {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: url(#gradient);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 70;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .progress-details {
+            flex: 1;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .progress-stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .progress-stat-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* ML Predictions Badge */
+        .ml-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .ml-badge i {
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-content {
+                grid-template-columns: 1fr;
+            }
+
+            .table-wrapper {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">
+                <div class="header-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h1>Cash Intelligence SUPREMO</h1>
+            </div>
+            <div class="header-controls">
+                <div class="ai-status">
+                    <div class="ai-status-dot"></div>
+                    <span>ML Active</span>
+                    <i class="fas fa-brain"></i>
+                </div>
+                <button class="filter-btn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon revenue">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="kpi-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        12.5%
+                    </div>
+                </div>
+                <div class="kpi-label">Receita Total</div>
+                <div class="kpi-value">R$ 87.432,50</div>
+                <div class="kpi-comparison">
+                    <span>vs ontem: R$ 77.650,20</span>
+                </div>
+                <canvas class="kpi-sparkline" id="revenueSparkline"></canvas>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon transactions">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="kpi-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        8.3%
+                    </div>
+                </div>
+                <div class="kpi-label">Transações</div>
+                <div class="kpi-value">1.842</div>
+                <div class="kpi-comparison">
+                    <span>Ticket médio: R$ 47,46</span>
+                </div>
+                <canvas class="kpi-sparkline" id="transactionsSparkline"></canvas>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon cancellations">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="kpi-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        2.1%
+                    </div>
+                </div>
+                <div class="kpi-label">Cancelamentos</div>
+                <div class="kpi-value">R$ 3.245,00</div>
+                <div class="kpi-comparison">
+                    <span>3.7% do total</span>
+                </div>
+                <canvas class="kpi-sparkline" id="cancellationsSparkline"></canvas>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon commissions">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="kpi-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        5.7%
+                    </div>
+                </div>
+                <div class="kpi-label">Comissões</div>
+                <div class="kpi-value">R$ 8.743,25</div>
+                <div class="kpi-comparison">
+                    <span>10% da receita</span>
+                </div>
+                <canvas class="kpi-sparkline" id="commissionsSparkline"></canvas>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon cashflow">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="kpi-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        15.2%
+                    </div>
+                </div>
+                <div class="kpi-label">Cash Flow</div>
+                <div class="kpi-value">R$ 75.444,25</div>
+                <div class="kpi-comparison">
+                    <span>Previsão: R$ 82.000</span>
+                    <span class="ml-badge">
+                        <i class="fas fa-robot"></i>
+                        ML
+                    </span>
+                </div>
+                <canvas class="kpi-sparkline" id="cashflowSparkline"></canvas>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon margin">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="kpi-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        3.4%
+                    </div>
+                </div>
+                <div class="kpi-label">Margem</div>
+                <div class="kpi-value">42.5%</div>
+                <div class="kpi-comparison">
+                    <span>Meta: 40%</span>
+                </div>
+                <canvas class="kpi-sparkline" id="marginSparkline"></canvas>
+            </div>
+        </div>
+
+        <!-- Smart Filters -->
+        <div class="filters-section">
+            <div class="filters-header">
+                <div class="filters-title">
+                    <i class="fas fa-filter"></i>
+                    Filtros Inteligentes
+                </div>
+                <div class="filters-actions">
+                    <button class="filter-btn">
+                        <i class="fas fa-save"></i>
+                        Salvar Filtros
+                    </button>
+                    <button class="filter-btn">
+                        <i class="fas fa-history"></i>
+                        Histórico
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-content">
+                <div class="filter-group">
+                    <label class="filter-label">Período</label>
+                    <input type="date" class="filter-input" value="2025-01-03">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Caixa</label>
+                    <select class="filter-input">
+                        <option>Todos os Caixas</option>
+                        <option>Caixa 01</option>
+                        <option>Caixa 02</option>
+                        <option>Caixa 03</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Operador</label>
+                    <select class="filter-input">
+                        <option>Todos</option>
+                        <option>João Silva</option>
+                        <option>Maria Santos</option>
+                        <option>Pedro Costa</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Dispositivo</label>
+                    <select class="filter-input">
+                        <option>Todos</option>
+                        <option>POS</option>
+                        <option>Totem</option>
+                        <option>Tablet</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-input">
+                        <option>Todos</option>
+                        <option>Concluído</option>
+                        <option>Cancelado</option>
+                        <option>Pendente</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tipo</label>
+                    <select class="filter-input">
+                        <option>Todos</option>
+                        <option>Venda</option>
+                        <option>Sangria</option>
+                        <option>Suprimento</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="quick-filters">
+                <span class="quick-filter active">Hoje</span>
+                <span class="quick-filter">Ontem</span>
+                <span class="quick-filter">Esta Semana</span>
+                <span class="quick-filter">Este Mês</span>
+                <span class="quick-filter">Anomalias</span>
+                <span class="quick-filter">Top Performers</span>
+                <span class="quick-filter">Cancelamentos</span>
+            </div>
+
+            <div class="nlp-search">
+                <input type="text" class="nlp-input" placeholder="Ex: 'Mostre vendas acima de R$ 1000 ontem' ou 'Cancelamentos do João esta semana'">
+                <button class="nlp-btn">
+                    <i class="fas fa-brain"></i>
+                    Analisar com IA
+                </button>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- Cash Flow Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-area"></i>
+                        Fluxo de Caixa (Real vs Previsto)
+                        <span class="ml-badge">
+                            <i class="fas fa-robot"></i>
+                            95% Accuracy
+                        </span>
+                    </h3>
+                    <div class="chart-actions">
+                        <button class="chart-action">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="chart-action">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="cashFlowChart"></canvas>
+            </div>
+
+            <!-- Payment Methods Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <i class="fas fa-credit-card"></i>
+                        Formas de Pagamento
+                    </h3>
+                    <div class="chart-actions">
+                        <button class="chart-action">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="chart-action">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="paymentMethodsChart"></canvas>
+            </div>
+
+            <!-- Hourly Heatmap -->
+            <div class="chart-container full-width">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <i class="fas fa-th"></i>
+                        Mapa de Calor - Vendas por Hora
+                    </h3>
+                    <div class="chart-actions">
+                        <button class="chart-action">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="chart-action">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="heatmapChart"></div>
+            </div>
+        </div>
+
+        <!-- Anomaly Detection -->
+        <div class="anomaly-panel">
+            <div class="anomaly-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Detecção de Anomalias (ML)</h3>
+                <span class="ml-badge">
+                    <i class="fas fa-brain"></i>
+                    Real-time
+                </span>
+            </div>
+            <div class="anomaly-list">
+                <div class="anomaly-item">
+                    <div class="anomaly-severity high">Alto</div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Taxa de Cancelamento Anormal</div>
+                        <div class="anomaly-description">
+                            Detectado aumento de 250% nos cancelamentos do Caixa 03 nas últimas 2 horas
+                        </div>
+                    </div>
+                    <button class="anomaly-action">Investigar</button>
+                </div>
+
+                <div class="anomaly-item">
+                    <div class="anomaly-severity medium">Médio</div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Padrão de Sangria Irregular</div>
+                        <div class="anomaly-description">
+                            Operador João Silva realizou 3 sangrias em 30 minutos - fora do padrão normal
+                        </div>
+                    </div>
+                    <button class="anomaly-action">Analisar</button>
+                </div>
+
+                <div class="anomaly-item">
+                    <div class="anomaly-severity low">Baixo</div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Discrepância em Comissões</div>
+                        <div class="anomaly-description">
+                            Diferença de R$ 12,50 detectada entre cálculo esperado e registrado
+                        </div>
+                    </div>
+                    <button class="anomaly-action">Revisar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reconciliation Panel -->
+        <div class="reconciliation-panel">
+            <div class="chart-header">
+                <h3 class="chart-title">
+                    <i class="fas fa-balance-scale"></i>
+                    Conciliação Bancária Automática
+                </h3>
+                <button class="filter-btn">
+                    <i class="fas fa-sync"></i>
+                    Reconciliar Agora
+                </button>
+            </div>
+            <div class="reconciliation-progress">
+                <div class="progress-circle">
+                    <svg width="100" height="100">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="progress-circle-fill" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <div class="progress-text">87%</div>
+                </div>
+                <div class="progress-details">
+                    <div class="progress-title">Status da Conciliação</div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <span class="progress-stat-label">Conciliado</span>
+                            <span class="progress-stat-value">R$ 76.123,45</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="progress-stat-label">Pendente</span>
+                            <span class="progress-stat-value">R$ 11.309,05</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="progress-stat-label">Discrepâncias</span>
+                            <span class="progress-stat-value">3 items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">
+                    <i class="fas fa-table"></i>
+                    Relatório de Fechamento Detalhado
+                </h3>
+                <div class="table-controls">
+                    <button class="filter-btn">
+                        <i class="fas fa-columns"></i>
+                        Colunas
+                    </button>
+                    <button class="filter-btn">
+                        <i class="fas fa-file-export"></i>
+                        Exportar
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable">Origem <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Dinheiro <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Débito <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Crédito <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Cashless <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Cancelado <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Desconto <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Total <i class="fas fa-sort"></i></th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Caixa 01</td>
+                            <td>R$ 12.450,00</td>
+                            <td>R$ 8.320,50</td>
+                            <td>R$ 15.678,25</td>
+                            <td>R$ 3.245,00</td>
+                            <td>R$ 450,00</td>
+                            <td>R$ 320,00</td>
+                            <td>R$ 39.373,75</td>
+                            <td><span class="table-status success">Conciliado</span></td>
+                        </tr>
+                        <tr>
+                            <td>Caixa 02</td>
+                            <td>R$ 9.870,00</td>
+                            <td>R$ 6.540,30</td>
+                            <td>R$ 11.234,50</td>
+                            <td>R$ 2.890,00</td>
+                            <td>R$ 1.250,00</td>
+                            <td>R$ 180,00</td>
+                            <td>R$ 29.104,80</td>
+                            <td><span class="table-status success">Conciliado</span></td>
+                        </tr>
+                        <tr>
+                            <td>Caixa 03</td>
+                            <td>R$ 7.650,00</td>
+                            <td>R$ 5.430,20</td>
+                            <td>R$ 9.876,45</td>
+                            <td>R$ 1.567,00</td>
+                            <td>R$ 1.545,00</td>
+                            <td>R$ 145,00</td>
+                            <td>R$ 22.788,65</td>
+                            <td><span class="table-status warning">Pendente</span></td>
+                        </tr>
+                        <tr>
+                            <td>Totem 01</td>
+                            <td>R$ 0,00</td>
+                            <td>R$ 3.210,00</td>
+                            <td>R$ 4.567,80</td>
+                            <td>R$ 890,00</td>
+                            <td>R$ 0,00</td>
+                            <td>R$ 95,00</td>
+                            <td>R$ 8.572,80</td>
+                            <td><span class="table-status success">Conciliado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Charts
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.8)';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto';
+
+        // Cash Flow Chart
+        const cashFlowCtx = document.getElementById('cashFlowChart').getContext('2d');
+        const cashFlowChart = new Chart(cashFlowCtx, {
+            type: 'line',
+            data: {
+                labels: ['00h', '04h', '08h', '12h', '16h', '20h', '24h'],
+                datasets: [{
+                    label: 'Fluxo Real',
+                    data: [5000, 3000, 8000, 15000, 22000, 35000, 28000],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Previsão ML',
+                    data: [null, null, null, null, null, 35000, 28000, 31000, 29000],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderDash: [5, 5],
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': R$ ' + 
+                                       context.parsed.y.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + (value/1000) + 'k';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Payment Methods Chart
+        const paymentMethodsCtx = document.getElementById('paymentMethodsChart').getContext('2d');
+        const paymentMethodsChart = new Chart(paymentMethodsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Dinheiro', 'Débito', 'Crédito', 'Cashless', 'Voucher'],
+                datasets: [{
+                    data: [30, 25, 35, 8, 2],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(236, 72, 153, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Sparklines
+        function createSparkline(canvasId, data, color) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map((_, i) => i),
+                    datasets: [{
+                        data: data,
+                        borderColor: color,
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Initialize sparklines
+        createSparkline('revenueSparkline', [20, 25, 22, 28, 30, 35, 33, 38, 42], '#8b5cf6');
+        createSparkline('transactionsSparkline', [15, 18, 16, 22, 20, 25, 28, 26, 30], '#3b82f6');
+        createSparkline('cancellationsSparkline', [5, 4, 6, 3, 4, 2, 3, 2, 2], '#ef4444');
+        createSparkline('commissionsSparkline', [8, 9, 8, 10, 11, 12, 11, 13, 14], '#f59e0b');
+        createSparkline('cashflowSparkline', [30, 35, 32, 40, 45, 50, 48, 55, 60], '#10b981');
+        createSparkline('marginSparkline', [38, 39, 40, 41, 40, 42, 41, 42, 43], '#ec4899');
+
+        // Heatmap with D3.js
+        function createHeatmap() {
+            const margin = {top: 30, right: 30, bottom: 30, left: 60},
+                  width = document.getElementById('heatmapChart').clientWidth - margin.left - margin.right,
+                  height = 300 - margin.top - margin.bottom;
+
+            const hours = d3.range(24);
+            const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+            // Generate random data
+            const data = [];
+            days.forEach((day, i) => {
+                hours.forEach(hour => {
+                    data.push({
+                        day: i,
+                        hour: hour,
+                        value: Math.floor(Math.random() * 100)
+                    });
+                });
+            });
+
+            const svg = d3.select("#heatmapChart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .range([0, width])
+                .domain(hours)
+                .padding(0.05);
+
+            const y = d3.scaleBand()
+                .range([height, 0])
+                .domain(days.reverse())
+                .padding(0.05);
+
+            const colorScale = d3.scaleSequential()
+                .interpolator(d3.interpolatePurples)
+                .domain([0, 100]);
+
+            svg.selectAll()
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", d => x(d.hour))
+                .attr("y", d => y(days[6 - d.day]))
+                .attr("width", x.bandwidth())
+                .attr("height", y.bandwidth())
+                .style("fill", d => colorScale(d.value))
+                .style("stroke", "rgba(255,255,255,0.1)")
+                .style("stroke-width", 1);
+
+            // Add X axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x).tickFormat(d => d + 'h'))
+                .style("color", "rgba(255,255,255,0.8)");
+
+            // Add Y axis
+            svg.append("g")
+                .call(d3.axisLeft(y))
+                .style("color", "rgba(255,255,255,0.8)");
+        }
+
+        createHeatmap();
+
+        // ML Predictions Simulation
+        async function runMLPredictions() {
+            // Simulate ML model predictions
+            console.log('Running ML predictions...');
+            
+            // Update KPI predictions
+            setTimeout(() => {
+                // Simulate real-time updates
+                const cashflowValue = document.querySelector('.kpi-card:nth-child(5) .kpi-value');
+                const currentValue = parseFloat(cashflowValue.textContent.replace(/[^\d,]/g, '').replace(',', '.'));
+                const prediction = currentValue * 1.08; // 8% increase prediction
+                
+                // Add prediction indicator
+                const comparisonElement = document.querySelector('.kpi-card:nth-child(5) .kpi-comparison');
+                comparisonElement.innerHTML = `<span>Previsão: R$ ${prediction.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span> <span class="ml-badge"><i class="fas fa-robot"></i> ML</span>`;
+            }, 2000);
+        }
+
+        // Natural Language Query Processing
+        function processNLQuery() {
+            const input = document.querySelector('.nlp-input').value;
+            console.log('Processing query:', input);
+            
+            // Simulate NLP processing
+            if (input.toLowerCase().includes('cancelamento')) {
+                // Filter for cancellations
+                console.log('Filtering for cancellations...');
+            } else if (input.toLowerCase().includes('vendas')) {
+                // Filter for sales
+                console.log('Filtering for sales...');
+            }
+        }
+
+        // Real-time WebSocket Simulation
+        function simulateRealTimeUpdates() {
+            setInterval(() => {
+                // Update random KPI
+                const kpiCards = document.querySelectorAll('.kpi-value');
+                const randomCard = kpiCards[Math.floor(Math.random() * kpiCards.length)];
+                
+                if (randomCard.textContent.includes('R$')) {
+                    const currentValue = parseFloat(randomCard.textContent.replace(/[^\d,]/g, '').replace(',', '.'));
+                    const change = (Math.random() - 0.5) * 1000;
+                    const newValue = Math.max(0, currentValue + change);
+                    randomCard.textContent = 'R$ ' + newValue.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                }
+            }, 5000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            runMLPredictions();
+            simulateRealTimeUpdates();
+            
+            // Add event listeners
+            document.querySelector('.nlp-btn').addEventListener('click', processNLQuery);
+            
+            // Table sorting
+            document.querySelectorAll('th.sortable').forEach(th => {
+                th.addEventListener('click', () => {
+                    console.log('Sorting by:', th.textContent);
+                });
+            });
+            
+            console.log('Cash Intelligence SUPREMO initialized');
+        });
+
+        // Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw-cash.js').then(registration => {
+                console.log('Service Worker registered:', registration);
+            });
+        }
+    </script>
+</body>
+</html>
