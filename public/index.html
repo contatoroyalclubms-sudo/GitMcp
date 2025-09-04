@@ -151,5 +151,20 @@
     </div>
     
     <script src="app.js"></script>
+    <!-- Integração de Rotas SUPREMO -->
+    <script src="route-integration.js"></script>
+    <script src="menu-config-supremo.js"></script>
+    <script>
+        // Ativa menu SUPREMO automaticamente após carregamento
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (window.MenuConfigSupremo) {
+                    const menuConfig = new MenuConfigSupremo();
+                    menuConfig.init();
+                    console.log('✅ Menu SUPREMO ativado automaticamente');
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  "name": "meep-automation-supreme",
+  "version": "1.0.0",
+  "description": "Sistema completo de engenharia reversa e mapeamento do Portal MEEP",
+  "main": "meep-automation-supreme.js",
+  "scripts": {
+    "start": "node meep-automation-supreme.js",
+    "install-deps": "npm install",
+    "setup": "node setup-meep-automation.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "automation",
+    "reverse-engineering",
+    "meep",
+    "playwright",
+    "web-scraping"
+  ],
+  "author": "MEEP Automation Team",
+  "license": "MIT"
+}

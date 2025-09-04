@@ -1,0 +1,111 @@
+{
+  "timestamp": "2025-09-03T21:55:56.320Z",
+  "results": {
+    "total": 40,
+    "passed": 27,
+    "failed": 13,
+    "errors": [
+      {
+        "test": "Criar Evento",
+        "expected": 200,
+        "received": 500,
+        "error": {
+          "error": "Erro ao criar evento"
+        }
+      },
+      {
+        "test": "Criar Cliente",
+        "expected": 200,
+        "received": 409,
+        "error": {
+          "error": "Client already exists"
+        }
+      },
+      {
+        "test": "Criar Produto",
+        "expected": 200,
+        "received": 201
+      },
+      {
+        "test": "Criar Venda",
+        "expected": 200,
+        "received": 201
+      },
+      {
+        "test": "Criar Cartão Cashless",
+        "expected": 200,
+        "received": 201
+      },
+      {
+        "test": "Adicionar Membro",
+        "expected": 200,
+        "received": 201
+      },
+      {
+        "test": "Criar Campanha",
+        "expected": 200,
+        "received": 500,
+        "error": {
+          "error": "Failed to create campaign"
+        }
+      },
+      {
+        "test": "BI Dashboard",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Route not found",
+          "path": "/api/business-intelligence/dashboard",
+          "method": "GET"
+        }
+      },
+      {
+        "test": "BI Analytics",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Route not found",
+          "path": "/api/business-intelligence/analytics",
+          "method": "GET"
+        }
+      },
+      {
+        "test": "BI Insights",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Route not found",
+          "path": "/api/business-intelligence/insights",
+          "method": "GET"
+        }
+      },
+      {
+        "test": "BI Forecast",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Route not found",
+          "path": "/api/business-intelligence/forecast",
+          "method": "POST"
+        }
+      },
+      {
+        "test": "Dashboard de Vendas",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Sale not found"
+        }
+      },
+      {
+        "test": "Top Produtos",
+        "expected": 200,
+        "received": 404,
+        "error": {
+          "error": "Sale not found"
+        }
+      }
+    ]
+  },
+  "successRate": "67.50%"
+}

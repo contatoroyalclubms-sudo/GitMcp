@@ -1,0 +1,45 @@
+{
+  "name": "meep-supremo",
+  "version": "1.0.0",
+  "description": "Sistema MEEP Supremo - Baseado na engenharia reversa real do Portal MEEP",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "install:all": "npm install && npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "db:setup": "cd backend && npm run db:migrate && npm run db:seed",
+    "db:migrate": "cd backend && npx prisma migrate dev",
+    "db:seed": "cd backend && npx prisma db seed",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "deploy": "railway deploy",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "meep",
+    "events",
+    "pdv",
+    "dashboard",
+    "react",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "MEEP Supremo Team",
+  "license": "MIT"
+}

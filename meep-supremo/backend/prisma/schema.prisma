@@ -1,0 +1,268 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  name          String
+  avatar        String?
+  role          Role     @default(USER)
+  planId        String?
+  isActive      Boolean  @default(true)
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  plan          Plan?         @relation(fields: [planId], references: [id])
+  events        Event[]
+  clients       Client[]
+  transactions  Transaction[]
+  reports       Report[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  currency    String   @default("BRL")
+  features    Json
+  maxEvents   Int      @default(10)
+  maxClients  Int      @default(1000)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  users         User[]
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id            String            @id @default(cuid())
+  userId        String
+  planId        String
+  status        SubscriptionStatus
+  startDate     DateTime
+  endDate       DateTime?
+  renewalDate   DateTime?
+  canceledAt    DateTime?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  // Relations
+  plan Plan @relation(fields: [planId], references: [id])
+
+  @@map("subscriptions")
+}
+
+model Event {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  location    String?
+  maxTickets  Int?
+  ticketPrice Float?
+  status      EventStatus @default(DRAFT)
+  settings    Json?
+  userId      String
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id])
+  clients      Client[]
+  transactions Transaction[]
+  checkins     Checkin[]
+
+  @@map("events")
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  document    String?
+  birthDate   DateTime?
+  address     Json?
+  tags        String[]
+  customData  Json?
+  userId      String
+  eventId     String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id])
+  event        Event?        @relation(fields: [eventId], references: [id])
+  transactions Transaction[]
+  checkins     Checkin[]
+
+  @@map("clients")
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  amount      Float
+  currency    String            @default("BRL")
+  description String?
+  type        TransactionType
+  status      TransactionStatus @default(PENDING)
+  method      PaymentMethod?
+  metadata    Json?
+  userId      String
+  clientId    String?
+  eventId     String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id])
+  client Client? @relation(fields: [clientId], references: [id])
+  event  Event?  @relation(fields: [eventId], references: [id])
+
+  @@map("transactions")
+}
+
+model Checkin {
+  id         String      @id @default(cuid())
+  clientId   String
+  eventId    String
+  checkedAt  DateTime    @default(now())
+  method     CheckinMethod @default(QR_CODE)
+  location   String?
+  metadata   Json?
+  createdAt  DateTime    @default(now())
+
+  // Relations
+  client Client @relation(fields: [clientId], references: [id])
+  event  Event  @relation(fields: [eventId], references: [id])
+
+  @@unique([clientId, eventId])
+  @@map("checkins")
+}
+
+model Report {
+  id          String     @id @default(cuid())
+  name        String
+  type        ReportType
+  filters     Json?
+  data        Json
+  generatedAt DateTime   @default(now())
+  userId      String
+  isPublic    Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("reports")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model File {
+  id        String   @id @default(cuid())
+  filename  String
+  originalName String
+  mimeType  String
+  size      Int
+  url       String
+  bucket    String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@map("files")
+}
+
+// Enums
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  PENDING
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  ACTIVE
+  COMPLETED
+  CANCELED
+}
+
+enum TransactionType {
+  SALE
+  REFUND
+  FEE
+  SUBSCRIPTION
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  PIX
+  CASH
+  BANK_TRANSFER
+}
+
+enum CheckinMethod {
+  QR_CODE
+  MANUAL
+  NFC
+  FACIAL_RECOGNITION
+}
+
+enum ReportType {
+  SALES
+  EVENTS
+  CLIENTS
+  ANALYTICS
+  CUSTOM
+}

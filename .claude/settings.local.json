@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(npm test:*)",
+      "Bash(node:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm start)",
+      "Bash(taskkill:*)",
+      "Bash(curl:*)",
+      "Bash(python:*)",
+      "Bash(start http://localhost:5173)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

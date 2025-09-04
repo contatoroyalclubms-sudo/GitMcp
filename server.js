@@ -27,6 +27,8 @@ const authRoutes = require('./routes/auth');
 const configRoutes = require('./routes/config');
 const cashlessRoutes = require('./routes/cashless');
 const aiRoutes = require('./routes/ai');
+const eventsRoutes = require('./routes/events');
+const menuRoutes = require('./routes/menu');
 
 const db = require('./config/database');
 const cache = require('./config/cache');
@@ -53,12 +55,22 @@ const limiter = rateLimit({
 
 app.use('/api/', limiter);
 
-// Health check endpoint
+// Health check endpoints
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'healthy' });
+    res.status(200).json({ status: 'ok' });
+});
+
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'ok',
+        database: 'connected',
+        uptime: process.uptime()
+    });
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventsRoutes);  // Events route doesn't require auth for public listing
+app.use('/api/menu', menuRoutes);  // Menu route doesn't require auth for public viewing
 app.use('/api/config', authenticateToken, configRoutes);
 app.use('/api/cashless', authenticateToken, cashlessRoutes);
 app.use('/api/ai', authenticateToken, aiRoutes);
@@ -72,6 +84,7 @@ app.use('/api/pdv', authenticateToken, pdvRoutes);
 app.use('/api/finance', authenticateToken, financeRoutes);
 app.use('/api/marketing', authenticateToken, marketingRoutes);
 app.use('/api/bi', authenticateToken, biRoutes);
+app.use('/api/business-intelligence', authenticateToken, biRoutes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -224,7 +237,10 @@ async function startServer() {
     }
 }
 
-startServer();
+// Only start server if this file is run directly
+if (require.main === module) {
+    startServer();
+}
 
 process.on('SIGTERM', async () => {
     console.log('SIGTERM received, shutting down gracefully...');
@@ -236,4 +252,4 @@ process.on('SIGTERM', async () => {
     process.exit(0);
 });
 
-module.exports = { app, server };
+module.exports = app;

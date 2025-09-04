@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const MEEPAIEngine = require('../ai-core/meep-ai-engine');
-
-// Initialize AI Engine
-const aiEngine = new MEEPAIEngine();
+const aiEngine = require('../ai-core/meep-ai-engine');
 
 // Get AI Status
 router.get('/status', async (req, res) => {

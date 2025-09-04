@@ -1,0 +1,41 @@
+{
+  "name": "meep-supremo-cli",
+  "version": "1.0.0",
+  "description": "CLI para criar sistemas de eventos baseados na engenharia reversa do Portal MEEP",
+  "bin": {
+    "meep": "./bin/meep.js",
+    "meep-supremo": "./bin/meep.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-global": "npm install -g .",
+    "uninstall-global": "npm uninstall -g meep-supremo-cli"
+  },
+  "keywords": [
+    "meep",
+    "eventos",
+    "event-management",
+    "cli",
+    "supremo",
+    "terminal"
+  ],
+  "author": "MEEP Supremo Team",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
+    "fs-extra": "^11.1.1",
+    "axios": "^1.5.0",
+    "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meep-supremo/cli.git"
+  }
+}

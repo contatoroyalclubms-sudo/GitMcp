@@ -1,0 +1,128 @@
+[
+  {
+    "modulo": "gestao-venda",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/gestao-venda",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "marketing",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/marketing",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "bi",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/gestao-venda",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "equipe",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/equipe",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "pedidos",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/pedidos",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "automacao",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/automacao",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "integracao",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/integracao",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "ingressos",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/",
+    "botoes": [
+      "notifications0",
+      "search"
+    ],
+    "inputs": 1,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  },
+  {
+    "modulo": "solucoes-online",
+    "titulo": "Portal Meep",
+    "url": "https://beta.portal.meep.com.br/private/solucoes-online",
+    "botoes": [
+      "NOVA UNICA ENTRETENIMENTOS",
+      "notifications0"
+    ],
+    "inputs": 0,
+    "tabelas": 0,
+    "numeros": [],
+    "temDados": true,
+    "status": "sucesso"
+  }
+]

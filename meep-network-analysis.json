@@ -1,0 +1,3237 @@
+{
+  "timestamp": "2025-09-04T06:58:10.238Z",
+  "stats": {
+    "totalRequests": 57,
+    "totalResponses": 56,
+    "totalAPIs": 4,
+    "totalAssets": 50,
+    "successfulRequests": 56,
+    "failedRequests": 0
+  },
+  "domainStats": {
+    "beta.portal.meep.com.br": {
+      "count": 35,
+      "size": 1590457
+    },
+    "fonts.googleapis.com": {
+      "count": 6,
+      "size": 47309
+    },
+    "www.googletagmanager.com": {
+      "count": 4,
+      "size": 1325043
+    },
+    "maps.googleapis.com": {
+      "count": 4,
+      "size": 1067158
+    },
+    "static.hotjar.com": {
+      "count": 1,
+      "size": 15081
+    },
+    "www.google-analytics.com": {
+      "count": 2,
+      "size": 0
+    },
+    "script.hotjar.com": {
+      "count": 2,
+      "size": 236568
+    },
+    "vc.hotjar.io": {
+      "count": 1,
+      "size": 0
+    },
+    "metrics.hotjar.io": {
+      "count": 1,
+      "size": 0
+    }
+  },
+  "uniqueAPIs": [
+    "maps.googleapis.com/maps/api/js",
+    "maps.googleapis.com/maps/api/mapsjs/gen_204",
+    "maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/common.js",
+    "maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/util.js"
+  ],
+  "allRequests": [
+    {
+      "url": "https://beta.portal.meep.com.br/",
+      "method": "GET",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\""
+      },
+      "timestamp": "2025-09-04T06:58:00.740Z",
+      "resourceType": "document"
+    },
+    {
+      "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Lato:300,400,500,700&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@300,400,500,700&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.395Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-Q6__oSBgVDexCrJ-fkaH5_eaR_sghIY&libraries=places",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/serviceWork.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/main.23a0425c.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/main.f56359c6.css",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:01.396Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.229Z",
+      "resourceType": "xhr"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MQFMTWNX",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.237Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://static.hotjar.com/c/hotjar-3698893.js?sv=6",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.237Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-X8CLEG5K1F&cx=c&gtm=4e5921",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.543Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=G-X8CLEG5K1F&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.731Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9928.eb7bbbf3.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.731Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7184.cd7f2b4d.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7752.35b92c50.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/3108.5a229b2a.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6903.40aa4ee6.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7438.b060d165.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9953.2331cab0.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5892.9e091fc8.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7501.bcdb6034.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2771.ef624993.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6386.761e0341.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7639.cd5abc17.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/8528.02fd18b4.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5566.b6536a6c.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.733Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/447.8f1161d7.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5710.efedcb25.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9794.e68017bb.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/1562.6fdf8a18.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9716.24e524ae.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2921.694f7466.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5682.eb2f2596.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/988.2c7d09dc.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4931.af252403.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4402.6a8568c4.chunk.css",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4402.eda889b1.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/private/home",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.734Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9704.fd832e83.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/login",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.743Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4848.0b272f54.chunk.css",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/login",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.743Z",
+      "resourceType": "stylesheet"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4848.7a6db6a1.chunk.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/login",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.743Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X8CLEG5K1F&gtm=45je5921v9168784097z89168776836za200zb9168776836zd9168776836&_p=1756969082232&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=1338671800.1756969083&ul=pt-br&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B24.0.0.0%7CChromium%3B140.0.7339.16&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813&sid=1756969082&sct=1&seg=0&dl=https%3A%2F%2Fbeta.portal.meep.com.br%2Flogin&dt=Portal%20Meep&en=page_view&_fv=1&_nsi=1&_ss=1&tfd=2157",
+      "method": "POST",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.896Z",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "https://script.hotjar.com/modules.79484904679daf64371c.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:02.940Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://vc.hotjar.io/sessions/3698893?s=0.25&r=0.09625941732619236",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:03.165Z",
+      "resourceType": "xhr"
+    },
+    {
+      "url": "https://script.hotjar.com/browser-perf.8417c6bba72228fa2e29.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:03.165Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/assets/img/logo-white-beta.svg",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/login",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:03.804Z",
+      "resourceType": "image"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/logo.png",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/login",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:03.959Z",
+      "resourceType": "other"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/media/bg-layout-web.f7602d837b4455b36775.png",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/static/css/4848.0b272f54.chunk.css",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:04.253Z",
+      "resourceType": "image"
+    },
+    {
+      "url": "https://metrics.hotjar.io/?v=6&site_id=3698893",
+      "method": "POST",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "content-type": "text/plain;charset=UTF-8",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:06.489Z",
+      "resourceType": "ping"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/common.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:07.240Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/util.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:07.240Z",
+      "resourceType": "script"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X8CLEG5K1F&gtm=45je5921v9168784097za200zb9168776836zd9168776836&_p=1756969082232&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=1338671800.1756969083&ul=pt-br&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B24.0.0.0%7CChromium%3B140.0.7339.16&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=AEAAAAQ&_s=2&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813&sid=1756969082&sct=1&seg=0&dl=https%3A%2F%2Fbeta.portal.meep.com.br%2Flogin&dt=Portal%20Meep&en=scroll&epn.percent_scrolled=90&_et=6&tfd=7170",
+      "method": "POST",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://beta.portal.meep.com.br/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Not=A?Brand\";v=\"24\", \"Chromium\";v=\"140\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "timestamp": "2025-09-04T06:58:07.907Z",
+      "resourceType": "fetch"
+    }
+  ],
+  "allResponses": [
+    {
+      "url": "https://beta.portal.meep.com.br/",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "accept-ranges": "bytes",
+        "content-encoding": "gzip",
+        "content-length": "1505",
+        "content-type": "text/html",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:01.385Z",
+      "size": 3124,
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/serviceWork.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"071ef576c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "263",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:15:06 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:01.540Z",
+      "size": 303,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.619Z",
+      "size": 569,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.620Z",
+      "size": 4792,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:50:23 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.623Z",
+      "size": 22239,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Lato:300,400,500,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:08:02 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.673Z",
+      "size": 2470,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:55:35 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.676Z",
+      "size": 16080,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.677Z",
+      "size": 1159,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/main.f56359c6.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4517",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:01.685Z",
+      "size": 15423,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1106:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1106:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "last-modified": "Thu, 04 Sep 2025 06:00:00 GMT",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1106:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1106:0",
+        "content-length": "75706",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.039Z",
+      "size": 199239,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-Q6__oSBgVDexCrJ-fkaH5_eaR_sghIY&libraries=places",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "cache-control": "public, max-age=1800, stale-while-revalidate=12600",
+        "timing-allow-origin": "*",
+        "content-encoding": "gzip",
+        "etag": "c3dcefbb",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "content-length": "170239",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-xss-protection": "0",
+        "content-type": "text/javascript; charset=UTF-8",
+        "vary": "Accept-Language, Origin, X-Origin, Referer",
+        "server": "scaffolding on HTTPServer2",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "timestamp": "2025-09-04T06:58:02.187Z",
+      "size": 623098,
+      "contentType": "text/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "access-control-expose-headers": "vary,vary,vary,content-encoding,date,server,content-length",
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "access-control-allow-origin": "https://beta.portal.meep.com.br",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "content-length": "23",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-xss-protection": "0",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "server": "scaffolding on HTTPServer2",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "timestamp": "2025-09-04T06:58:02.386Z",
+      "size": 3,
+      "contentType": "application/json; charset=UTF-8"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MQFMTWNX",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1348:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1348:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "last-modified": "Thu, 04 Sep 2025 06:00:00 GMT",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1348:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1348:0",
+        "content-length": "103502",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.525Z",
+      "size": 292443,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/main.23a0425c.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "transfer-encoding": "chunked",
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.624Z",
+      "size": 588809,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-X8CLEG5K1F&cx=c&gtm=4e5921",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1106:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1106:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1106:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1106:0",
+        "content-length": "141588",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.856Z",
+      "size": 416899,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9928.eb7bbbf3.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4931",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.897Z",
+      "size": 10693,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7184.cd7f2b4d.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "6274",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.906Z",
+      "size": 13252,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://static.hotjar.com/c/hotjar-3698893.js?sv=6",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=60",
+        "content-encoding": "br",
+        "etag": "W/348c7e14efde34f6ff0b4d8b66069e48",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-content-type-options": "nosniff",
+        "x-cache-hit": "1",
+        "via": "1.1 a487c45e483fb1088ea951e149626670.cloudfront.net (CloudFront)",
+        "access-control-allow-origin": "*",
+        "x-cache": "RefreshHit from cloudfront",
+        "x-amz-cf-id": "9biLkgxXVdQvWFmlKZ0kSXnmKEBJ3dZxbbZ-tJ8mWwGP8ZMDovbkoA==",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "accept-encoding",
+        "x-amz-cf-pop": "GRU1-P2"
+      },
+      "timestamp": "2025-09-04T06:58:02.938Z",
+      "size": 15081,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4402.6a8568c4.chunk.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14363",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.016Z",
+      "size": 70921,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4848.0b272f54.chunk.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "2606",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.033Z",
+      "size": 10616,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=G-X8CLEG5K1F&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1348:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1348:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1348:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1348:0",
+        "content-length": "141451",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:03.106Z",
+      "size": 416462,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X8CLEG5K1F&gtm=45je5921v9168784097z89168776836za200zb9168776836zd9168776836&_p=1756969082232&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=1338671800.1756969083&ul=pt-br&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B24.0.0.0%7CChromium%3B140.0.7339.16&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813&sid=1756969082&sct=1&seg=0&dl=https%3A%2F%2Fbeta.portal.meep.com.br%2Flogin&dt=Portal%20Meep&en=page_view&_fv=1&_nsi=1&_ss=1&tfd=2157",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "pragma": "no-cache",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascnsrsggc:102:0",
+        "report-to": "{\"group\":\"ascnsrsggc:102:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascnsrsggc:102:0\"}],}",
+        "expires": "Fri, 01 Jan 1990 00:00:00 GMT",
+        "access-control-allow-origin": "https://beta.portal.meep.com.br",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascnsrsggc:102:0",
+        "content-length": "0",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "text/plain",
+        "server": "Golfe2"
+      },
+      "timestamp": "2025-09-04T06:58:03.124Z",
+      "size": 0
+    },
+    {
+      "url": "https://script.hotjar.com/modules.79484904679daf64371c.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "x-robots-tag": "none",
+        "content-encoding": "br",
+        "etag": "\"86b7152af5ff6c075f45a423960fb62c\"",
+        "age": "1439515",
+        "x-content-type-options": "nosniff",
+        "x-cache": "Hit from cloudfront",
+        "x-amz-cf-id": "8ceOlUTiFpux3BK5WuLcdfvz6XIC_3s1Zd0WEePK8yrT2Akv6vc3yw==",
+        "date": "Mon, 18 Aug 2025 15:06:07 GMT",
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Mon, 18 Aug 2025 15:06:00 GMT",
+        "vary": "Accept-Encoding",
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=31536000",
+        "cross-origin-resource-policy": "cross-origin",
+        "via": "1.1 e9c9b273da84a77ece99ff8a4b9cdf2c.cloudfront.net (CloudFront)",
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "content-length": "57057",
+        "x-amz-cf-pop": "GRU3-P8"
+      },
+      "timestamp": "2025-09-04T06:58:03.132Z",
+      "size": 231045,
+      "contentType": "application/javascript; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7752.35b92c50.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14612",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.171Z",
+      "size": 35785,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/3108.5a229b2a.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "5640",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.187Z",
+      "size": 12030,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://script.hotjar.com/browser-perf.8417c6bba72228fa2e29.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "x-robots-tag": "none",
+        "content-encoding": "br",
+        "etag": "\"e43a1d5a93a840022c2aefdbeb6580e0\"",
+        "age": "13341480",
+        "x-content-type-options": "nosniff",
+        "x-cache": "Hit from cloudfront",
+        "x-amz-cf-id": "k-3pI8N2Tnb06bohFcdqnNXIiJ0F6e8rOViyr4-B-6za07S4666kWA==",
+        "date": "Wed, 02 Apr 2025 21:00:02 GMT",
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Wed, 02 Apr 2025 08:49:34 GMT",
+        "vary": "Accept-Encoding",
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=31536000",
+        "cross-origin-resource-policy": "cross-origin",
+        "via": "1.1 e9c9b273da84a77ece99ff8a4b9cdf2c.cloudfront.net (CloudFront)",
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "content-length": "1879",
+        "x-amz-cf-pop": "GRU3-P8"
+      },
+      "timestamp": "2025-09-04T06:58:03.205Z",
+      "size": 5523,
+      "contentType": "application/javascript; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6903.40aa4ee6.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "17019",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.299Z",
+      "size": 41960,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5892.9e091fc8.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "9725",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.308Z",
+      "size": 22027,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9953.2331cab0.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3139",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.309Z",
+      "size": 6870,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7438.b060d165.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4682",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.315Z",
+      "size": 11768,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7501.bcdb6034.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "10110",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.341Z",
+      "size": 23181,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2771.ef624993.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "5017",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.359Z",
+      "size": 13177,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6386.761e0341.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3466",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.444Z",
+      "size": 10401,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7639.cd5abc17.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4165",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.455Z",
+      "size": 9349,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/8528.02fd18b4.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "2839",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.459Z",
+      "size": 6776,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5566.b6536a6c.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3200",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.465Z",
+      "size": 7015,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://vc.hotjar.io/sessions/3698893?s=0.25&r=0.09625941732619236",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "via": "1.1 f56f9dbd022b7276544822a40d05129a.cloudfront.net (CloudFront)",
+        "access-control-allow-origin": "*",
+        "cache-control": "no-store",
+        "x-cache": "Miss from cloudfront",
+        "x-amz-cf-id": "tcXhaaojUMSm_QxqAhU_UwT3Vc0XGbvxyIRqIzqbQZ-GrHnmdL2DNA==",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "x-amz-cf-pop": "GRU3-P7"
+      },
+      "timestamp": "2025-09-04T06:58:03.482Z",
+      "size": 0,
+      "contentType": ""
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/447.8f1161d7.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14233",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.495Z",
+      "size": 32697,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5710.efedcb25.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "19341",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.520Z",
+      "size": 62869,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9794.e68017bb.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3139",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.589Z",
+      "size": 6937,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/1562.6fdf8a18.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "8016",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.601Z",
+      "size": 18957,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2921.694f7466.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4598",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.608Z",
+      "size": 10350,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9716.24e524ae.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3838",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.611Z",
+      "size": 8523,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5682.eb2f2596.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4795",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.647Z",
+      "size": 10596,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/988.2c7d09dc.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3018",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.674Z",
+      "size": 8544,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4931.af252403.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "6832",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.735Z",
+      "size": 16950,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4402.eda889b1.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "42529",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.752Z",
+      "size": 116864,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9704.fd832e83.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "30615",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.788Z",
+      "size": 65343,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4848.7a6db6a1.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "9585",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.789Z",
+      "size": 22327,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/assets/img/logo-white-beta.svg",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"0bd2a536c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "15712",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "image/svg+xml",
+        "last-modified": "Mon, 01 Sep 2025 18:14:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:03.956Z",
+      "size": 15712,
+      "contentType": "image/svg+xml"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/logo.png",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"071ef576c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "40361",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "image/png",
+        "last-modified": "Mon, 01 Sep 2025 18:15:06 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:04.114Z",
+      "size": 40361,
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/media/bg-layout-web.f7602d837b4455b36775.png",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "239947",
+        "date": "Thu, 04 Sep 2025 06:58:03 GMT",
+        "content-type": "image/png",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:04.402Z",
+      "size": 239947,
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://metrics.hotjar.io/?v=6&site_id=3698893",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "date": "Thu, 04 Sep 2025 06:58:06 GMT",
+        "access-control-max-age": "86400",
+        "access-control-allow-origin": "*"
+      },
+      "timestamp": "2025-09-04T06:58:07.268Z",
+      "size": 0,
+      "contentType": ""
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/common.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "br",
+        "age": "43937",
+        "report-to": "{\"group\":\"maps-api-js\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/maps-api-js\"}]}",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 03 Sep 2026 18:45:50 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Wed, 03 Sep 2025 18:45:50 GMT",
+        "last-modified": "Tue, 02 Sep 2025 07:40:34 GMT",
+        "content-type": "text/javascript",
+        "vary": "Accept-Encoding, Origin",
+        "cache-control": "public, max-age=31536000",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin; report-to=\"maps-api-js\"",
+        "cross-origin-resource-policy": "cross-origin",
+        "content-security-policy-report-only": "require-trusted-types-for 'script'; report-uri https://csp.withgoogle.com/csp/maps-api-js",
+        "accept-ranges": "bytes",
+        "content-length": "37210",
+        "x-xss-protection": "0",
+        "server": "sffe"
+      },
+      "timestamp": "2025-09-04T06:58:07.520Z",
+      "size": 126224,
+      "contentType": "text/javascript"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/util.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "br",
+        "age": "43937",
+        "report-to": "{\"group\":\"maps-api-js\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/maps-api-js\"}]}",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 03 Sep 2026 18:45:50 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Wed, 03 Sep 2025 18:45:50 GMT",
+        "last-modified": "Tue, 02 Sep 2025 07:40:34 GMT",
+        "content-type": "text/javascript",
+        "vary": "Accept-Encoding, Origin",
+        "cache-control": "public, max-age=31536000",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin; report-to=\"maps-api-js\"",
+        "cross-origin-resource-policy": "cross-origin",
+        "content-security-policy-report-only": "require-trusted-types-for 'script'; report-uri https://csp.withgoogle.com/csp/maps-api-js",
+        "accept-ranges": "bytes",
+        "content-length": "72272",
+        "x-xss-protection": "0",
+        "server": "sffe"
+      },
+      "timestamp": "2025-09-04T06:58:07.546Z",
+      "size": 317833,
+      "contentType": "text/javascript"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X8CLEG5K1F&gtm=45je5921v9168784097za200zb9168776836zd9168776836&_p=1756969082232&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=1338671800.1756969083&ul=pt-br&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B24.0.0.0%7CChromium%3B140.0.7339.16&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=AEAAAAQ&_s=2&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813&sid=1756969082&sct=1&seg=0&dl=https%3A%2F%2Fbeta.portal.meep.com.br%2Flogin&dt=Portal%20Meep&en=scroll&epn.percent_scrolled=90&_et=6&tfd=7170",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "pragma": "no-cache",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascnsrsggc:102:0",
+        "report-to": "{\"group\":\"ascnsrsggc:102:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascnsrsggc:102:0\"}],}",
+        "expires": "Fri, 01 Jan 1990 00:00:00 GMT",
+        "access-control-allow-origin": "https://beta.portal.meep.com.br",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascnsrsggc:102:0",
+        "content-length": "0",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:07 GMT",
+        "content-type": "text/plain",
+        "server": "Golfe2"
+      },
+      "timestamp": "2025-09-04T06:58:08.251Z",
+      "size": 0
+    }
+  ],
+  "apis": [
+    {
+      "url": "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-Q6__oSBgVDexCrJ-fkaH5_eaR_sghIY&libraries=places",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "cache-control": "public, max-age=1800, stale-while-revalidate=12600",
+        "timing-allow-origin": "*",
+        "content-encoding": "gzip",
+        "etag": "c3dcefbb",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-content-type-options": "nosniff",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "content-length": "170239",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-xss-protection": "0",
+        "content-type": "text/javascript; charset=UTF-8",
+        "vary": "Accept-Language, Origin, X-Origin, Referer",
+        "server": "scaffolding on HTTPServer2",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "timestamp": "2025-09-04T06:58:02.187Z",
+      "size": 623098,
+      "contentType": "text/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "access-control-expose-headers": "vary,vary,vary,content-encoding,date,server,content-length",
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "access-control-allow-origin": "https://beta.portal.meep.com.br",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "content-length": "23",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-xss-protection": "0",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "server": "scaffolding on HTTPServer2",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "timestamp": "2025-09-04T06:58:02.386Z",
+      "size": 3,
+      "contentType": "application/json; charset=UTF-8"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/common.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "br",
+        "age": "43937",
+        "report-to": "{\"group\":\"maps-api-js\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/maps-api-js\"}]}",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 03 Sep 2026 18:45:50 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Wed, 03 Sep 2025 18:45:50 GMT",
+        "last-modified": "Tue, 02 Sep 2025 07:40:34 GMT",
+        "content-type": "text/javascript",
+        "vary": "Accept-Encoding, Origin",
+        "cache-control": "public, max-age=31536000",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin; report-to=\"maps-api-js\"",
+        "cross-origin-resource-policy": "cross-origin",
+        "content-security-policy-report-only": "require-trusted-types-for 'script'; report-uri https://csp.withgoogle.com/csp/maps-api-js",
+        "accept-ranges": "bytes",
+        "content-length": "37210",
+        "x-xss-protection": "0",
+        "server": "sffe"
+      },
+      "timestamp": "2025-09-04T06:58:07.520Z",
+      "size": 126224,
+      "contentType": "text/javascript"
+    },
+    {
+      "url": "https://maps.googleapis.com/maps-api-v3/api/js/62/3c/intl/pt_br/util.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "br",
+        "age": "43937",
+        "report-to": "{\"group\":\"maps-api-js\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/maps-api-js\"}]}",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 03 Sep 2026 18:45:50 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Wed, 03 Sep 2025 18:45:50 GMT",
+        "last-modified": "Tue, 02 Sep 2025 07:40:34 GMT",
+        "content-type": "text/javascript",
+        "vary": "Accept-Encoding, Origin",
+        "cache-control": "public, max-age=31536000",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin; report-to=\"maps-api-js\"",
+        "cross-origin-resource-policy": "cross-origin",
+        "content-security-policy-report-only": "require-trusted-types-for 'script'; report-uri https://csp.withgoogle.com/csp/maps-api-js",
+        "accept-ranges": "bytes",
+        "content-length": "72272",
+        "x-xss-protection": "0",
+        "server": "sffe"
+      },
+      "timestamp": "2025-09-04T06:58:07.546Z",
+      "size": 317833,
+      "contentType": "text/javascript"
+    }
+  ],
+  "assets": [
+    {
+      "url": "https://beta.portal.meep.com.br/",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "accept-ranges": "bytes",
+        "content-encoding": "gzip",
+        "content-length": "1505",
+        "content-type": "text/html",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:01.385Z",
+      "size": 3124,
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/serviceWork.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"071ef576c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "263",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:15:06 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:01.540Z",
+      "size": 303,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.619Z",
+      "size": 569,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.620Z",
+      "size": 4792,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:50:23 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.623Z",
+      "size": 22239,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Lato:300,400,500,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:08:02 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.673Z",
+      "size": 2470,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 05:55:35 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.676Z",
+      "size": 16080,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "gzip",
+        "x-content-type-options": "nosniff",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css; charset=utf-8",
+        "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+        "last-modified": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "x-frame-options": "SAMEORIGIN",
+        "strict-transport-security": "max-age=31536000",
+        "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+        "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+        "timing-allow-origin": "*",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-origin": "*",
+        "x-xss-protection": "0",
+        "server": "ESF"
+      },
+      "timestamp": "2025-09-04T06:58:01.677Z",
+      "size": 1159,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/main.f56359c6.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4517",
+        "date": "Thu, 04 Sep 2025 06:58:00 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:01.685Z",
+      "size": 15423,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1106:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1106:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "last-modified": "Thu, 04 Sep 2025 06:00:00 GMT",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1106:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1106:0",
+        "content-length": "75706",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.039Z",
+      "size": 199239,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MQFMTWNX",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1348:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1348:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "last-modified": "Thu, 04 Sep 2025 06:00:00 GMT",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1348:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1348:0",
+        "content-length": "103502",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.525Z",
+      "size": 292443,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/main.23a0425c.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "transfer-encoding": "chunked",
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.624Z",
+      "size": 588809,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-X8CLEG5K1F&cx=c&gtm=4e5921",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1106:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1106:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1106:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1106:0",
+        "content-length": "141588",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:02.856Z",
+      "size": 416899,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9928.eb7bbbf3.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4931",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.897Z",
+      "size": 10693,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7184.cd7f2b4d.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "6274",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:02.906Z",
+      "size": 13252,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://static.hotjar.com/c/hotjar-3698893.js?sv=6",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=60",
+        "content-encoding": "br",
+        "etag": "W/348c7e14efde34f6ff0b4d8b66069e48",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-content-type-options": "nosniff",
+        "x-cache-hit": "1",
+        "via": "1.1 a487c45e483fb1088ea951e149626670.cloudfront.net (CloudFront)",
+        "access-control-allow-origin": "*",
+        "x-cache": "RefreshHit from cloudfront",
+        "x-amz-cf-id": "9biLkgxXVdQvWFmlKZ0kSXnmKEBJ3dZxbbZ-tJ8mWwGP8ZMDovbkoA==",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "accept-encoding",
+        "x-amz-cf-pop": "GRU1-P2"
+      },
+      "timestamp": "2025-09-04T06:58:02.938Z",
+      "size": 15081,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4402.6a8568c4.chunk.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14363",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.016Z",
+      "size": 70921,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/css/4848.0b272f54.chunk.css",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "2606",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "text/css",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.033Z",
+      "size": 10616,
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtm.js?id=G-X8CLEG5K1F&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "content-encoding": "zstd",
+        "report-to": "{\"group\":\"ascgcycc:1348:0\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://csp.withgoogle.com/csp/report-to/scaffolding/ascgcycc:1348:0\"}],}",
+        "expires": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/javascript; charset=UTF-8",
+        "vary": "Accept-Encoding",
+        "access-control-allow-headers": "Cache-Control",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "cache-control": "private, max-age=900",
+        "cross-origin-resource-policy": "cross-origin",
+        "access-control-allow-credentials": "true",
+        "content-security-policy-report-only": "script-src 'none'; form-action 'none'; frame-src 'none'; report-uri https://csp.withgoogle.com/csp/scaffolding/ascgcycc:1348:0",
+        "access-control-allow-origin": "*",
+        "cross-origin-opener-policy-report-only": "same-origin; report-to=ascgcycc:1348:0",
+        "content-length": "141451",
+        "x-xss-protection": "0",
+        "server": "Google Tag Manager"
+      },
+      "timestamp": "2025-09-04T06:58:03.106Z",
+      "size": 416462,
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "url": "https://script.hotjar.com/modules.79484904679daf64371c.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "x-robots-tag": "none",
+        "content-encoding": "br",
+        "etag": "\"86b7152af5ff6c075f45a423960fb62c\"",
+        "age": "1439515",
+        "x-content-type-options": "nosniff",
+        "x-cache": "Hit from cloudfront",
+        "x-amz-cf-id": "8ceOlUTiFpux3BK5WuLcdfvz6XIC_3s1Zd0WEePK8yrT2Akv6vc3yw==",
+        "date": "Mon, 18 Aug 2025 15:06:07 GMT",
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Mon, 18 Aug 2025 15:06:00 GMT",
+        "vary": "Accept-Encoding",
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=31536000",
+        "cross-origin-resource-policy": "cross-origin",
+        "via": "1.1 e9c9b273da84a77ece99ff8a4b9cdf2c.cloudfront.net (CloudFront)",
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "content-length": "57057",
+        "x-amz-cf-pop": "GRU3-P8"
+      },
+      "timestamp": "2025-09-04T06:58:03.132Z",
+      "size": 231045,
+      "contentType": "application/javascript; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7752.35b92c50.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14612",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.171Z",
+      "size": 35785,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/3108.5a229b2a.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "5640",
+        "date": "Thu, 04 Sep 2025 06:58:01 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.187Z",
+      "size": 12030,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://script.hotjar.com/browser-perf.8417c6bba72228fa2e29.js",
+      "status": 200,
+      "statusText": "",
+      "headers": {
+        "x-robots-tag": "none",
+        "content-encoding": "br",
+        "etag": "\"e43a1d5a93a840022c2aefdbeb6580e0\"",
+        "age": "13341480",
+        "x-content-type-options": "nosniff",
+        "x-cache": "Hit from cloudfront",
+        "x-amz-cf-id": "k-3pI8N2Tnb06bohFcdqnNXIiJ0F6e8rOViyr4-B-6za07S4666kWA==",
+        "date": "Wed, 02 Apr 2025 21:00:02 GMT",
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Wed, 02 Apr 2025 08:49:34 GMT",
+        "vary": "Accept-Encoding",
+        "strict-transport-security": "max-age=2592000; includeSubDomains",
+        "cache-control": "max-age=31536000",
+        "cross-origin-resource-policy": "cross-origin",
+        "via": "1.1 e9c9b273da84a77ece99ff8a4b9cdf2c.cloudfront.net (CloudFront)",
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "content-length": "1879",
+        "x-amz-cf-pop": "GRU3-P8"
+      },
+      "timestamp": "2025-09-04T06:58:03.205Z",
+      "size": 5523,
+      "contentType": "application/javascript; charset=utf-8"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6903.40aa4ee6.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "17019",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.299Z",
+      "size": 41960,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5892.9e091fc8.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "9725",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.308Z",
+      "size": 22027,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9953.2331cab0.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3139",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.309Z",
+      "size": 6870,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7438.b060d165.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4682",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.315Z",
+      "size": 11768,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7501.bcdb6034.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "10110",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.341Z",
+      "size": 23181,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2771.ef624993.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "5017",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.359Z",
+      "size": 13177,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/6386.761e0341.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3466",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.444Z",
+      "size": 10401,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/7639.cd5abc17.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4165",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.455Z",
+      "size": 9349,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/8528.02fd18b4.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "2839",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.459Z",
+      "size": 6776,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5566.b6536a6c.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3200",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.465Z",
+      "size": 7015,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://vc.hotjar.io/sessions/3698893?s=0.25&r=0.09625941732619236",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "via": "1.1 f56f9dbd022b7276544822a40d05129a.cloudfront.net (CloudFront)",
+        "access-control-allow-origin": "*",
+        "cache-control": "no-store",
+        "x-cache": "Miss from cloudfront",
+        "x-amz-cf-id": "tcXhaaojUMSm_QxqAhU_UwT3Vc0XGbvxyIRqIzqbQZ-GrHnmdL2DNA==",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "x-amz-cf-pop": "GRU3-P7"
+      },
+      "timestamp": "2025-09-04T06:58:03.482Z",
+      "size": 0,
+      "contentType": ""
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/447.8f1161d7.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "14233",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.495Z",
+      "size": 32697,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5710.efedcb25.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "19341",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.520Z",
+      "size": 62869,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9794.e68017bb.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3139",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.589Z",
+      "size": 6937,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/1562.6fdf8a18.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "8016",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.601Z",
+      "size": 18957,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/2921.694f7466.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4598",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.608Z",
+      "size": 10350,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9716.24e524ae.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3838",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.611Z",
+      "size": 8523,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/5682.eb2f2596.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "4795",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.647Z",
+      "size": 10596,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/988.2c7d09dc.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "3018",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.674Z",
+      "size": 8544,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4931.af252403.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "6832",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.735Z",
+      "size": 16950,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4402.eda889b1.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "42529",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.752Z",
+      "size": 116864,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/9704.fd832e83.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "30615",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.788Z",
+      "size": 65343,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/js/4848.7a6db6a1.chunk.js",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "x-powered-by": "ASP.NET",
+        "content-encoding": "gzip",
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "9585",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "application/x-javascript",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "vary": "Accept-Encoding"
+      },
+      "timestamp": "2025-09-04T06:58:03.789Z",
+      "size": 22327,
+      "contentType": "application/x-javascript"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/assets/img/logo-white-beta.svg",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"0bd2a536c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "15712",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "image/svg+xml",
+        "last-modified": "Mon, 01 Sep 2025 18:14:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:03.956Z",
+      "size": 15712,
+      "contentType": "image/svg+xml"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/logo.png",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"071ef576c1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "40361",
+        "date": "Thu, 04 Sep 2025 06:58:02 GMT",
+        "content-type": "image/png",
+        "last-modified": "Mon, 01 Sep 2025 18:15:06 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:04.114Z",
+      "size": 40361,
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://beta.portal.meep.com.br/static/media/bg-layout-web.f7602d837b4455b36775.png",
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "etag": "\"04b15246e1bdc1:0\"",
+        "accept-ranges": "bytes",
+        "content-length": "239947",
+        "date": "Thu, 04 Sep 2025 06:58:03 GMT",
+        "content-type": "image/png",
+        "last-modified": "Mon, 01 Sep 2025 18:27:58 GMT",
+        "server": "Microsoft-IIS/10.0",
+        "x-powered-by": "ASP.NET"
+      },
+      "timestamp": "2025-09-04T06:58:04.402Z",
+      "size": 239947,
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://metrics.hotjar.io/?v=6&site_id=3698893",
+      "status": 204,
+      "statusText": "",
+      "headers": {
+        "date": "Thu, 04 Sep 2025 06:58:06 GMT",
+        "access-control-max-age": "86400",
+        "access-control-allow-origin": "*"
+      },
+      "timestamp": "2025-09-04T06:58:07.268Z",
+      "size": 0,
+      "contentType": ""
+    }
+  ]
+}

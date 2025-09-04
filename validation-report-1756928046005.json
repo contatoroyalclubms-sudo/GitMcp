@@ -1,0 +1,128 @@
+{
+  "routes": [
+    {
+      "name": "Authentication",
+      "path": "/api/auth",
+      "status": 404,
+      "responseTime": 2.03540000000001,
+      "success": true
+    },
+    {
+      "name": "Dashboard & Analytics",
+      "path": "/api/dashboard",
+      "status": 404,
+      "responseTime": 3.838799999999992,
+      "success": true
+    },
+    {
+      "name": "Event Management",
+      "path": "/api/events",
+      "status": 404,
+      "responseTime": 2.2350999999999885,
+      "success": true
+    },
+    {
+      "name": "Point of Sale",
+      "path": "/api/pdv",
+      "status": 404,
+      "responseTime": 2.3622000000000014,
+      "success": true
+    },
+    {
+      "name": "Inventory Control",
+      "path": "/api/inventory",
+      "status": 404,
+      "responseTime": 2.376800000000003,
+      "success": true
+    },
+    {
+      "name": "Sales Management",
+      "path": "/api/sales",
+      "status": 404,
+      "responseTime": 3.2613000000000056,
+      "success": true
+    },
+    {
+      "name": "Client Management",
+      "path": "/api/clients",
+      "status": 200,
+      "responseTime": 5.358700000000027,
+      "success": true
+    },
+    {
+      "name": "Menu & Products",
+      "path": "/api/menu",
+      "status": 404,
+      "responseTime": 1.3494000000000028,
+      "success": true
+    },
+    {
+      "name": "Financial Control",
+      "path": "/api/finance",
+      "status": 404,
+      "responseTime": 2.3179999999999836,
+      "success": true
+    },
+    {
+      "name": "Reports & Export",
+      "path": "/api/reports",
+      "status": 404,
+      "responseTime": 1.843500000000006,
+      "success": true
+    },
+    {
+      "name": "Marketing Campaigns",
+      "path": "/api/marketing",
+      "status": 404,
+      "responseTime": 2.043200000000013,
+      "success": true
+    },
+    {
+      "name": "Cashless System",
+      "path": "/api/cashless",
+      "status": 404,
+      "responseTime": 2.0446999999999775,
+      "success": true
+    },
+    {
+      "name": "Team Management",
+      "path": "/api/team",
+      "status": 404,
+      "responseTime": 2.0521999999999707,
+      "success": true
+    },
+    {
+      "name": "System Configuration",
+      "path": "/api/config",
+      "status": 404,
+      "responseTime": 2.193499999999972,
+      "success": true
+    },
+    {
+      "name": "Business Intelligence",
+      "path": "/api/bi",
+      "status": 404,
+      "responseTime": 1.9642000000000053,
+      "success": true
+    },
+    {
+      "name": "AI & Predictions",
+      "path": "/api/ai",
+      "status": 404,
+      "responseTime": 1.9381999999999948,
+      "success": true
+    }
+  ],
+  "performance": {
+    "totalRequests": 50,
+    "successCount": 50,
+    "totalTime": 53.933700000000044,
+    "averageTime": 33.770214,
+    "successRate": 100
+  },
+  "errors": [],
+  "summary": {
+    "serverStatus": "OK",
+    "authentication": "OK"
+  }
+}

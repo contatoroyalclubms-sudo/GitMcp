@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-09-04T07:00:41.262Z",
+  "loginAttempt": true,
+  "internalAPIs": [
+    {
+      "url": "https://meepblob.blob.core.windows.net/usuarios-profile/683312fc-51d9-4e06-81ec-15d57c10a9b8.png",
+      "method": "GET",
+      "status": 404,
+      "timestamp": "2025-09-04T07:00:35.748Z",
+      "headers": {
+        "x-ms-request-id": "c27a72c9-901e-0100-3c69-1ddf9d000000",
+        "content-length": "215",
+        "x-ms-version": "2009-09-19",
+        "date": "Thu, 04 Sep 2025 07:00:34 GMT",
+        "content-type": "application/xml",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0"
+      }
+    },
+    {
+      "url": "https://plans-api.meep.cloud/api/plans?disableError=true",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:36.397Z",
+      "headers": {
+        "transfer-encoding": "chunked",
+        "request-context": "appId=cid-v1:d17c2995-3559-4a7a-aad5-15aafff5384b",
+        "access-control-allow-origin": "*",
+        "date": "Thu, 04 Sep 2025 07:00:35 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "server": "Kestrel"
+      }
+    },
+    {
+      "url": "https://meepblob.blob.core.windows.net/clientes-profile/037a8c4d-000a-5fdb-5464-6f94d64fe3a7.png",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:37.044Z",
+      "headers": {
+        "content-md5": "c57aaGOio64QeU/Ktxnsbw==",
+        "x-ms-version": "2009-09-19",
+        "x-ms-lease-status": "unlocked",
+        "etag": "0x8DB0EBD3AE982B1",
+        "x-ms-request-id": "c27a73a4-901e-0100-7c69-1ddf9d000000",
+        "content-length": "24605",
+        "date": "Thu, 04 Sep 2025 07:00:35 GMT",
+        "content-type": "application/octet-stream",
+        "last-modified": "Tue, 14 Feb 2023 18:56:50 GMT",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0",
+        "x-ms-blob-type": "BlockBlob"
+      }
+    },
+    {
+      "url": "https://meepblob.blob.core.windows.net/clientes-profile/2b408eb4-4c31-4d33-a8d1-6fb3a16c75cc.png",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:37.376Z",
+      "headers": {
+        "content-md5": "c57aaGOio64QeU/Ktxnsbw==",
+        "x-ms-version": "2009-09-19",
+        "x-ms-lease-status": "unlocked",
+        "etag": "0x8DC241A98A6C1C1",
+        "x-ms-request-id": "c27a73c7-901e-0100-1b69-1ddf9d000000",
+        "content-length": "24605",
+        "date": "Thu, 04 Sep 2025 07:00:36 GMT",
+        "content-type": "application/octet-stream",
+        "last-modified": "Fri, 02 Feb 2024 18:13:02 GMT",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0",
+        "x-ms-blob-type": "BlockBlob"
+      }
+    },
+    {
+      "url": "https://meepblob.blob.core.windows.net/clientes-profile/2a76f335-b0e9-2248-4ccb-9f2590ab710c.png",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:37.538Z",
+      "headers": {
+        "content-md5": "c57aaGOio64QeU/Ktxnsbw==",
+        "x-ms-version": "2009-09-19",
+        "x-ms-lease-status": "unlocked",
+        "etag": "0x8DCB573F2CF7CB1",
+        "x-ms-request-id": "3b28e3a8-101e-00e5-7d69-1d70d2000000",
+        "content-length": "24605",
+        "date": "Thu, 04 Sep 2025 07:00:36 GMT",
+        "content-type": "application/octet-stream",
+        "last-modified": "Mon, 05 Aug 2024 17:27:57 GMT",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0",
+        "x-ms-blob-type": "BlockBlob"
+      }
+    },
+    {
+      "url": "https://meepblob.blob.core.windows.net/clientes-profile/509f4209-1ba4-eeb7-c0d1-873cc7bacb4c.png",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:37.544Z",
+      "headers": {
+        "content-md5": "c57aaGOio64QeU/Ktxnsbw==",
+        "x-ms-version": "2009-09-19",
+        "x-ms-lease-status": "unlocked",
+        "etag": "0x8DD89A4C8824324",
+        "x-ms-request-id": "6be1a767-001e-00c6-4169-1dea11000000",
+        "content-length": "24605",
+        "date": "Thu, 04 Sep 2025 07:00:36 GMT",
+        "content-type": "application/octet-stream",
+        "last-modified": "Fri, 02 May 2025 18:11:38 GMT",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0",
+        "x-ms-blob-type": "BlockBlob"
+      }
+    },
+    {
+      "url": "https://meepblob.blob.core.windows.net/clientes-profile/59310164-09d8-349f-8a3e-23977d0c5deb.png",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:37.570Z",
+      "headers": {
+        "content-md5": "c57aaGOio64QeU/Ktxnsbw==",
+        "x-ms-version": "2009-09-19",
+        "x-ms-lease-status": "unlocked",
+        "etag": "0x8DBAB3354FED40E",
+        "x-ms-request-id": "9dc815bb-a01e-0014-6a69-1d69ff000000",
+        "content-length": "24605",
+        "date": "Thu, 04 Sep 2025 07:00:36 GMT",
+        "content-type": "application/octet-stream",
+        "last-modified": "Fri, 01 Sep 2023 21:35:16 GMT",
+        "server": "Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0",
+        "x-ms-blob-type": "BlockBlob"
+      }
+    },
+    {
+      "url": "https://plans-api.meep.cloud/api/plans?disableError=true",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:40.530Z",
+      "headers": {
+        "transfer-encoding": "chunked",
+        "request-context": "appId=cid-v1:d17c2995-3559-4a7a-aad5-15aafff5384b",
+        "access-control-allow-origin": "*",
+        "date": "Thu, 04 Sep 2025 07:00:39 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "server": "Kestrel"
+      }
+    },
+    {
+      "url": "https://plans-api.meep.cloud/api/subscriptions/owner/2a76f335-b0e9-2248-4ccb-9f2590ab710c?disableError=true",
+      "method": "GET",
+      "status": 200,
+      "timestamp": "2025-09-04T07:00:40.863Z",
+      "headers": {
+        "transfer-encoding": "chunked",
+        "request-context": "appId=cid-v1:d17c2995-3559-4a7a-aad5-15aafff5384b",
+        "access-control-allow-origin": "*",
+        "date": "Thu, 04 Sep 2025 07:00:39 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "server": "Kestrel"
+      }
+    }
+  ],
+  "internalPages": [],
+  "stats": {
+    "apisDiscovered": 9,
+    "pagesExplored": 0
+  }
+}

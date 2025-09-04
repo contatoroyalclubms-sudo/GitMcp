@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL
+  database:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: meep_user
+      POSTGRES_PASSWORD: meep_password
+      POSTGRES_DB: meep_supremo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - meep-network
+
+  # Redis para cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - meep-network
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://meep_user:meep_password@database:5432/meep_supremo
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your_super_secret_key_here
+      CLOUDINARY_URL: cloudinary://your_cloudinary_url
+    depends_on:
+      - database
+      - redis
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - meep-network
+
+  # Frontend React
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000/api
+      REACT_APP_ENVIRONMENT: production
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - meep-network
+
+  # Nginx para proxy reverso (produção)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - meep-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  meep-network:
+    driver: bridge
